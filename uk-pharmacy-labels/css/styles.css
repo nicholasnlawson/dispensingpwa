@@ -1,0 +1,653 @@
+/* UK Hospital Pharmacy Labelling System Styles */
+
+:root {
+    --nhs-blue: #005eb8;
+    --nhs-dark-blue: #003087;
+    --nhs-bright-blue: #0072ce;
+    --nhs-light-blue: #41b6e6;
+    --nhs-aqua-blue: #00a9ce;
+    --nhs-black: #231f20;
+    --nhs-dark-grey: #425563;
+    --nhs-mid-grey: #768692;
+    --nhs-light-grey: #e8edee;
+    --nhs-white: #ffffff;
+    --nhs-green: #009639;
+    --nhs-red: #da291c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: var(--nhs-light-grey);
+    color: var(--nhs-black);
+    line-height: 1.5;
+}
+
+header {
+    background-color: var(--nhs-white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.nhs-header {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nhs-logo {
+    height: 40px;
+    margin-right: 1rem;
+}
+
+h1 {
+    color: var(--nhs-blue);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.input-section, .preview-section {
+    background-color: var(--nhs-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h2 {
+    color: var(--nhs-dark-blue);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--nhs-light-blue);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    color: var(--nhs-dark-blue);
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group h3 {
+    margin-top: 0;
+    color: var(--nhs-blue);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.secondary-btn {
+    background-color: var(--nhs-light-grey);
+    color: var(--nhs-dark-grey);
+    border: 1px solid var(--nhs-mid-grey);
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background-color: var(--nhs-mid-grey);
+    color: var(--nhs-dark-blue);
+}
+
+.form-group:last-of-type {
+    border-bottom: none;
+}
+
+label {
+    display: block;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+    color: var(--nhs-dark-grey);
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--nhs-mid-grey);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--nhs-blue);
+    box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.checkbox-group input {
+    margin-right: 0.5rem;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-weight: normal;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#preview-btn {
+    background-color: var(--nhs-blue);
+    color: white;
+}
+
+#preview-btn:hover {
+    background-color: var(--nhs-dark-blue);
+}
+
+#print-btn {
+    background-color: var(--nhs-green);
+    color: white;
+}
+
+#print-btn:hover {
+    background-color: #007f2d;
+}
+
+button[type="reset"] {
+    background-color: var(--nhs-light-grey);
+    color: var(--nhs-dark-grey);
+}
+
+button[type="reset"]:hover {
+    background-color: #d8dfe1;
+}
+
+/* Label Queue Styles */
+.label-queue-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.queue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Split Label Warning */
+.split-label-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Split Label Info */
+.split-label-info {
+    font-weight: bold;
+    font-size: 10px;
+    margin: 4px 0;
+    text-align: center;
+}
+
+.label-number {
+    background-color: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #dee2e6;
+}
+
+/* Label Preview Styles */
+.preview-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 1rem;
+    min-height: 300px;
+}
+
+.uk-label {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 10px;
+    position: relative;
+}
+
+.preview-placeholder {
+    text-align: center;
+    color: var(--nhs-mid-grey);
+    padding: 2rem 0;
+}
+
+/* Label Content Styles */
+/* Pharmacy Label Styling */
+.medication {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.med-name {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.patient-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.2rem 0;
+    border-top: 1px solid #eee;
+}
+
+.patient-name {
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.dispensed-date {
+    font-size: 10px;
+}
+
+.pharmacy-details {
+    margin-top: 0.5rem;
+    padding-top: 0.2rem;
+    border-top: 1px solid #eee;
+    font-size: 8px;
+    color: var(--nhs-dark-grey);
+}
+
+.medication {
+    margin: 0.5rem 0;
+}
+
+.med-name {
+    font-weight: bold;
+    font-size: 12px;
+    padding-right: 16mm; /* Make room for initial boxes */
+}
+
+.med-details {
+    font-size: 10px;
+}
+
+.dosage-instructions {
+    margin: 0.5rem 0;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.warning {
+    font-size: 8px;
+    color: var(--nhs-red);
+    margin-top: 0.5rem;
+}
+
+.additional-info {
+    font-size: 10px;
+    font-style: italic;
+    margin: 0.2rem 0;
+}
+
+/* Initials boxes for checking and dispensing */
+.initials-boxes {
+    position: absolute;
+    top: 2mm;
+    right: 2mm;
+    display: flex;
+    gap: 1mm;
+}
+
+.initials-box {
+    width: 5mm;
+    height: 5mm;
+    border: 0.5pt solid #dddddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6px;
+    background-color: white;
+}
+
+/* Label Queue Styles */
+.label-queue {
+    border-top: 1px solid var(--nhs-light-grey);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+}
+
+.queue-empty {
+    color: var(--nhs-mid-grey);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+#queue-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 1rem 0;
+}
+
+.queued-label {
+    background-color: var(--nhs-light-grey);
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.queued-label-info {
+    flex-grow: 1;
+}
+
+.queued-label-med {
+    font-weight: bold;
+}
+
+.queued-label-patient {
+    font-size: 0.9rem;
+    color: var(--nhs-dark-grey);
+}
+
+.remove-label-btn {
+    background-color: var(--nhs-red);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.queue-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.uk-label {
+    position: relative;
+}
+
+/* Print Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    #print-container, #print-container * {
+        visibility: visible;
+    }
+    
+    /* A4 Page Setup */
+    @page {
+        size: A4;
+        margin: 13mm 7mm 12mm 7mm; /* Top, Right, Bottom, Left */
+    }
+    
+    /* Labels Container */
+    .print-labels-container {
+        visibility: visible !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 63.5mm) !important;
+        grid-template-rows: repeat(8, 34mm) !important;
+        grid-gap: 0 2.5mm !important; /* No vertical gap, 2.5mm horizontal gap */
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 196mm !important; /* 3 columns × 63.5mm + 2 gaps × 2.5mm */
+        height: 272mm !important; /* 8 rows × 34mm */
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* Individual Label */
+    .print-label {
+        width: 63.5mm !important;
+        height: 34mm !important;
+        padding: 2mm !important;
+        visibility: visible !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        position: relative !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        border-radius: 4px !important;
+        font-size: 8px !important;
+        background-color: white !important;
+        page-break-inside: avoid !important;
+    }
+    
+    /* Exact match to preview styling */
+    .print-label .label-content {
+        font-family: Arial, sans-serif !important;
+    }
+    
+    /* Initial boxes */
+    .print-label .initials-boxes {
+        position: absolute !important;
+        top: 2mm !important;
+        right: 2mm !important;
+        display: flex !important;
+        gap: 1mm !important;
+        z-index: 10 !important;
+        background-color: transparent !important;
+    }
+    
+    .print-label .initials-box {
+        width: 4mm !important;
+        height: 4mm !important;
+        border: 0.5pt solid #000 !important;
+        font-size: 0 !important; /* Hide the text */
+        background-color: white !important;
+    }
+    
+    /* Label content styling for print */
+    .print-label .label-content {
+        position: relative !important;
+        height: 32mm !important; /* Label height */
+        padding: 1mm !important;
+        overflow: visible !important;
+    }
+    
+    .print-label .label-top-section {
+        min-height: 18mm !important;
+        max-height: 20mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 1mm !important;
+        overflow: hidden !important;
+    }
+    
+    .print-label .label-bottom-section {
+        height: 12mm !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 1mm !important;
+        right: 1mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+    
+    .print-label .medication .med-name {
+        font-size: 7pt !important;
+        font-weight: bold !important;
+        padding-right: 10mm !important; /* Make room for initial boxes */
+        margin-bottom: 2pt !important;
+        line-height: 1.1 !important;
+        overflow: hidden !important;
+    }
+    
+    .print-label .dosage-instructions {
+        font-size: 6pt !important;
+        margin: 2pt 0 !important;
+        line-height: 1.2 !important;
+        flex-grow: 1 !important;
+    }
+    
+    .print-label .additional-info {
+        font-size: 6pt !important;
+        margin: 2pt 0 !important;
+        line-height: 1.2 !important;
+        flex-grow: 1 !important;
+    }
+    
+    .print-label .combined-content {
+        font-size: 6pt !important;
+        margin: 2pt 0 !important;
+        line-height: 1.2 !important;
+        flex-grow: 1 !important;
+    }
+    
+    .print-label .patient-row {
+        font-size: 5pt !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-bottom: 2mm !important;
+    }
+    
+    .print-label .pharmacy-details {
+        font-size: 5pt !important;
+        color: #555 !important;
+        line-height: 1.2 !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 6mm !important;
+        white-space: normal !important;
+        overflow: hidden !important;
+    }
+    
+    /* Split label styling */
+    .print-label .split-label-info {
+        font-weight: normal !important;
+        font-size: 5pt !important;
+        margin: 0 !important;
+        text-align: right !important;
+        margin-bottom: 2pt !important;
+        color: #666 !important;
+    }
+    
+    /* Print-specific styles for initials boxes */
+    .print-label .initials-boxes {
+        top: 1mm !important;
+        right: 1mm !important;
+        z-index: 10 !important;
+    }
+    
+    .print-label .initials-box {
+        width: 5mm !important;
+        height: 5mm !important;
+        border: 0.5pt solid #dddddd !important;
+        background-color: transparent !important;
+    }
+    
+    .print-label .label-number {
+        background-color: #f8f9fa !important;
+        padding: 2px 6px !important;
+        border-radius: 3px !important;
+        border: 1px solid #dee2e6 !important;
+    }
+    
+    /* Hide the preview label */
+    .uk-label:not(.print-label) {
+        display: none !important;
+    }
+    
+    /* Hide everything else */
+    #print-container {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

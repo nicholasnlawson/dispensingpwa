@@ -1,0 +1,19 @@
+{
+  "name": "Pharmacy Back-Up Label Generator",
+  "short_name": "Pharmacy Labels",
+  "description": "A back-up pharmacy labelling system for UK hospitals",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#e8edee",
+  "theme_color": "#005eb8",
+  "icons": [
+    {
+      "src": "images/nhs_trust_logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "categories": ["healthcare", "productivity"],
+  "lang": "en-GB"
+}

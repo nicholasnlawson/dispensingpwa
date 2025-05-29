@@ -1,0 +1,68 @@
+/* Autocomplete Styles */
+.autocomplete-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.autocomplete-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid var(--nhs-light-grey);
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    display: none;
+    margin-top: -1px;
+}
+
+.autocomplete-container:not(:empty) {
+    display: block;
+}
+
+.autocomplete-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.autocomplete-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--nhs-light-grey);
+}
+
+.autocomplete-list li:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-list li:hover,
+.autocomplete-list li.active {
+    background-color: var(--nhs-light-blue);
+    color: white;
+}
+
+/* Position the autocomplete container properly */
+label {
+    position: relative;
+}
+
+/* Highlight matching medication with warning labels */
+.has-warnings {
+    border-color: var(--nhs-blue) !important;
+    box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.2) !important;
+}
+
+/* Warning labels in additional info */
+.warning-label {
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    background-color: #fff8e1;
+    border-left: 3px solid var(--nhs-red);
+    font-size: 0.9rem;
+}
