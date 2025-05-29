@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Event listeners
     document.getElementById('preview-btn').addEventListener('click', generatePreview);
     document.getElementById('add-to-queue-btn').addEventListener('click', addToQueue);
+    document.getElementById('generate-bag-label-btn').addEventListener('click', generateBagLabel);
     document.getElementById('print-queue-btn').addEventListener('click', printQueue);
     document.getElementById('clear-queue-btn').addEventListener('click', clearQueue);
     document.getElementById('label-form').addEventListener('reset', clearPreview);
@@ -148,29 +149,33 @@ function updateQueueDisplay() {
     
     // Add labels to queue
     labelQueue.forEach((labelData, index) => {
-        const queueItem = document.createElement('div');
-        queueItem.className = 'queued-label';
+        const listItem = document.createElement('div');
+        listItem.className = labelData.isBagLabel ? 'queue-item bag-label' : 'queue-item';
         
-        // Create label preview
-        const labelPreview = document.createElement('div');
-        labelPreview.className = 'queued-label-info';
-        labelPreview.innerHTML = `
-            <div class="queued-label-med">${labelData.medicationQuantity ? labelData.medicationQuantity + ' ' : ''}${labelData.medicationName} ${labelData.medicationFormulation || ''}</div>
-            <div class="queued-label-patient">${labelData.patientName || 'No patient name'}</div>
-        `;
+        if (labelData.isBagLabel) {
+            // Display bag label differently
+            listItem.innerHTML = `
+                <div class="queue-medication">${labelData.patientName}</div>
+                <div class="queue-dosage">Bag Label</div>
+                <div class="queue-patient">DOB: ${labelData.patientDOB ? new Date(labelData.patientDOB).toLocaleDateString('en-GB') : ''}</div>
+                <button class="remove-btn" data-index="${index}">Remove</button>
+            `;
+        } else {
+            // Regular medication label
+            listItem.innerHTML = `
+                <div class="queue-medication">${labelData.medicationName}${labelData.medicationStrength ? ` ${labelData.medicationStrength}` : ''} ${labelData.medicationFormulation || ''}</div>
+                <div class="queue-dosage">${labelData.dosageInstructions || ''}</div>
+                <div class="queue-patient">${labelData.patientName || ''}</div>
+                <button class="remove-btn" data-index="${index}">Remove</button>
+            `;
+        }
         
-        // Create remove button
-        const removeButton = document.createElement('button');
-        removeButton.className = 'remove-label-btn';
-        removeButton.textContent = '×';
-        removeButton.addEventListener('click', () => removeFromQueue(index));
+        queueContainer.appendChild(listItem);
         
-        // Add to queue item
-        queueItem.appendChild(labelPreview);
-        queueItem.appendChild(removeButton);
-        
-        // Add to queue container
-        queueContainer.appendChild(queueItem);
+        // Add click event to remove button
+        listItem.querySelector('.remove-btn').addEventListener('click', () => {
+            removeFromQueue(index);
+        });
     });
 }
 
@@ -224,16 +229,22 @@ function printQueue() {
     
     // Process each label in the queue
     labelQueue.forEach(labelData => {
-        // Check if we need to split this into multiple labels
-        if (LabelGenerator.needsMultipleLabels(labelData)) {
-            // Create multiple labels
+        if (labelData.isBagLabel) {
+            // Handle bag label differently - they have a completely different format
+            const bagLabel = document.createElement('div');
+            bagLabel.className = 'print-label';
+            bagLabel.innerHTML = LabelGenerator.generateBagLabel(labelData);
+            labelsContainer.appendChild(bagLabel);
+            labelCount++;
+        } else if (LabelGenerator.needsMultipleLabels(labelData)) {
+            // Create multiple medication labels
             const splitLabels = createSplitLabels(labelData);
             splitLabels.forEach(label => {
                 labelsContainer.appendChild(label);
                 labelCount++;
             });
         } else {
-            // Create a single label
+            // Create a single medication label
             const label = createSingleLabel(labelData);
             labelsContainer.appendChild(label);
             labelCount++;
@@ -269,8 +280,14 @@ function createSingleLabel(labelData) {
     const label = document.createElement('div');
     label.className = 'print-label uk-label';
     
-    // Generate the label content
-    const content = LabelGenerator.generateSingleLabel(labelData);
+    // Generate the label content based on type
+    let content;
+    if (labelData.isBagLabel) {
+        content = LabelGenerator.generateBagLabel(labelData);
+    } else {
+        content = LabelGenerator.generateSingleLabel(labelData);
+    }
+    
     label.innerHTML = content;
     
     return label;
@@ -340,9 +357,66 @@ function clearPatientDetails() {
 }
 
 /**
+ * Generate a bag label with patient details
+ */
+function generateBagLabel() {
+    // Validate patient data
+    const patientName = document.getElementById('patient-name').value;
+    const patientDOB = document.getElementById('patient-dob').value;
+    const patientAddress = document.getElementById('patient-address').value;
+    
+    if (!patientName) {
+        alert('Please enter the patient name');
+        return;
+    }
+    
+    if (!patientDOB) {
+        alert('Please enter the patient date of birth');
+        return;
+    }
+    
+    // Get form data for the bag label
+    const formData = getFormData();
+    
+    // Generate bag label
+    const labelContent = LabelGenerator.generateBagLabel(formData);
+    
+    // Update preview
+    const previewContainer = document.getElementById('preview-content');
+    if (previewContainer) {
+        previewContainer.innerHTML = labelContent;
+    }
+    
+    // Add to queue automatically
+    labelQueue.push({
+        ...formData,
+        isBagLabel: true
+    });
+    
+    // Update queue display
+    updateQueueDisplay();
+}
+
+/**
  * Get all form data as an object
  */
 function getFormData() {
+    // Get the standard warning option
+    const includeStandardWarning = document.getElementById('standard-warning').checked;
+    
+    // Get additional information
+    let additionalInfo = document.getElementById('additional-info').value;
+    
+    // Add standard warning to the beginning of additional information if checked
+    if (includeStandardWarning) {
+        const standardWarning = 'Keep out of the reach and sight of children.';
+        if (additionalInfo) {
+            additionalInfo = standardWarning + ' ' + additionalInfo;
+        } else {
+            additionalInfo = standardWarning;
+        }
+    }
+    
     return {
         // Patient details
         patientName: document.getElementById('patient-name').value,
@@ -358,8 +432,8 @@ function getFormData() {
         
         // Dosage
         dosageInstructions: document.getElementById('dosage').value,
-        includeStandardWarning: document.getElementById('standard-warning').checked,
-        additionalInformation: document.getElementById('additional-info').value,
+        includeStandardWarning: includeStandardWarning,
+        additionalInformation: additionalInfo,
         
         // Dispensing details
         dateOfDispensing: document.getElementById('dispensed-date').value,

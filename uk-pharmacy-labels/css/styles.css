@@ -533,16 +533,22 @@ button[type="reset"]:hover {
         position: relative !important;
         height: 32mm !important; /* Label height */
         padding: 1mm !important;
-        overflow: visible !important;
+        padding-top: 1mm !important;
     }
     
     .print-label .label-top-section {
-        min-height: 18mm !important;
-        max-height: 20mm !important;
+        padding: 1mm !important;
+        padding-top: 1mm !important;
         display: flex !important;
         flex-direction: column !important;
         margin-bottom: 1mm !important;
         overflow: hidden !important;
+    }
+    
+    .print-label .medication {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 0.5mm !important;
     }
     
     .print-label .label-bottom-section {
@@ -557,40 +563,113 @@ button[type="reset"]:hover {
     }
     
     .print-label .medication .med-name {
-        font-size: 7pt !important;
+        font-size: 6pt !important;
         font-weight: bold !important;
-        padding-right: 10mm !important; /* Make room for initial boxes */
-        margin-bottom: 2pt !important;
+        margin-bottom: 0.5mm !important;
         line-height: 1.1 !important;
         overflow: hidden !important;
     }
     
     .print-label .dosage-instructions {
         font-size: 6pt !important;
-        margin: 2pt 0 !important;
-        line-height: 1.2 !important;
+        margin: 1pt 0 !important;
+        line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
     .print-label .additional-info {
         font-size: 6pt !important;
-        margin: 2pt 0 !important;
-        line-height: 1.2 !important;
+        margin: 1pt 0 !important;
+        line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
     .print-label .combined-content {
         font-size: 6pt !important;
-        margin: 2pt 0 !important;
-        line-height: 1.2 !important;
+        margin: 1pt 0 !important;
+        line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
-    .print-label .patient-row {
+    /* Bag Label Styles - compact design for small labels */
+    .bag-label {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        padding: 1mm !important;
+        border: 0.5pt solid #005eb8 !important;
+        font-family: Arial, sans-serif !important;
+    }
+    
+    .bag-label-header {
+        display: flex !important;
+        align-items: center !important;
+        margin-bottom: 1mm !important;
+    }
+    
+    .bag-label-nhs-logo {
+        font-weight: bold !important;
+        color: #005eb8 !important;
+        font-size: 6pt !important;
+        padding: 0.5pt 1pt !important;
+        margin-right: 1mm !important;
+    }
+    
+    .bag-label-title {
         font-size: 5pt !important;
+        font-weight: bold !important;
+        color: #005eb8 !important;
+    }
+    
+    .bag-label-patient-section {
+        margin-bottom: 1mm !important;
+        flex-grow: 1 !important;
+    }
+    
+    .bag-label-patient-name {
+        font-size: 7pt !important;
+        font-weight: bold !important;
+        margin-bottom: 0.5mm !important;
+        line-height: 1.1 !important;
+    }
+    
+    .bag-label-patient-details {
+        display: flex !important;
+        flex-direction: column !important;
+        font-size: 5pt !important;
+        margin-bottom: 0.5mm !important;
+        line-height: 1.1 !important;
+    }
+    
+    .bag-label-patient-address {
+        font-size: 5pt !important;
+        white-space: pre-line !important;
+        line-height: 1.1 !important;
+    }
+    
+    .bag-label-dispensary {
+        font-size: 4.5pt !important;
+        margin-top: auto !important;
+        padding-top: 0.5mm !important;
+        line-height: 1.1 !important;
+    }
+    
+    .bag-label-date {
+        font-size: 4.5pt !important;
+    }
+    
+    .bag-label-pharmacy {
+        font-weight: bold !important;
+        font-size: 4.5pt !important;
+    }
+    
+    .print-label .patient-row {
+        font-size: 4.5pt !important;
         display: flex !important;
         justify-content: space-between !important;
-        margin-bottom: 2mm !important;
+        margin-bottom: 1mm !important;
+        margin-top: -1mm !important;
+        line-height: 1.1 !important;
     }
     
     .print-label .pharmacy-details {
@@ -604,6 +683,20 @@ button[type="reset"]:hover {
         height: 6mm !important;
         white-space: normal !important;
         overflow: hidden !important;
+        margin-top: auto !important;
+        padding-top: 1pt !important;
+        border-top: 0.5pt dotted #ccc !important;
+    }
+    
+    /* Queue item styling for bag labels */
+    .queue-item.bag-label .queue-medication {
+        font-style: italic;
+        color: var(--nhs-blue);
+    }
+    
+    .queue-item.bag-label .queue-medication::before {
+        content: 'Bag Label: ';
+        font-weight: bold;
     }
     
     /* Split label styling */

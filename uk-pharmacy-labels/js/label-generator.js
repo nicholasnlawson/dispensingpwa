@@ -11,10 +11,10 @@ const LabelGenerator = {
      */
     generateLabels(data) {
         // Check if content needs to be split across multiple labels
-        const needsSplitting = this.needsMultipleLabels(data);
+        const splitInfo = this.needsMultipleLabels(data);
         
-        if (needsSplitting) {
-            return this.generateSplitLabels(data);
+        if (splitInfo.needsSplitting) {
+            return this.generateSplitLabels(data, splitInfo);
         } else {
             return [this.generateSingleLabel(data)];
         }
@@ -23,7 +23,7 @@ const LabelGenerator = {
     /**
      * Check if content needs to be split across multiple labels
      * @param {Object} data - Form data
-     * @returns {Object} - Object with details about what needs splitting
+     * @returns {Object} - Object with details about what needs splitting and how
      */
     needsMultipleLabels(data) {
         // Calculate approximate content length
@@ -33,31 +33,50 @@ const LabelGenerator = {
         const dosageLength = (data.dosageInstructions || '').length;
         const warningsLength = (data.additionalInformation ? data.additionalInformation.length + 40 : 40); // Add length for standard warning
         
-        // Thresholds based on testing - these can be adjusted
-        // Higher thresholds to fit more content per label
+        // Thresholds for when content is too large for a single section
         const MAX_MEDICATION_LENGTH = 60;
         const MAX_DOSAGE_LENGTH = 100;
         const MAX_WARNINGS_LENGTH = 130;
+        const MAX_SINGLE_FIELD_LENGTH = 150; // If any single field exceeds this, it needs its own label
         
-        // Check combined content length
-        const totalContentLength = dosageLength + warningsLength;
+        // Check if any single field is extremely long and needs its own dedicated label
+        const dosageNeedsDedicatedLabel = dosageLength > MAX_SINGLE_FIELD_LENGTH;
+        const warningsNeedDedicatedLabel = warningsLength > MAX_SINGLE_FIELD_LENGTH;
         
-        // Only split if we really need to
-        if (totalContentLength <= 180) {
-            // Can fit everything on one label
-            return false;
+        // If either field needs its own label, we definitely need to split
+        if (dosageNeedsDedicatedLabel || warningsNeedDedicatedLabel) {
+            return {
+                needsSplitting: true,
+                splitDosage: dosageNeedsDedicatedLabel,
+                splitWarnings: warningsNeedDedicatedLabel
+            };
         }
         
-        // Check if we need to split content
-        return true;
+        // Check combined content length for normal splitting
+        const totalContentLength = dosageLength + warningsLength;
+        
+        if (totalContentLength <= 180) {
+            // Can fit everything on one label
+            return {
+                needsSplitting: false
+            };
+        }
+        
+        // Need to split but no single field needs a dedicated label
+        return {
+            needsSplitting: true,
+            splitDosage: false,
+            splitWarnings: false
+        };
     },
 
     /**
      * Generate split labels for long content
      * @param {Object} data - Form data
+     * @param {Object} splitInfo - Information about how to split the content
      * @returns {Array} - Array of HTML content for the labels
      */
-    generateSplitLabels(data) {
+    generateSplitLabels(data, splitInfo) {
         const labels = [];
         const dispensary = DataManager.getDispensaryInfo(data.dispensaryLocation);
         const date = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
@@ -66,53 +85,37 @@ const LabelGenerator = {
         const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
         const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
         
-        // Add standard warning
-        const standardWarning = 'Keep out of the reach and sight of children.';
+        // Get warning text from additional information field (already includes standard warning if enabled)
         let warningText = data.additionalInformation || '';
-        if (warningText) {
-            warningText = `${standardWarning} ${warningText}`;
-        } else {
-            warningText = standardWarning;
-        }
         
         // Calculate which fields need to be split
         const dosageLength = (data.dosageInstructions || '').length;
         const warningLength = warningText.length;
         const totalContentLength = dosageLength + warningLength;
         
-        // Determine how many labels we need - always try to use just 2 labels
+        // Determine how many labels we need based on content length
         let totalLabels = 2;
         
-        // Only use 3 labels for extremely long content
-        if (dosageLength > 150 && warningLength > 150) {
+        // If both dosage and warnings need their own labels, we need 3 labels
+        if (splitInfo.splitDosage && splitInfo.splitWarnings) {
             totalLabels = 3;
+        } else if (splitInfo.splitDosage || splitInfo.splitWarnings) {
+            // If either one needs its own label, we still need at least 2 labels
+            totalLabels = 2;
+        }
+        
+        // For extremely long content in both fields
+        if (dosageLength > 180 && warningLength > 180) {
+            totalLabels = 4; // In extreme cases, use up to 4 labels
         }
         
         // First label: Always medication name and dosage instructions (or first part)
         let dosageContent = data.dosageInstructions || '';
         
-        // Try to fit dosage and some warnings on first label if possible
-        if (totalLabels === 2 && totalContentLength <= 220) {
-            // Calculate how much of the warnings we can include
-            // Try to include complete sentences or at least complete words
-            let warningPreviewLength = Math.min(100, warningLength);
-            
-            // Find the last complete sentence that fits
-            let lastSentenceEnd = warningText.lastIndexOf('. ', warningPreviewLength) + 1;
-            
-            // If no sentence break, find the last complete word
-            if (lastSentenceEnd <= 1) {
-                lastSentenceEnd = warningText.lastIndexOf(' ', warningPreviewLength) + 1;
-            }
-            
-            // If we found a good break point, use it
-            if (lastSentenceEnd > 1) {
-                warningPreviewLength = lastSentenceEnd;
-            }
-            
-            // Create the combined content with a preview of warnings
-            const warningPreview = warningText.substring(0, warningPreviewLength).trim();
-            const combinedContent = `${dosageContent}\n\n${warningPreview}${warningPreviewLength < warningLength ? '...' : ''}`;
+        // For two labels, put dosage on first label and warnings on second
+        if (totalLabels === 2) {
+            // Only put dosage instructions on the first label, no truncated warnings
+            const combinedContent = dosageContent;
             
             
             // First label: All dosage and start of warnings
@@ -144,8 +147,8 @@ const LabelGenerator = {
             return labels;
         }
         
-        // If we need to split the dosage instructions (only for very long content)
-        if (dosageLength > 150 && totalLabels === 3) {
+        // If we need to split the dosage instructions
+        if (splitInfo.splitDosage || dosageLength > 150) {
             // Split dosage instructions if they're very long
             const midpoint = Math.floor(dosageLength / 2);
             
@@ -225,8 +228,8 @@ const LabelGenerator = {
             }));
         }
         
-        // Last label: Warnings (or split warnings if we already have 2 labels)
-        if (totalLabels === 3 && labels.length === 2) {
+        // Handle warnings - may need to split across multiple labels
+        if (splitInfo.splitWarnings || warningLength > 150) {
             // Third label: All warnings
             labels.push(this.createLabelHtml({
                 medicationFull,
@@ -390,6 +393,44 @@ const LabelGenerator = {
      */
     generateLabel(data) {
         return this.generateSingleLabel(data);
+    },
+
+    /**
+     * Generate a bag label with patient details
+     * @param {Object} data - Form data with patient details
+     * @returns {string} - HTML content for the bag label
+     */
+    generateBagLabel(data) {
+        // Get dispensary information
+        const dispensary = DataManager.getDispensaryInfo(data.dispensaryLocation);
+        
+        // Format date of birth
+        const dobDate = data.patientDOB ? new Date(data.patientDOB) : null;
+        const dob = dobDate ? dobDate.toLocaleDateString('en-GB') : '';
+        
+        // Format dispensing date
+        const dispensedDate = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
+        
+        // Generate HTML for the bag label - compact format for small labels
+        return `
+            <div class="bag-label">
+                <!-- Patient Information Section -->
+                <div class="bag-label-patient-section">
+                    <div class="bag-label-patient-name">${data.patientName || ''}</div>
+                    <div class="bag-label-patient-details">
+                        <div>DOB: ${dob}</div>
+                        ${data.patientNHS ? `<div>NHS: ${data.patientNHS}</div>` : ''}
+                    </div>
+                    <div class="bag-label-patient-address">${data.patientAddress || ''}</div>
+                </div>
+                
+                <!-- Dispensary Information -->
+                <div class="bag-label-dispensary">
+                    <div class="bag-label-date">Date: ${dispensedDate}</div>
+                    <div class="bag-label-pharmacy">${dispensary.name}</div>
+                </div>
+            </div>
+        `;
     },
 
     /**
