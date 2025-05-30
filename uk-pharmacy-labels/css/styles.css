@@ -468,7 +468,7 @@ button[type="reset"]:hover {
     /* A4 Page Setup */
     @page {
         size: A4;
-        margin: 13mm 7mm 12mm 7mm; /* Top, Right, Bottom, Left */
+        margin: 14mm 7mm 12mm 8mm; /* Top, Right, Bottom, Left (extended top and left by 1mm) */
     }
     
     /* Labels Container */
@@ -497,7 +497,7 @@ button[type="reset"]:hover {
         overflow: hidden !important;
         position: relative !important;
         box-shadow: none !important;
-        border: 1px solid #ccc !important;
+        border: none !important;
         border-radius: 4px !important;
         font-size: 8px !important;
         background-color: white !important;
