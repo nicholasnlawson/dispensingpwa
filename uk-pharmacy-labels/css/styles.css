@@ -552,7 +552,7 @@ button[type="reset"]:hover {
     }
     
     .print-label .label-bottom-section {
-        height: 12mm !important;
+        height: 6mm !important;
         position: absolute !important;
         bottom: 0 !important;
         left: 1mm !important;
@@ -563,29 +563,29 @@ button[type="reset"]:hover {
     }
     
     .print-label .medication .med-name {
-        font-size: 6pt !important;
+        font-size: 5.5pt !important;
         font-weight: bold !important;
-        margin-bottom: 0.5mm !important;
-        line-height: 1.1 !important;
+        margin-bottom: 0.3mm !important;
+        line-height: 1 !important;
         overflow: hidden !important;
     }
     
     .print-label .dosage-instructions {
-        font-size: 6pt !important;
+        font-size: 6.5pt !important;
         margin: 1pt 0 !important;
         line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
     .print-label .additional-info {
-        font-size: 6pt !important;
+        font-size: 6.5pt !important;
         margin: 1pt 0 !important;
         line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
     .print-label .combined-content {
-        font-size: 6pt !important;
+        font-size: 7pt !important;
         margin: 1pt 0 !important;
         line-height: 1.1 !important;
         flex-grow: 1 !important;
@@ -664,23 +664,23 @@ button[type="reset"]:hover {
     }
     
     .print-label .patient-row {
-        font-size: 4.5pt !important;
+        font-size: 3.8pt !important;
         display: flex !important;
         justify-content: space-between !important;
-        margin-bottom: 1mm !important;
-        margin-top: -1mm !important;
-        line-height: 1.1 !important;
+        margin-bottom: 0.3mm !important;
+        margin-top: -2mm !important;
+        line-height: 0.9 !important;
     }
     
     .print-label .pharmacy-details {
-        font-size: 5pt !important;
+        font-size: 4pt !important;
         color: #555 !important;
-        line-height: 1.2 !important;
+        line-height: 1 !important;
         position: absolute !important;
         bottom: 0 !important;
         left: 0 !important;
         right: 0 !important;
-        height: 6mm !important;
+        height: 4mm !important;
         white-space: normal !important;
         overflow: hidden !important;
         margin-top: auto !important;
@@ -701,12 +701,10 @@ button[type="reset"]:hover {
     
     /* Split label styling */
     .print-label .split-label-info {
-        font-weight: normal !important;
-        font-size: 5pt !important;
-        margin: 0 !important;
-        text-align: right !important;
-        margin-bottom: 2pt !important;
-        color: #666 !important;
+        font-size: 3.5pt !important;
+        font-style: italic !important;
+        text-align: center !important;
+        margin-bottom: 0.3mm !important;
     }
     
     /* Print-specific styles for initials boxes */

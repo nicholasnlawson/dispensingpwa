@@ -31,34 +31,33 @@ const LabelGenerator = {
                                (data.medicationStrength || '').length + 
                                (data.medicationFormulation || '').length;
         const dosageLength = (data.dosageInstructions || '').length;
-        const warningsLength = (data.additionalInformation ? data.additionalInformation.length + 40 : 40); // Add length for standard warning
-        
-        // Thresholds for when content is too large for a single section
-        const MAX_MEDICATION_LENGTH = 60;
-        const MAX_DOSAGE_LENGTH = 100;
-        const MAX_WARNINGS_LENGTH = 130;
-        const MAX_SINGLE_FIELD_LENGTH = 150; // If any single field exceeds this, it needs its own label
-        
-        // Check if any single field is extremely long and needs its own dedicated label
-        const dosageNeedsDedicatedLabel = dosageLength > MAX_SINGLE_FIELD_LENGTH;
-        const warningsNeedDedicatedLabel = warningsLength > MAX_SINGLE_FIELD_LENGTH;
-        
-        // If either field needs its own label, we definitely need to split
-        if (dosageNeedsDedicatedLabel || warningsNeedDedicatedLabel) {
-            return {
-                needsSplitting: true,
-                splitDosage: dosageNeedsDedicatedLabel,
-                splitWarnings: warningsNeedDedicatedLabel
-            };
-        }
+        const warningLength = (data.additionalInformation ? data.additionalInformation.length : 0);
         
         // Check combined content length for normal splitting
-        const totalContentLength = dosageLength + warningsLength;
+        const totalContentLength = dosageLength + warningLength;
         
-        if (totalContentLength <= 180) {
+        // Varying thresholds based on content type and length
+        // For content with shorter warnings, we can fit more on one label
+        const singleLabelThreshold = warningLength > 150 ? 250 : 320;
+        
+        // Higher threshold to try to fit more on a single label
+        if (totalContentLength <= singleLabelThreshold) {
             // Can fit everything on one label
             return {
                 needsSplitting: false
+            };
+        }
+        
+        // Check if any single field is extremely long and needs its own dedicated label
+        const longDosage = dosageLength > 180;
+        const longWarnings = warningLength > 180;
+        
+        // If either field needs its own label, we definitely need to split
+        if (longDosage || longWarnings) {
+            return {
+                needsSplitting: true,
+                splitDosage: longDosage,
+                splitWarnings: longWarnings
             };
         }
         
@@ -112,10 +111,11 @@ const LabelGenerator = {
         // First label: Always medication name and dosage instructions (or first part)
         let dosageContent = data.dosageInstructions || '';
         
-        // For two labels, put dosage on first label and warnings on second
+        // Try to fit more content on a single label before splitting
         if (totalLabels === 2) {
-            // Only put dosage instructions on the first label, no truncated warnings
-            const combinedContent = dosageContent;
+            // Try to combine both dosage and warnings on first label if length is reasonable
+            const combinedContent = dosageLength + warningLength <= 280 ? 
+                `${dosageContent}\n\n${warningText}` : dosageContent;
             
             
             // First label: All dosage and start of warnings
@@ -439,21 +439,25 @@ const LabelGenerator = {
      * @returns {string} - HTML content for the label
      */
     generateSingleLabel(data) {
-        // Format medication name, strength and formulation
-        const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
-        const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
-        
         // Get dispensary information
         const dispensary = DataManager.getDispensaryInfo(data.dispensaryLocation);
         
         // Format date
         const date = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
         
-        // Add standard warning
-        const standardWarning = 'Keep out of the reach and sight of children.';
-        const warningText = data.additionalInformation ? 
-            `${standardWarning} ${data.additionalInformation}` : 
-            standardWarning;
+        // Format medication name, strength and formulation
+        const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
+        const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
+        
+        // Check content length to prevent overflow
+        const dosageLength = (data.dosageInstructions || '').length;
+        const warningsLength = (data.additionalInformation || '').length;
+        const totalContentLength = dosageLength + warningsLength;
+        
+        // If content is too long, we should split into multiple labels instead
+        if (totalContentLength > 350) {
+            return this.generateSplitLabels(data, { needsSplitting: true })[0];
+        }
         
         // Generate HTML for the label
         return `
@@ -464,7 +468,7 @@ const LabelGenerator = {
                     <div class="initials-box"></div>
                 </div>
                 
-                <!-- Top Section: Medication info, instructions, warnings -->
+                <!-- Top Section: Medication info and main content -->
                 <div class="label-top-section">
                     <!-- Row 1: Quantity, Medication Name, Strength, Formulation -->
                     <div class="medication">
@@ -476,10 +480,11 @@ const LabelGenerator = {
                         ${data.dosageInstructions || ''}
                     </div>
                     
-                    <!-- Row 3: Warning Labels -->
+                    <!-- Row 3: Warnings and Additional Information -->
+                    ${data.additionalInformation ? `
                     <div class="additional-info">
-                        ${warningText}
-                    </div>
+                        ${data.additionalInformation || ''}
+                    </div>` : ''}
                 </div>
                 
                 <!-- Bottom Section: Patient info and pharmacy details -->
