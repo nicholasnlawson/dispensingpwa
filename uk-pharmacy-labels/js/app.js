@@ -1,5 +1,5 @@
 /**
- * UK Pharmacy Back-Up Label Generator
+ * Downtime Pharmacy Label Generator
  * Main application file
  */
 
@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('clear-queue-btn').addEventListener('click', clearQueue);
     document.getElementById('label-form').addEventListener('reset', clearPreview);
     document.getElementById('new-patient-btn').addEventListener('click', clearPatientDetails);
+    
+    // Initialize shorthand functionality when page loads
+    LabelGenerator.initShorthand();
     
     // Register the service worker
     if ('serviceWorker' in navigator) {

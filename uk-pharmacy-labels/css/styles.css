@@ -172,6 +172,114 @@ textarea:focus {
     font-weight: normal;
 }
 
+/* Shorthand Box Styles */
+.shorthand-box {
+    background-color: var(--nhs-light-grey);
+    border: 1px solid var(--nhs-mid-grey);
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.shorthand-box label {
+    margin-top: 0;
+}
+
+.shorthand-box input {
+    width: calc(100% - 80px);
+    margin-right: 8px;
+}
+
+.shorthand-box button {
+    padding: 0.4rem 0.75rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.shorthand-guide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.shorthand-title {
+    color: var(--nhs-dark-blue);
+    font-weight: bold;
+    flex-basis: 100%;
+}
+
+.shorthand-code {
+    background-color: var(--nhs-white);
+    border: 1px solid var(--nhs-mid-grey);
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: var(--nhs-dark-grey);
+    display: inline-block;
+}
+
+.shorthand-link {
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--nhs-blue);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* Full Shorthand Guide Styles */
+.full-shorthand-guide {
+    background-color: var(--nhs-white);
+    border: 1px solid var(--nhs-blue);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.full-shorthand-guide h4 {
+    color: var(--nhs-blue);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--nhs-light-blue);
+    padding-bottom: 0.5rem;
+}
+
+.full-shorthand-guide h5 {
+    color: var(--nhs-dark-blue);
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.shorthand-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.shorthand-category {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.hidden {
+    display: none;
+}
+
+#show-all-codes-btn {
+    margin-left: auto;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+}
+
+#hide-codes-btn {
+    margin-top: 0.5rem;
+    align-self: flex-start;
+}
+
 .button-group {
     display: flex;
     gap: 0.5rem;

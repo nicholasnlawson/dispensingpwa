@@ -266,58 +266,31 @@ const MedicationManager = {
         const lowercaseInput = input.toLowerCase();
         const matches = [];
         
-        // Comprehensive list of common formulations with variations
-        const commonFormulations = [
-            // Tablets
-            'Tablets', 'Oral tablet', 'Modified release tablet', 'MR tablet', 'M/R tablet',
-            'Gastro resistant tablet', 'Enteric coated tablet', 'EC tablet', 'E/C tablet',
-            'Dispersible tablet', 'Soluble tablet', 'Chewable tablet',
-            'Orodispersible tablet', 'Sublingual tablet', 'Buccal tablet',
-            'Effervescent tablet', 'Prolonged release tablet', 'PR tablet', 'P/R tablet',
-            
-            // Capsules
-            'Capsules', 'Oral capsule', 'Hard capsule', 'Soft capsule',
-            'Modified release capsule', 'MR capsule', 'M/R capsule',
-            'Gastro resistant capsule', 'Enteric coated capsule', 'EC capsule', 'E/C capsule',
-            'Prolonged release capsule', 'PR capsule', 'P/R capsule',
-            
-            // Liquids
-            'Oral Solution', 'Oral Suspension', 'Oral liquid', 'Syrup',
-            'Elixir', 'Mixture', 'Oral drops', 'Oral emulsion',
-            
-            // Injectables
-            'Injection', 'Solution for injection', 'Powder for injection',
-            'Suspension for injection', 'Emulsion for injection',
-            
-            // Topicals
-            'Cream', 'Ointment', 'Gel', 'Lotion', 'Cutaneous solution',
-            'Cutaneous suspension', 'Cutaneous spray', 'Cutaneous foam',
-            
-            // Eye/Ear/Nose
-            'Eye Drops', 'Eye ointment', 'Eye gel', 'Ear drops',
-            'Ear spray', 'Nasal drops', 'Nasal spray',
-            
-            // Inhalers
-            'Inhaler', 'Dry powder inhaler', 'Pressurized inhaler',
-            'Nebuliser solution', 'Inhalation powder', 'Inhalation solution',
-            
-            // Others
-            'Suppositories', 'Patches', 'Transdermal patch',
-            'Oral powder', 'Granules', 'Oral paste', 'Medicated chewing gum',
-            'Implant', 'Pessary', 'Vaginal tablet', 'Rectal ointment'
-        ];
+        // Use formulations from the JSON file
+        // Generate standardized formulation names from the categories
+        const standardizedFormulations = Object.keys(this.formulations.formulations).map(category => {
+            return category
+                .split('_')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        });
         
-        // First check common formulations
-        for (const form of commonFormulations) {
-            if (form.toLowerCase().includes(lowercaseInput)) {
-                matches.push(form);
+        // Add standardized formulation names
+        for (const formulation of standardizedFormulations) {
+            if (formulation.toLowerCase().includes(lowercaseInput)) {
+                matches.push(formulation);
             }
         }
         
-        // Then check formulations from JSON if we have them
-        if (this.formulations.formulations) {
-            // Process each category
-            this.processFormulationCategory(this.formulations.formulations, lowercaseInput, matches);
+        // Add all aliases from the JSON file
+        for (const [category, aliases] of Object.entries(this.formulations.formulations)) {
+            if (Array.isArray(aliases)) {
+                for (const alias of aliases) {
+                    if (alias.toLowerCase().includes(lowercaseInput)) {
+                        matches.push(alias);
+                    }
+                }
+            }
         }
         
         // Add specific formulations from drug warnings if available
@@ -331,12 +304,12 @@ const MedicationManager = {
                 }
             });
             
-            // Check if they match the input
-            uniqueFormulations.forEach(form => {
+            // Add matching formulations to results
+            for (const form of uniqueFormulations) {
                 if (form.toLowerCase().includes(lowercaseInput)) {
                     matches.push(form);
                 }
-            });
+            }
         }
         
         // Return unique matches (max 15)
@@ -439,50 +412,35 @@ const MedicationManager = {
      * @returns {string} - Standardized formulation
      */
     standardizeFormulation(formulation) {
-        const form = formulation.toLowerCase();
+        if (!formulation) return '';
         
-        // Gastro-resistant/Enteric coated formulations
-        if (form.includes('e/c') || form.includes('ec ') || form.includes('enteric') || 
-            form.includes('gastro') || form.includes('g/r')) {
-            return 'gastro resistant';
+        const form = formulation.toLowerCase().trim();
+        
+        // Early return if empty
+        if (form === '') return form;
+        
+        // Flattened structure - directly check each category
+        for (const [category, aliases] of Object.entries(this.formulations.formulations)) {
+            if (!Array.isArray(aliases)) continue;
+            
+            // Convert all aliases to lowercase for exact matching
+            const lowerAliases = aliases.map(alias => alias.toLowerCase().trim());
+            
+            // Check for exact match or match with common variations
+            if (lowerAliases.includes(form) || 
+                // Also check plurals/singulars by adding/removing 's'
+                (form.endsWith('s') && lowerAliases.includes(form.slice(0, -1))) ||
+                (!form.endsWith('s') && lowerAliases.includes(form + 's'))) {
+                
+                // Return the standardized category name (convert underscores to spaces and capitalize first letters)
+                return category
+                    .split('_')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            }
         }
         
-        // Modified-release formulations
-        if (form.includes('m/r') || form.includes('mr ') || form.includes('modified') || 
-            form.includes('prolonged') || form.includes('sustained') || 
-            form.includes('slow') || form.includes('extended')) {
-            return 'modified release';
-        }
-        
-        // Oral solid forms
-        if (form.includes('tab')) {
-            return 'tablet';
-        }
-        
-        if (form.includes('cap')) {
-            return 'capsule';
-        }
-        
-        // Liquid forms
-        if (form.includes('syrup') || form.includes('elixir') || 
-            form.includes('mixture') || form.includes('liquid')) {
-            return 'oral solution';
-        }
-        
-        if (form.includes('susp')) {
-            return 'suspension';
-        }
-        
-        // Topical forms
-        if (form.includes('oint')) {
-            return 'ointment';
-        }
-        
-        if (form.includes('cream')) {
-            return 'cream';
-        }
-        
-        // Return original if no standardization applies
+        // If we get here, no match was found - return the original
         return form;
     },
     
@@ -493,27 +451,45 @@ const MedicationManager = {
      * @returns {boolean} - True if formulations are similar
      */
     areFormulationsSimilar(form1, form2) {
-        // Common formulation pairs that should match
-        const similarPairs = [
-            ['gastro resistant tablet', 'e/c tablet'],
-            ['gastro resistant tablet', 'enteric coated tablet'],
-            ['modified release tablet', 'm/r tablet'],
-            ['modified release tablet', 'sr tablet'],
-            ['modified release tablet', 'prolonged release tablet'],
-            ['modified release capsule', 'm/r capsule'],
-            ['oral solution', 'oral liquid'],
-            ['oral solution', 'elixir'],
-            ['oral solution', 'syrup'],
-            ['oral suspension', 'suspension'],
-            ['injection', 'injectable solution'],
-            ['injection', 'solution for injection']
-        ];
+        if (!form1 || !form2) return false;
         
-        // Check if the pair exists in our similar pairs list
-        return similarPairs.some(pair => 
-            (form1.includes(pair[0]) && form2.includes(pair[1])) || 
-            (form1.includes(pair[1]) && form2.includes(pair[0]))
-        );
+        const normalizedForm1 = form1.toLowerCase().trim();
+        const normalizedForm2 = form2.toLowerCase().trim();
+        
+        // If they're exactly the same, return true immediately
+        if (normalizedForm1 === normalizedForm2) return true;
+        
+        // Standardize both formulations
+        const standardizedForm1 = this.standardizeFormulation(normalizedForm1);
+        const standardizedForm2 = this.standardizeFormulation(normalizedForm2);
+        
+        // If standardization produced the same result, they're similar
+        if (standardizedForm1 === standardizedForm2) {
+            return true;
+        }
+        
+        // Check if both forms appear in the same alias group - use exact matching
+        for (const [category, aliases] of Object.entries(this.formulations.formulations)) {
+            if (!Array.isArray(aliases)) continue;
+            
+            // Convert all aliases to lowercase for comparison
+            const lowerAliases = aliases.map(alias => alias.toLowerCase().trim());
+            
+            // Check if both forms are in the same alias list (exact matches only)
+            const form1Match = lowerAliases.includes(normalizedForm1) || 
+                              (normalizedForm1.endsWith('s') && lowerAliases.includes(normalizedForm1.slice(0, -1))) || 
+                              (!normalizedForm1.endsWith('s') && lowerAliases.includes(normalizedForm1 + 's'));
+                
+            const form2Match = lowerAliases.includes(normalizedForm2) || 
+                              (normalizedForm2.endsWith('s') && lowerAliases.includes(normalizedForm2.slice(0, -1))) || 
+                              (!normalizedForm2.endsWith('s') && lowerAliases.includes(normalizedForm2 + 's'));
+            
+            if (form1Match && form2Match) {
+                return true;
+            }
+        }
+        
+        return false;
     },
     
     /**

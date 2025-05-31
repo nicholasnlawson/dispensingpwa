@@ -1,5 +1,5 @@
 /**
- * UK Hospital Pharmacy Labelling System
+ * Downtime Pharmacy Label Generator
  * Service Worker
  */
 

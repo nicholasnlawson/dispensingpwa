@@ -1,141 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
-    <title>UK Hospital Pharmacy Labels</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/autocomplete.css">
-    <link rel="manifest" href="manifest.json">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:"
+    />
+    <title>Downtime Pharmacy Label Generator</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/autocomplete.css" />
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
     <header>
-        <div class="nhs-header">
-            <img src="images/nhs_trust_logo.png" alt="NHS Logo" class="nhs-logo">
-            <h1>Pharmacy Back-Up Label Generator</h1>
-        </div>
+      <div class="nhs-header">
+        <img src="images/nhs_trust_logo.png" alt="NHS Logo" class="nhs-logo" />
+        <h1>Downtime Pharmacy Label Generator</h1>
+      </div>
     </header>
 
     <main>
-        <div class="container">
-            <div class="input-section">
-                <h2>Label Information</h2>
-                <form id="label-form">
-                    <div class="form-group">
-                        <div class="section-header">
-                            <h3>Patient Details</h3>
-                            <button type="button" id="new-patient-btn" class="secondary-btn">New Patient</button>
-                        </div>
-                        <label for="patient-name">Full Name:</label>
-                        <input type="text" id="patient-name" required>
-                        
-                        <label for="patient-dob">Date of Birth:</label>
-                        <input type="date" id="patient-dob" required>
-                        
-                        <label for="patient-nhs">NHS Number:</label>
-                        <input type="text" id="patient-nhs" pattern="[0-9]{10}" placeholder="10 digits">
-                        
-                        <label for="patient-address">Address:</label>
-                        <textarea id="patient-address" rows="3"></textarea>
-                    </div>
+      <div class="container">
+        <div class="input-section">
+          <h2>Label Information</h2>
+          <form id="label-form">
+            <div class="form-group">
+              <div class="section-header">
+                <h3>Patient Details</h3>
+                <button
+                  type="button"
+                  id="new-patient-btn"
+                  class="secondary-btn"
+                >
+                  New Patient
+                </button>
+              </div>
+              <label for="patient-name">Full Name:</label>
+              <input type="text" id="patient-name" required />
 
-                    <div class="form-group">
-                        <h3>Medication Details</h3>
-                        <label for="med-name">Medicine Name:</label>
-                        <input type="text" id="med-name" required>
-                        
-                        <label for="med-form">Form:</label>
-                        <select id="med-form">
-                            <option value="tablets">Tablets</option>
-                            <option value="capsules">Capsules</option>
-                            <option value="oral solution">Oral Solution</option>
-                            <option value="oral suspension">Oral Suspension</option>
-                            <option value="injection">Injection</option>
-                            <option value="cream">Cream</option>
-                            <option value="ointment">Ointment</option>
-                            <option value="eye drops">Eye Drops</option>
-                            <option value="inhaler">Inhaler</option>
-                            <option value="suppositories">Suppositories</option>
-                            <option value="patches">Patches</option>
-                        </select>
-                        
-                        <label for="med-strength">Strength:</label>
-                        <input type="text" id="med-strength" placeholder="e.g., 500mg">
-                        
-                        <label for="med-quantity">Quantity:</label>
-                        <input type="text" id="med-quantity" placeholder="e.g., 28">
-                    </div>
+              <label for="patient-dob">Date of Birth:</label>
+              <input type="date" id="patient-dob" required />
 
-                    <div class="form-group">
-                        <h3>Dosage Instructions</h3>
-                        <label for="dosage">Dosage:</label>
-                        <textarea id="dosage" rows="2" required placeholder="e.g., Take ONE tablet TWICE a day"></textarea>
-                        
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="standard-warning" checked>
-                            <label for="standard-warning">Include standard warnings</label>
-                        </div>
-                        
-                        <label for="additional-info">Additional Information:</label>
-                        <textarea id="additional-info" rows="2" placeholder="Any special instructions"></textarea>
-                    </div>
+              <label for="patient-nhs">NHS Number:</label>
+              <input
+                type="text"
+                id="patient-nhs"
+                pattern="[0-9]{10}"
+                placeholder="10 digits"
+              />
 
-                    <div class="form-group">
-                        <h3>Dispensing Details</h3>
-                        <label for="dispensed-date">Date Dispensed:</label>
-                        <input type="date" id="dispensed-date" required>
-                        
-                        <label for="dispensary-location">Dispensary Location:</label>
-                        <select id="dispensary-location">
-                            <option value="south-tyneside">South Tyneside District Hospital</option>
-                            <option value="sunderland-royal">Sunderland Royal Hospital</option>
-                            <option value="sunderland-eye">Sunderland Eye Infirmary</option>
-                        </select>
-                        
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="show-initials" checked>
-                            <label for="show-initials">Show Disp/Check boxes</label>
-                        </div>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="button" id="preview-btn">Preview Label</button>
-                        <button type="button" id="add-to-queue-btn">Add to Queue</button>
-                        <button type="button" id="generate-bag-label-btn">Generate Bag Label</button>
-                        <button type="button" id="print-queue-btn">Print All Labels</button>
-                        <button type="reset">Clear Form</button>
-                    </div>
-                </form>
+              <label for="patient-address">Address:</label>
+              <textarea id="patient-address" rows="3"></textarea>
             </div>
 
-            <div class="preview-section" id="label-preview">
-                <h2>Label Preview</h2>
-                <div class="label-container">
-                    <div id="preview-content" class="uk-label">
-                        <!-- Label preview will be generated here -->
-                        <div class="preview-placeholder">Label preview will appear here</div>
-                    </div>
-                </div>
-                
-                <div class="label-queue" id="label-queue">
-                    <h3>Label Queue <span id="queue-count">(0)</span></h3>
-                    <div id="queue-container">
-                        <!-- Queued labels will appear here -->
-                        <div class="queue-empty">No labels in queue</div>
-                    </div>
-                    <div class="queue-controls">
-                        <button type="button" id="clear-queue-btn" disabled>Clear Queue</button>
-                    </div>
-                </div>
+            <div class="form-group">
+              <h3>Medication Details</h3>
+              <label for="med-name">Medicine Name:</label>
+              <input type="text" id="med-name" required />
+
+              <label for="med-form">Form:</label>
+              <select id="med-form">
+                <option value="tablets">Tablets</option>
+                <option value="capsules">Capsules</option>
+                <option value="oral solution">Oral Solution</option>
+                <option value="oral suspension">Oral Suspension</option>
+                <option value="injection">Injection</option>
+                <option value="cream">Cream</option>
+                <option value="ointment">Ointment</option>
+                <option value="eye drops">Eye Drops</option>
+                <option value="inhaler">Inhaler</option>
+                <option value="suppositories">Suppositories</option>
+                <option value="patches">Patches</option>
+              </select>
+
+              <label for="med-strength">Strength:</label>
+              <input type="text" id="med-strength" placeholder="e.g., 500mg" />
+
+              <label for="med-quantity">Quantity:</label>
+              <input type="text" id="med-quantity" placeholder="e.g., 28" />
             </div>
+
+            <div class="form-group">
+              <h3>Dosage Instructions</h3>
+              <div class="shorthand-box">
+                <label for="shorthand-input">Shorthand:</label>
+                <input type="text" id="shorthand-input" placeholder="e.g., 1t bd" />
+                <button type="button" id="apply-shorthand-btn" class="secondary-btn">Apply</button>
+                <div class="shorthand-guide">
+                  <a href="shorthand-reference.html" target="_blank" class="shorthand-link" id="view-all-codes-link">View all shorthand codes</a>
+                </div>
+              </div>
+              <label for="dosage">Dosage:</label>
+              <textarea
+                id="dosage"
+                rows="2"
+                required
+                placeholder="e.g., Take ONE tablet TWICE a day"
+              ></textarea>
+
+              <div class="checkbox-group">
+                <input type="checkbox" id="standard-warning" checked />
+                <label for="standard-warning">Include standard warnings</label>
+              </div>
+
+              <label for="additional-info">Additional Information:</label>
+              <textarea
+                id="additional-info"
+                rows="2"
+                placeholder="Any special instructions"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <h3>Dispensing Details</h3>
+              <label for="dispensed-date">Date Dispensed:</label>
+              <input type="date" id="dispensed-date" required />
+
+              <label for="dispensary-location">Dispensary Location:</label>
+              <select id="dispensary-location">
+                <option value="south-tyneside">
+                  South Tyneside District Hospital
+                </option>
+                <option value="sunderland-royal">
+                  Sunderland Royal Hospital
+                </option>
+                <option value="sunderland-eye">Sunderland Eye Infirmary</option>
+              </select>
+
+              <div class="checkbox-group">
+                <input type="checkbox" id="show-initials" checked />
+                <label for="show-initials">Show Disp/Check boxes</label>
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button type="button" id="preview-btn">Preview Label</button>
+              <button type="button" id="add-to-queue-btn">Add to Queue</button>
+              <button type="button" id="generate-bag-label-btn">
+                Generate Bag Label
+              </button>
+              <button type="button" id="print-queue-btn">
+                Print All Labels
+              </button>
+              <button type="reset">Clear Form</button>
+            </div>
+          </form>
         </div>
+
+        <div class="preview-section" id="label-preview">
+          <h2>Label Preview</h2>
+          <div class="label-container">
+            <div id="preview-content" class="uk-label">
+              <!-- Label preview will be generated here -->
+              <div class="preview-placeholder">
+                Label preview will appear here
+              </div>
+            </div>
+          </div>
+
+          <div class="label-queue" id="label-queue">
+            <h3>Label Queue <span id="queue-count">(0)</span></h3>
+            <div id="queue-container">
+              <!-- Queued labels will appear here -->
+              <div class="queue-empty">No labels in queue</div>
+            </div>
+            <div class="queue-controls">
+              <button type="button" id="clear-queue-btn" disabled>
+                Clear Queue
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script src="js/data-manager.js"></script>
     <script src="js/medication-manager.js"></script>
+    <script src="js/shorthand-codes.js"></script>
     <script src="js/label-generator.js"></script>
     <script src="js/app.js"></script>
-
-</body>
+  </body>
 </html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shorthand Reference - Downtime Pharmacy Label Generator</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .reference-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .reference-header {
+      background-color: var(--nhs-blue);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reference-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .reference-header a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .code-section {
+      margin-bottom: 30px;
+    }
+
+    .code-section h2 {
+      color: var(--nhs-dark-blue);
+      font-size: 1.2rem;
+      border-bottom: 2px solid var(--nhs-light-blue);
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+
+    .code-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 10px;
+    }
+
+    .code-item {
+      display: flex;
+      background-color: var(--nhs-white);
+      border: 1px solid var(--nhs-mid-grey);
+      border-radius: 4px;
+      padding: 10px;
+    }
+
+    .code {
+      font-weight: bold;
+      color: var(--nhs-blue);
+      min-width: 50px;
+      margin-right: 10px;
+    }
+
+    .description {
+      flex-grow: 1;
+    }
+
+    .print-button {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    @media print {
+      .no-print {
+        display: none;
+      }
+      
+      .code-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      
+      .code-item {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reference-container">
+    <div class="reference-header no-print">
+      <h1>Shorthand Reference - Downtime Pharmacy Label Generator</h1>
+      <a href="index.html">← Back to Label Generator</a>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Tablets</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">½t</span><span class="description">Take HALF a tablet</span></div>
+        <div class="code-item"><span class="code">1t</span><span class="description">Take ONE tablet</span></div>
+        <div class="code-item"><span class="code">2t</span><span class="description">Take TWO tablets</span></div>
+        <div class="code-item"><span class="code">3t</span><span class="description">Take THREE tablets</span></div>
+        <div class="code-item"><span class="code">4t</span><span class="description">Take FOUR tablets</span></div>
+        <div class="code-item"><span class="code">5t</span><span class="description">Take FIVE tablets</span></div>
+        <div class="code-item"><span class="code">6t</span><span class="description">Take SIX tablets</span></div>
+        <div class="code-item"><span class="code">1½t</span><span class="description">Take ONE AND A HALF tablets</span></div>
+        <div class="code-item"><span class="code">2½t</span><span class="description">Take TWO AND A HALF tablets</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Capsules</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">1c</span><span class="description">Take ONE capsule</span></div>
+        <div class="code-item"><span class="code">2c</span><span class="description">Take TWO capsules</span></div>
+        <div class="code-item"><span class="code">3c</span><span class="description">Take THREE capsules</span></div>
+        <div class="code-item"><span class="code">4c</span><span class="description">Take FOUR capsules</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Liquid Preparations</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">5ml</span><span class="description">Take 5ml</span></div>
+        <div class="code-item"><span class="code">10ml</span><span class="description">Take 10ml</span></div>
+        <div class="code-item"><span class="code">15ml</span><span class="description">Take 15ml</span></div>
+        <div class="code-item"><span class="code">20ml</span><span class="description">Take 20ml</span></div>
+        <div class="code-item"><span class="code">1tsp</span><span class="description">Take ONE teaspoonful</span></div>
+        <div class="code-item"><span class="code">2tsp</span><span class="description">Take TWO teaspoonfuls</span></div>
+        <div class="code-item"><span class="code">1tbsp</span><span class="description">Take ONE tablespoonful</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Inhalers</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">1p</span><span class="description">Inhale ONE puff</span></div>
+        <div class="code-item"><span class="code">2p</span><span class="description">Inhale TWO puffs</span></div>
+        <div class="code-item"><span class="code">3p</span><span class="description">Inhale THREE puffs</span></div>
+        <div class="code-item"><span class="code">4p</span><span class="description">Inhale FOUR puffs</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Drops</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">1d</span><span class="description">Apply ONE drop</span></div>
+        <div class="code-item"><span class="code">2d</span><span class="description">Apply TWO drops</span></div>
+        <div class="code-item"><span class="code">3d</span><span class="description">Apply THREE drops</span></div>
+        <div class="code-item"><span class="code">4d</span><span class="description">Apply FOUR drops</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Dosage Quantities - Injections</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">1u</span><span class="description">Inject ONE unit</span></div>
+        <div class="code-item"><span class="code">2u</span><span class="description">Inject TWO units</span></div>
+        <div class="code-item"><span class="code">5u</span><span class="description">Inject FIVE units</span></div>
+        <div class="code-item"><span class="code">10u</span><span class="description">Inject TEN units</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Frequencies</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">od</span><span class="description">ONCE a day</span></div>
+        <div class="code-item"><span class="code">om</span><span class="description">on a morning</span></div>
+        <div class="code-item"><span class="code">bd</span><span class="description">TWICE a day</span></div>
+        <div class="code-item"><span class="code">tds</span><span class="description">THREE times a day</span></div>
+        <div class="code-item"><span class="code">qds</span><span class="description">FOUR times a day</span></div>
+        <div class="code-item"><span class="code">prn</span><span class="description">when required</span></div>
+        <div class="code-item"><span class="code">stat</span><span class="description">IMMEDIATELY</span></div>
+        <div class="code-item"><span class="code">mane</span><span class="description">in the MORNING</span></div>
+        <div class="code-item"><span class="code">nocte</span><span class="description">at NIGHT</span></div>
+        <div class="code-item"><span class="code">altd</span><span class="description">on ALTERNATE days</span></div>
+        <div class="code-item"><span class="code">altm</span><span class="description">on ALTERNATE mornings</span></div>
+        <div class="code-item"><span class="code">alte</span><span class="description">on ALTERNATE evenings</span></div>
+        <div class="code-item"><span class="code">altn</span><span class="description">on ALTERNATE nights</span></div>
+        <div class="code-item"><span class="code">wk</span><span class="description">WEEKLY</span></div>
+        <div class="code-item"><span class="code">2wk</span><span class="description">every TWO weeks</span></div>
+        <div class="code-item"><span class="code">4wk</span><span class="description">every FOUR weeks</span></div>
+        <div class="code-item"><span class="code">mth</span><span class="description">MONTHLY</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Daily Timing Specifications</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">am</span><span class="description">in the MORNING</span></div>
+        <div class="code-item"><span class="code">pm</span><span class="description">in the EVENING</span></div>
+        <div class="code-item"><span class="code">od08</span><span class="description">at 8am</span></div>
+        <div class="code-item"><span class="code">od12</span><span class="description">at 12pm</span></div>
+        <div class="code-item"><span class="code">od16</span><span class="description">at 4pm</span></div>
+        <div class="code-item"><span class="code">dinnertime</span><span class="description">at DINNER time</span></div>
+        <div class="code-item"><span class="code">lunchtime</span><span class="description">at LUNCH time</span></div>
+        <div class="code-item"><span class="code">breakfast</span><span class="description">with BREAKFAST</span></div>
+        <div class="code-item"><span class="code">dinner</span><span class="description">with DINNER</span></div>
+        <div class="code-item"><span class="code">bm</span><span class="description">BEFORE meals</span></div>
+        <div class="code-item"><span class="code">am</span><span class="description">AFTER meals</span></div>
+        <div class="code-item"><span class="code">wm</span><span class="description">WITH meals</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Routes</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">po</span><span class="description">by mouth</span></div>
+        <div class="code-item"><span class="code">sl</span><span class="description">under the tongue</span></div>
+        <div class="code-item"><span class="code">buc</span><span class="description">placed between the gum and cheek</span></div>
+        <div class="code-item"><span class="code">pr</span><span class="description">rectally</span></div>
+        <div class="code-item"><span class="code">pv</span><span class="description">vaginally</span></div>
+        <div class="code-item"><span class="code">sc</span><span class="description">subcutaneously</span></div>
+        <div class="code-item"><span class="code">im</span><span class="description">intramuscularly</span></div>
+        <div class="code-item"><span class="code">iv</span><span class="description">intravenously</span></div>
+        <div class="code-item"><span class="code">inh</span><span class="description">by inhalation</span></div>
+        <div class="code-item"><span class="code">neb</span><span class="description">via nebuliser</span></div>
+        <div class="code-item"><span class="code">top</span><span class="description">applied topically</span></div>
+        <div class="code-item"><span class="code">td</span><span class="description">applied to the skin</span></div>
+        <div class="code-item"><span class="code">oc</span><span class="description">into the eye(s)</span></div>
+        <div class="code-item"><span class="code">au</span><span class="description">into the ear(s)</span></div>
+        <div class="code-item"><span class="code">nas</span><span class="description">into the nose</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Eye/Ear Drop Specifications</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">le</span><span class="description">into the LEFT eye</span></div>
+        <div class="code-item"><span class="code">re</span><span class="description">into the RIGHT eye</span></div>
+        <div class="code-item"><span class="code">be</span><span class="description">into BOTH eyes</span></div>
+        <div class="code-item"><span class="code">la</span><span class="description">into the LEFT ear</span></div>
+        <div class="code-item"><span class="code">ra</span><span class="description">into the RIGHT ear</span></div>
+        <div class="code-item"><span class="code">ba</span><span class="description">into BOTH ears</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Common Phrases</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">wf</span><span class="description">with food</span></div>
+        <div class="code-item"><span class="code">bf</span><span class="description">before food</span></div>
+        <div class="code-item"><span class="code">af</span><span class="description">after food</span></div>
+        <div class="code-item"><span class="code">ec</span><span class="description">enteric coated</span></div>
+        <div class="code-item"><span class="code">sr</span><span class="description">slow release</span></div>
+        <div class="code-item"><span class="code">mr</span><span class="description">modified release</span></div>
+        <div class="code-item"><span class="code">pr</span><span class="description">prolonged release</span></div>
+        <div class="code-item"><span class="code">disp</span><span class="description">dispersible</span></div>
+        <div class="code-item"><span class="code">sol</span><span class="description">soluble</span></div>
+        <div class="code-item"><span class="code">ndc</span><span class="description">not to be crushed</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Duration Specifications</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">1/7</span><span class="description">for ONE day</span></div>
+        <div class="code-item"><span class="code">2/7</span><span class="description">for TWO days</span></div>
+        <div class="code-item"><span class="code">3/7</span><span class="description">for THREE days</span></div>
+        <div class="code-item"><span class="code">4/7</span><span class="description">for FOUR days</span></div>
+        <div class="code-item"><span class="code">5/7</span><span class="description">for FIVE days</span></div>
+        <div class="code-item"><span class="code">6/7</span><span class="description">for SIX days</span></div>
+        <div class="code-item"><span class="code">7/7</span><span class="description">for SEVEN days</span></div>
+        <div class="code-item"><span class="code">8/7</span><span class="description">for EIGHT days</span></div>
+        <div class="code-item"><span class="code">9/7</span><span class="description">for NINE days</span></div>
+        <div class="code-item"><span class="code">10/7</span><span class="description">for TEN days</span></div>
+        <div class="code-item"><span class="code">11/7</span><span class="description">for ELEVEN days</span></div>
+        <div class="code-item"><span class="code">12/7</span><span class="description">for TWELVE days</span></div>
+        <div class="code-item"><span class="code">13/7</span><span class="description">for THIRTEEN days</span></div>
+        <div class="code-item"><span class="code">14/7</span><span class="description">for FOURTEEN days</span></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <h2>Special Instructions</h2>
+      <div class="code-grid">
+        <div class="code-item"><span class="code">shake</span><span class="description">Shake well before use</span></div>
+        <div class="code-item"><span class="code">rinse</span><span class="description">Rinse mouth after use</span></div>
+        <div class="code-item"><span class="code">nswallow</span><span class="description">Do not swallow</span></div>
+        <div class="code-item"><span class="code">dissolve</span><span class="description">Allow to dissolve under the tongue</span></div>
+        <div class="code-item"><span class="code">crush</span><span class="description">Tablet may be crushed</span></div>
+        <div class="code-item"><span class="code">whole</span><span class="description">Swallow whole, do not chew or crush</span></div>
+        <div class="code-item"><span class="code">protect</span><span class="description">Protect from light</span></div>
+        <div class="code-item"><span class="code">fridge</span><span class="description">Store in a refrigerator</span></div>
+        <div class="code-item"><span class="code">discard</span><span class="description">Discard 28 days after opening</span></div>
+      </div>
+    </div>
+
+    <div class="print-button no-print">
+      <button class="primary-btn" onclick="window.print()">Print Reference Sheet</button>
+    </div>
+  </div>
+
+  <script>
+    // Add script to handle printing if needed
+  </script>
+</body>
+</html>

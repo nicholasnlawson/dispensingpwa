@@ -1,9 +1,99 @@
 /**
- * UK Pharmacy Back-Up Label Generator
+ * Downtime Pharmacy Label Generator
  * Label Generator Module
  */
 
 const LabelGenerator = {
+    /**
+     * Reference to the ShorthandCodes module
+     * Moved to separate file for easier maintenance
+     */
+    
+    /**
+     * Initialize shorthand functionality
+     */
+    initShorthand() {
+        const shorthandInput = document.getElementById('shorthand-input');
+        const applyShorthandBtn = document.getElementById('apply-shorthand-btn');
+        const dosageTextarea = document.getElementById('dosage');
+        
+        if (shorthandInput && applyShorthandBtn && dosageTextarea) {
+            // Apply shorthand when button is clicked
+            applyShorthandBtn.addEventListener('click', () => {
+                const translatedText = this.translateShorthand(shorthandInput.value);
+                if (translatedText) {
+                    dosageTextarea.value = translatedText;
+                    shorthandInput.value = '';
+                }
+            });
+            
+            // Apply shorthand when Enter key is pressed in the input field
+            shorthandInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const translatedText = this.translateShorthand(shorthandInput.value);
+                    if (translatedText) {
+                        dosageTextarea.value = translatedText;
+                        shorthandInput.value = '';
+                    }
+                }
+            });
+        }
+    },
+    
+    /**
+     * Translate shorthand text to full instructions
+     * @param {string} shorthand - Shorthand text to translate
+     * @returns {string} - Translated full text instructions
+     */
+    translateShorthand(shorthand) {
+        if (!shorthand || shorthand.trim() === '') {
+            return '';
+        }
+        
+        // Trim for consistent processing
+        const input = shorthand.trim();
+        
+        // Check if it's a direct match for a simple code
+        const directMatch = ShorthandCodes.getFullText(input);
+        if (directMatch) {
+            return directMatch;
+        }
+        
+        // Handle compound shorthand (e.g., "1t bd" = "Take ONE tablet TWICE a day")
+        const parts = input.split(/\s+/);
+        if (parts.length >= 2) {
+            let result = '';
+            
+            // First part is usually dosage quantity
+            const firstPart = ShorthandCodes.getFullText(parts[0]);
+            if (firstPart) {
+                result = firstPart;
+            }
+            
+            // Second part is usually frequency
+            const secondPart = ShorthandCodes.getFullText(parts[1]);
+            if (secondPart) {
+                result += result ? ' ' + secondPart : secondPart;
+            }
+            
+            // Handle additional parts if present
+            for (let i = 2; i < parts.length; i++) {
+                const nextPart = ShorthandCodes.getFullText(parts[i]);
+                if (nextPart) {
+                    result += ' ' + nextPart;
+                } else {
+                    // If not a known shorthand, add as is
+                    result += ' ' + parts[i];
+                }
+            }
+            
+            return result || input; // Return original if no translation found
+        }
+        
+        // If no translation found, return original
+        return input;
+    },
     /**
      * Generate labels based on the form data
      * @param {Object} data - Form data

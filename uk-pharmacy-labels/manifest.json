@@ -1,7 +1,7 @@
 {
-  "name": "Pharmacy Back-Up Label Generator",
+  "name": "Downtime Pharmacy Label Generator",
   "short_name": "Pharmacy Labels",
-  "description": "A back-up pharmacy labelling system for UK hospitals",
+  "description": "A downtime pharmacy labelling system for UK Pharmacies during system outages",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#e8edee",
