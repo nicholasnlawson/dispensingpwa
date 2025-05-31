@@ -430,7 +430,7 @@ button[type="reset"]:hover {
 
 .patient-name {
     font-weight: bold;
-    font-size: 10px;
+    font-size: 9px;  /* Reduced from 10px */
 }
 
 .dispensed-date {
@@ -671,33 +671,44 @@ button[type="reset"]:hover {
     }
     
     .print-label .medication .med-name {
-        font-size: 5.5pt !important;
+        font-size: 6.5pt !important;  /* Increased from 6pt */
         font-weight: bold !important;
         margin-bottom: 0.3mm !important;
-        line-height: 1 !important;
+        line-height: 1.1 !important;  /* Slightly increased line height */
         overflow: hidden !important;
     }
     
     .print-label .dosage-instructions {
-        font-size: 6.5pt !important;
+        font-size: 8.5pt !important;  /* Increased from 8pt */
+        font-weight: bold !important;
         margin: 1pt 0 !important;
-        line-height: 1.1 !important;
+        line-height: 1.25 !important;  /* Slightly increased line height */
+        flex-grow: 1 !important;
+    }
+    
+    /* Make combined content match dosage instructions styling */
+    .print-label .combined-content {
+        font-size: 8.5pt !important;
+        font-weight: bold !important;
+        margin: 1pt 0 !important;
+        line-height: 1.25 !important;
         flex-grow: 1 !important;
     }
     
     .print-label .additional-info {
-        font-size: 6.5pt !important;
+        font-size: 5.5pt !important;
         margin: 1pt 0 !important;
         line-height: 1.1 !important;
         flex-grow: 1 !important;
     }
     
-    .print-label .combined-content {
-        font-size: 7pt !important;
+    .print-label .warning {
+        font-size: 5.5pt !important;
         margin: 1pt 0 !important;
         line-height: 1.1 !important;
-        flex-grow: 1 !important;
+        color: var(--nhs-red) !important;
     }
+    
     
     /* Bag Label Styles - compact design for small labels */
     .bag-label {
@@ -735,10 +746,10 @@ button[type="reset"]:hover {
     }
     
     .bag-label-patient-name {
-        font-size: 7pt !important;
+        font-size: 5.5pt !important;
         font-weight: bold !important;
-        margin-bottom: 0.5mm !important;
-        line-height: 1.1 !important;
+        margin-bottom: 0.4mm !important;
+        line-height: 1.05 !important;
     }
     
     .bag-label-patient-details {
