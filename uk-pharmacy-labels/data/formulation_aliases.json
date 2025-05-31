@@ -24,7 +24,8 @@
       "evohaler", "pressurized inhalation solution", 
       "pressurised inhalation solution", "press inhal soln",
       "inhalation aerosol", "inhal aerosol", "aerosol for inhalation", 
-      "CFC free", "cfc-free", "cfc free inhaler", "cfc-free inhaler"
+      "CFC free", "cfc-free", "cfc free inhaler", "cfc-free inhaler",
+      "pressurised inhalation"
     ],
     "soft_mist_inhalers": [
       "respimat", "spiolto", "soft mist inhaler", "soft-mist inhaler",
@@ -39,7 +40,8 @@
       "solution for nebulizer", "soln for nebuliser", "powder for nebulizer solution", 
       "powder for nebuliser solution", "pwd for neb soln", "nebuliser powder", 
       "nebulizer powder", "neb powder", "powder for nebulization", 
-      "pwd for nebulisation", "neb", "nebs", "nebules", "nebule"
+      "pwd for nebulisation", "neb", "nebs", "nebules", "nebule",
+      "nebuliser liquid"
     ],
     "generic_inhaler_terms": [
       "inhaler", "inhaled", "puffer", "inhaler device"
@@ -57,7 +59,8 @@
       "oral liquid emulsion", "emulsion for oral use", "solution", 
       "soln", "elixir", "liquid", "mixture", "mixt", "oral liquid", 
       "liquid oral", "suspension", "susp", "syrup", "syr", "emulsion", 
-      "liquid emulsion", "emuls"
+      "liquid emulsion", "emuls", "oromucosal gel", "oromucosal solution",
+      "powder for oral or rectal suspension"
     ],
     "oral_drops": [
       "oral drops", "oral liquid drops", "drops for oral use", 
@@ -138,14 +141,16 @@
       "sustained release granules", "s/r granules", "sr granules", "s.r. granules", "s r granules", 
       "controlled-release granules", "controlled release granules", "c/r granules", "cr granules", 
       "c.r. granules", "c r granules", "slow-release granules", "slow release granules", 
-      "xl granules", "la granules", "retard granules", "spansule"
+      "xl granules", "la granules", "retard granules", "spansule", "gastro resistant granules"
     ],
     "oral_solids": [
       "chewing gum", "chewing-gum",
       "oral powder", "powder for oral solution", "oral granules", 
       "effervescent granules", "oral powder sachet", "sachet", "sach", 
       "sachets", "powder for solution", "granules", "gran", "gran sachet",
-      "sublingual film", "buccal film", "oral film", "orodispersible film"
+      "sublingual film", "buccal film", "oral film", "orodispersible film",
+      "oral lyophilisate", "lozenge", "granules for oral solution",
+      "effervescent powder", "effervescent granules", "granules for oral suspension"
     ],
     "oral_sprays": [
       "sublingual spray", "s/l spray", "sl spray", "sub-lingual spray", 
@@ -167,7 +172,9 @@
       "suspension for injection", "injectable suspension", 
       "suspension injection", "sterile suspension", "suspension injectable",
       "depot injection", "long-acting injection", "long acting injection", 
-      "subcutaneous implant", "implantation matrix", "matrix implant"
+      "subcutaneous implant", "implantation matrix", "matrix implant",
+      "powder and solvent for solution for injection",
+      "prolonged release suspension for injection"
     ],
     "injection_containers": [
       "Flexpen", "Flex Pen", "Flex-Pen", "Flexpens", "Flex Pens", "Flex-Pens",
@@ -191,7 +198,8 @@
       "powder for concentrate", "powder for iv infusion", 
       "sterile powder for infusion",
       "infusion bag", "iv bag", "i/v bag", "i.v. bag", "intravenous bag", 
-      "infusion container", "flexible bag", "plastic infusion bag"
+      "infusion container", "flexible bag", "plastic infusion bag",
+      "powder for solution for infusion"
     ],
     "topical_skin": [
       "cream", "crm", "sudocrem",
@@ -210,7 +218,11 @@
       "foam", "cutaneous foam", "topical foam", "top foam", 
       "foam for topical use", "skin foam",
       "spray", "cutaneous spray", "topical spray", "top spray", 
-      "spray for topical use", "skin spray"
+      "spray for topical use", "skin spray",
+      "cutaneous cream", "cutaneous gel", "cutaneous emulsion",
+      "cutaneous wash", "cutaneous paste", "cutaneous paint",
+      "medicated nail lacquer", "bath additive", "shampoo",
+      "transdermal gel", "tablet for cutaneous solution"
     ],
     "eye_preparations": [
       "eye drops", "eyedrops", "ophthalmic drops", "opth drops", 
@@ -218,7 +230,7 @@
       "pf eye drops", "p/f eye drops", "p.f. eye drops", 
       "eye drops emulsion", "eye drop emulsion", "drops for eye use", 
       "ophthalmic solution", "opth soln",
-      "unit dose drops", "unit dose eye drops", "unit dose eye-drops", 
+      "unit dose drops", "unit dose eye drops", "unit-dose eye-drops", 
       "unit-dose drops", "unit-dose eye",
       "eye ointment", "ophthalmic ointment", "opth ointment", 
       "eye oint", "ophthalmic oint", "ointment for eye",
@@ -236,7 +248,8 @@
       "spray for nasal use", "nose spray", "spray for nose",
       "nasal solution", "nasal soln", "solution for nasal use", 
       "nose drops solution",
-      "nasal ointment", "nasal oint", "ointment for nasal use", "nose ointment"
+      "nasal ointment", "nasal oint", "ointment for nasal use", "nose ointment",
+      "spray"
     ],
     "rectal_preparations": [
       "suppository", "supp", "supps", "rectal suppository", 
@@ -259,6 +272,10 @@
       "vaginal ring", "vag ring", "ring for vaginal use", 
       "contraceptive ring", "vaginal delivery system",
       "vaginal gel", "vag gel", "gel for vaginal use", "vaginal application"
+    ],
+    "special_formulations": [
+      "intestinal gel", "intravesical solution", "form unstated", 
+      "products /out form"
     ]
   }
 }

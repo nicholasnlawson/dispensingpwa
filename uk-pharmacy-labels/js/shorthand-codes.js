@@ -42,11 +42,6 @@ const ShorthandCodes = window.ShorthandCodes = {
         // Dosage quantities - Inhalers
         '1p': 'Inhale ONE puff',
         '2p': 'Inhale TWO puffs',
-        '3p': 'Inhale THREE puffs',
-        '4p': 'Inhale FOUR puffs',
-        '5p': 'Inhale FIVE puffs',
-        '6p': 'Inhale SIX puffs', 
-        '7p': 'Inhale SEVEN puffs',
         '8p': 'Inhale EIGHT puffs',
         '9p': 'Inhale NINE puffs',
         '10p': 'Inhale TEN puffs',
@@ -60,10 +55,6 @@ const ShorthandCodes = window.ShorthandCodes = {
         '6d': 'Apply SIX drops',
                 
         // Dosage quantities - Injections
-        '1u': 'Inject ONE unit',
-        '2u': 'Inject TWO units',
-        '5u': 'Inject FIVE units',
-        '10u': 'Inject TEN units',
         
         // Frequencies
         'od': 'ONCE a day',
@@ -80,16 +71,23 @@ const ShorthandCodes = window.ShorthandCodes = {
         'altm': 'on ALTERNATE mornings',
         'alte': 'on ALTERNATE evenings',
         'altn': 'on ALTERNATE nights',
-        'wk': 'WEEKLY',
-        '2wk': 'every TWO weeks',
-        '4wk': 'every FOUR weeks',
-        'mth': 'MONTHLY',
+        '1w': 'WEEKLY',
+        '2w': 'every TWO weeks',
+        '4w': 'every FOUR weeks',
+        '1m': 'MONTHLY',
+        '2m': 'every TWO months',
+        '3m': 'every THREE months',
+        '6m': 'every SIX months',
+        '1y': 'YEARLY',
         
         // Daily timing specifications
         'am': 'in the MORNING',
-        'od08': 'at 8am',
-        'od12': 'at 12pm',
-        'od16': 'at 4pm',
+        'od07': 'ONCE a day at 7am',
+        'od08': 'ONCE a day at 8am',
+        'od12': 'ONCE a day at 12pm',
+        'od16': 'ONCE a day at 4pm',
+        'od20': 'ONCE a day at 8pm',
+        'od22': 'ONCE a day at 10pm',
         'pm': 'in the EVENING',
         'dinnertime': 'at DINNER time',
         'lunchtime': 'at LUNCH time',
@@ -128,13 +126,8 @@ const ShorthandCodes = window.ShorthandCodes = {
         'wf': 'with food',
         'bf': 'before food',
         'af': 'after food',
-        'ec': 'enteric coated',
-        'sr': 'slow release',
-        'mr': 'modified release',
-        'pr': 'prolonged release',
-        'disp': 'dispersible',
-        'sol': 'soluble',
-        'ndc': 'not to be crushed',
+        'disp': 'disperse in water',
+        'dnc': 'not to be crushed',
         
         // Duration specifications
         '1/7': 'for ONE day',
@@ -153,15 +146,33 @@ const ShorthandCodes = window.ShorthandCodes = {
         '14/7': 'for FOURTEEN days',
         
         // Special instructions
-        'shake': 'Shake well before use',
-        'rinse': 'Rinse mouth after use',
-        'nswallow': 'Do not swallow',
-        'dissolve': 'Allow to dissolve under the tongue',
-        'crush': 'Tablet may be crushed',
-        'whole': 'Swallow whole, do not chew or crush',
-        'protect': 'Protect from light',
-        'fridge': 'Store in a refrigerator',
-        'discard': 'Discard 28 days after opening'
+        'shake': '. Shake well before use',
+        'rinse': '. Rinse mouth after use',
+        'nswallow': '. Do not swallow',
+
+        'c+d': '. Tablet may be crushed and dispersed in water',
+        'crush': '. Tablet may be crushed',
+        'open': '. Capsule may be opened and the contents dispersed in water',
+        'whole': '. Swallow whole, do not chew or crush',
+        'protect': '. Protect from light',
+        'fridge': '. Store in a refrigerator',
+        'discard': '. Discard 28 days after opening'
+    },
+    
+    /**
+     * Case-insensitive mappings cache
+     * This will be populated during initialization
+     */
+    lowercaseMappings: {},
+    
+    /**
+     * Initialize the case-insensitive mappings
+     */
+    init() {
+        // Convert all mapping keys to lowercase for case-insensitive matching
+        for (const [key, value] of Object.entries(this.mappings)) {
+            this.lowercaseMappings[key.toLowerCase()] = value;
+        }
     },
     
     /**
@@ -172,9 +183,12 @@ const ShorthandCodes = window.ShorthandCodes = {
     getFullText(code) {
         if (!code) return null;
         
-        // Normalize the code (trim whitespace, lowercase)
-        const normalizedCode = code.trim();
+        // Normalize the code (trim whitespace, convert to lowercase for case-insensitivity)
+        const normalizedCode = code.trim().toLowerCase();
         
-        return this.mappings[normalizedCode] || null;
+        return this.lowercaseMappings[normalizedCode] || null;
     }
 };
+
+// Initialize the ShorthandCodes on load
+ShorthandCodes.init();

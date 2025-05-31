@@ -96,7 +96,21 @@ const MedicationManager = {
             
             // Setup autocomplete
             this.setupAutocomplete(formulationInput, this.getFormulationSuggestions.bind(this));
-            formulationInput.addEventListener('change', this.updateWarningLabels.bind(this));
+            
+            // Add event listeners for formulation changes
+            formulationInput.addEventListener('change', () => {
+                // Clear warnings and find new ones for the updated formulation
+                this.updateWarningLabels();
+            });
+            
+            // Also listen for input events to handle autocomplete selection
+            formulationInput.addEventListener('input', () => {
+                // Debounce to avoid too frequent updates
+                clearTimeout(formulationInput._debounceTimer);
+                formulationInput._debounceTimer = setTimeout(() => {
+                    this.updateWarningLabels();
+                }, 300);
+            });
         }
     },
     
@@ -347,7 +361,19 @@ const MedicationManager = {
     updateWarningLabels() {
         const medicationName = document.getElementById('med-name').value.trim();
         const formulation = document.getElementById('med-form').value.trim();
+        const additionalInfoField = document.getElementById('additional-info');
         
+        // Always clear existing warnings when updating
+        if (additionalInfoField) {
+            // If the field contains warnings, clear it completely
+            // This ensures a fresh start for new formulation warnings
+            const currentContent = additionalInfoField.value;
+            if (this.warningLabels.some(label => currentContent.includes(label.text))) {
+                additionalInfoField.value = '';
+            }
+        }
+        
+        // If we don't have both medication and formulation, just clear warnings and return
         if (!medicationName || !formulation) {
             return;
         }
@@ -359,7 +385,6 @@ const MedicationManager = {
         const warnings = this.getWarningTexts(labelNumbers);
         
         // Update the additional info field with warnings
-        const additionalInfoField = document.getElementById('additional-info');
         if (additionalInfoField && warnings.length > 0) {
             additionalInfoField.value = warnings.join('\n\n');
         }
