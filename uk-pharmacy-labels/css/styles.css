@@ -686,13 +686,34 @@ button[type="reset"]:hover {
         flex-grow: 1 !important;
     }
     
-    /* Make combined content match dosage instructions styling */
+    /* Make combined content use appropriate styling */
     .print-label .combined-content {
+        font-size: 7pt !important;
+        font-weight: normal !important;
+        margin: 1pt 0 !important;
+        line-height: 1.2 !important;
+        flex-grow: 1 !important;
+    }
+    
+    /* Content wrapper to hold both dosage instructions and additional info with proper styling */
+    .print-label .content-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-grow: 1 !important;
+    }
+    
+    .print-label .content-wrapper .dosage-instructions {
         font-size: 8.5pt !important;
         font-weight: bold !important;
         margin: 1pt 0 !important;
         line-height: 1.25 !important;
-        flex-grow: 1 !important;
+    }
+    
+    .print-label .content-wrapper .additional-info {
+        font-size: 5.5pt !important;
+        margin: 1pt 0 !important;
+        line-height: 1.1 !important;
+        font-weight: normal !important;
     }
     
     .print-label .additional-info {
@@ -845,6 +866,13 @@ button[type="reset"]:hover {
         padding: 2px 6px !important;
         border-radius: 3px !important;
         border: 1px solid #dee2e6 !important;
+    }
+    
+    /* Empty label placeholders */
+    .print-label.empty-label {
+        visibility: hidden !important;
+        border: none !important;
+        background: transparent !important;
     }
     
     /* Hide the preview label */

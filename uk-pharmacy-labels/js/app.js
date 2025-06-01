@@ -103,11 +103,21 @@ function addToQueue() {
         return;
     }
     
-    // Add to queue
-    labelQueue.push(formData);
+    // Get number of labels to add (default to 1 if invalid)
+    const numberOfLabels = formData.numberOfLabels || 1;
+    
+    // Add the label to the queue the specified number of times
+    for (let i = 0; i < numberOfLabels; i++) {
+        labelQueue.push({...formData});
+    }
     
     // Update queue display
     updateQueueDisplay();
+    
+    // Provide feedback on how many labels were added
+    if (numberOfLabels > 1) {
+        alert(`${numberOfLabels} copies of this label have been added to the queue.`);
+    }
     
     // Save patient details for reuse
     const patientName = document.getElementById('patient-name').value;
@@ -211,6 +221,16 @@ function printQueue() {
         return;
     }
     
+    // Ask user which label position to start from (1-24 on an A4 sheet)
+    let startPosition = prompt('Enter the label number to start from (1-24):', '1');
+    
+    // Validate input
+    startPosition = parseInt(startPosition);
+    if (isNaN(startPosition) || startPosition < 1 || startPosition > 24) {
+        alert('Please enter a valid number between 1 and 24');
+        return;
+    }
+    
     // Create a print container if it doesn't exist
     let printContainer = document.getElementById('print-container');
     if (!printContainer) {
@@ -230,6 +250,9 @@ function printQueue() {
     // For tracking how many labels we've processed
     let labelCount = 0;
     
+    // Create all the label elements first
+    const labelElements = [];
+    
     // Process each label in the queue
     labelQueue.forEach(labelData => {
         if (labelData.isBagLabel) {
@@ -237,21 +260,36 @@ function printQueue() {
             const bagLabel = document.createElement('div');
             bagLabel.className = 'print-label';
             bagLabel.innerHTML = LabelGenerator.generateBagLabel(labelData);
-            labelsContainer.appendChild(bagLabel);
+            labelElements.push(bagLabel);
             labelCount++;
         } else if (LabelGenerator.needsMultipleLabels(labelData)) {
             // Create multiple medication labels
             const splitLabels = createSplitLabels(labelData);
             splitLabels.forEach(label => {
-                labelsContainer.appendChild(label);
+                labelElements.push(label);
                 labelCount++;
             });
         } else {
             // Create a single medication label
             const label = createSingleLabel(labelData);
-            labelsContainer.appendChild(label);
+            labelElements.push(label);
             labelCount++;
         }
+    });
+    
+    // Calculate grid positions for labels
+    // Each A4 sheet has 3 columns and 8 rows (24 labels total)
+    
+    // Add empty placeholders for labels that are already used
+    for (let i = 1; i < startPosition; i++) {
+        const emptyLabel = document.createElement('div');
+        emptyLabel.className = 'print-label empty-label';
+        labelsContainer.appendChild(emptyLabel);
+    }
+    
+    // Add the actual labels
+    labelElements.forEach(label => {
+        labelsContainer.appendChild(label);
     });
     
     // Position the print container off-screen during preparation
@@ -411,33 +449,27 @@ function getFormData() {
     let additionalInfo = document.getElementById('additional-info').value;
     
     // Add standard warning to the beginning of additional information if checked
-    if (includeStandardWarning) {
-        const standardWarning = 'Keep out of the reach and sight of children.';
-        if (additionalInfo) {
-            additionalInfo = standardWarning + ' ' + additionalInfo;
-        } else {
-            additionalInfo = standardWarning;
-        }
-    }
-    
     return {
         // Patient details
-        patientName: document.getElementById('patient-name').value,
+        patientName: document.getElementById('patient-name').value.trim(),
         patientDOB: document.getElementById('patient-dob').value,
-        patientNHS: document.getElementById('patient-nhs').value,
-        patientAddress: document.getElementById('patient-address').value,
-        
+        patientNHS: document.getElementById('patient-nhs').value.trim(),
+        patientAddress: document.getElementById('patient-address').value.trim(),
+            
         // Medication details
-        medicationName: document.getElementById('med-name').value,
+        medicationName: document.getElementById('med-name').value.trim(),
         medicationFormulation: document.getElementById('med-form').value,
-        medicationStrength: document.getElementById('med-strength').value,
-        medicationQuantity: document.getElementById('med-quantity').value,
-        
-        // Dosage
-        dosageInstructions: document.getElementById('dosage').value,
-        includeStandardWarning: includeStandardWarning,
-        additionalInformation: additionalInfo,
-        
+        medicationStrength: document.getElementById('med-strength').value.trim(),
+        medicationQuantity: document.getElementById('med-quantity').value.trim(),
+            
+        // Number of labels to generate
+        numberOfLabels: parseInt(document.getElementById('number-of-labels').value) || 1,
+            
+        // Dosage instructions
+        dosageInstructions: document.getElementById('dosage').value.trim(),
+        additionalInformation: document.getElementById('additional-info').value.trim(),
+        standardWarning: document.getElementById('standard-warning').checked,
+            
         // Dispensing details
         dateOfDispensing: document.getElementById('dispensed-date').value,
         dispensaryLocation: document.getElementById('dispensary-location').value,

@@ -203,16 +203,17 @@ const LabelGenerator = {
         
         // Try to fit more content on a single label before splitting
         if (totalLabels === 2) {
-            // Always keep dosage instructions and warnings separate with appropriate styling
-            // This ensures warnings are always displayed in the smaller font
+            // Always keep dosage instructions and warnings separate
+            // Each gets its own styling - warnings should always be in smaller font
             const combinedContent = dosageContent;
             
-            // First label: Dosage instructions only (large font) 
+            
+            // First label: All dosage and start of warnings
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="dosage-instructions">${dosageContent}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: combinedContent,
+                mainContentClass: 'combined-content',
                 labelNumber: 1,
                 totalLabels,
                 patientName: data.patientName,
@@ -224,8 +225,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${warningText}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: warningText,
+                mainContentClass: 'additional-info',
                 labelNumber: 2,
                 totalLabels,
                 patientName: data.patientName,
@@ -281,8 +282,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="dosage-instructions">${firstHalf}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: firstHalf,
+                mainContentClass: 'dosage-instructions',
                 labelNumber: 1,
                 totalLabels,
                 patientName: data.patientName,
@@ -294,8 +295,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="dosage-instructions">${secondHalf}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: secondHalf,
+                mainContentClass: 'dosage-instructions',
                 labelNumber: 2,
                 totalLabels,
                 patientName: data.patientName,
@@ -307,8 +308,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="dosage-instructions">${dosageContent}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: dosageContent,
+                mainContentClass: 'dosage-instructions',
                 labelNumber: 1,
                 totalLabels,
                 patientName: data.patientName,
@@ -323,8 +324,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${warningText}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: warningText,
+                mainContentClass: 'additional-info',
                 labelNumber: 3,
                 totalLabels,
                 patientName: data.patientName,
@@ -375,8 +376,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${firstHalf}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: firstHalf,
+                mainContentClass: 'additional-info',
                 labelNumber: 2,
                 totalLabels,
                 patientName: data.patientName,
@@ -388,8 +389,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${secondHalf}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: secondHalf,
+                mainContentClass: 'additional-info',
                 labelNumber: 3,
                 totalLabels,
                 patientName: data.patientName,
@@ -401,8 +402,8 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${warningText}</div>`,
-                mainContentClass: 'content-wrapper',
+                mainContent: warningText,
+                mainContentClass: 'additional-info',
                 labelNumber: labels.length + 1,
                 totalLabels,
                 patientName: data.patientName,
@@ -544,52 +545,16 @@ const LabelGenerator = {
         const totalContentLength = dosageLength + warningsLength;
         
         // If content is too long, we should split into multiple labels instead
-        if (totalContentLength > 350) {
-            return this.generateSplitLabels(data, { needsSplitting: true })[0];
-        }
-        
-        // Generate HTML for the label
-        return `
-        <div class="label-content">
-            <!-- Initial boxes for dispenser and checker -->
-            <div class="initials-boxes">
-                <div class="initials-box"></div>
-                <div class="initials-box"></div>
-            </div>
-            
-            <!-- Top Section: Medication info and main content -->
-            <div class="label-top-section">
-                <!-- Row 1: Quantity, Medication Name, Strength, Formulation -->
-                <div class="medication">
-                    <div class="med-name">${data.medicationQuantity ? `${data.medicationQuantity} ` : ''}${medicationFull}</div>
-                </div>
-                
-                <!-- Row 2: Dosage Instructions (always in large font) -->
-                <div class="dosage-instructions">
-                    ${data.dosageInstructions || ''}
-                </div>
-                
-                <!-- Row 3: Warnings and Additional Information (always in smaller font) -->
-                ${data.additionalInformation ? `
-                <div class="additional-info">
-                    ${data.additionalInformation || ''}
-                </div>` : ''}
-            </div>
-            
-            <!-- Bottom Section: Patient info and pharmacy details -->
-            <div class="label-bottom-section">
-                <!-- Row 4: Patient Name, Date -->
-                <div class="patient-row">
-                    <span class="patient-name">${data.patientName || ''}</span>
-                    <span class="dispensing-date">${date}</span>
-                </div>
-                
-                <!-- Bottom Row: Pharmacy Details -->
-                <div class="pharmacy-details">
-                    ${dispensary.name}, ${dispensary.address}, Tel: ${dispensary.phone}
+                        <span class="patient-name">${data.patientName || ''}</span>
+                        <span class="dispensing-date">${date}</span>
+                    </div>
+                    
+                    <!-- Bottom Row: Pharmacy Details -->
+                    <div class="pharmacy-details">
+                        ${dispensary.name}, ${dispensary.address}, Tel: ${dispensary.phone}
+                    </div>
                 </div>
             </div>
-        </div>
         `;
     },
     
