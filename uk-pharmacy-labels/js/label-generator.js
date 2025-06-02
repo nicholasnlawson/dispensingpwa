@@ -446,12 +446,12 @@ const LabelGenerator = {
             
             // First check if we have warnings
             if (warningLength > 0) {
-                // Process warnings into 3-line chunks like we did for dosage instructions
-                // This helps maintain consistent formatting
+                // Process warnings into visual lines - no strict line limit for warnings since they use smaller text
                 const normalizedWarning = warningText.replace(/\r\n|\r/g, '\n');
                 const warningLines = [];
                 
-                // Split warnings into visual lines of 36 characters like we did for dosage
+                // Split warnings into visual lines of 36 characters for readability
+                // but don't enforce the 3-line limit as we do for dosage instructions
                 const warningWords = normalizedWarning.split(/\s+/);
                 let currentLine = '';
                 
@@ -468,7 +468,7 @@ const LabelGenerator = {
                     warningLines.push(currentLine);
                 }
                 
-                // For each dosage content, try to add warnings if space allows
+                // For each dosage content, try to add warnings
                 for (let i = 0; i < dosageLabelContents.length; i++) {
                     const dosageContent = dosageLabelContents[i];
                     const dosageLines = dosageContent.split('<br>').filter(line => line.trim());
@@ -476,39 +476,44 @@ const LabelGenerator = {
                     // Count how many lines of dosage content we have on this label
                     const dosageLineCount = dosageLines.length;
                     
-                    // Check if we can fit at least one line of warnings on this label
-                    // We need at least one free line slot (of the 3 max) to add warnings
-                    if (dosageLineCount < MAX_LINES_PER_LABEL && warningLines.length > 0) {
-                        // We can fit some warnings on this label
-                        // Calculate how many warning lines we can add
-                        const availableLines = MAX_LINES_PER_LABEL - dosageLineCount;
-                        const warningLinesToAdd = Math.min(availableLines, warningLines.length);
-                        
-                        // Get the warning lines we can add
-                        const warningLinesToInclude = warningLines.splice(0, warningLinesToAdd);
-                        
-                        // Create a combined label with both dosage and warnings
-                        combinedLabels.push({
-                            dosageContent: dosageContent,
-                            warningContent: warningLinesToInclude.join('<br>')
-                        });
-                    } else {
-                        // Can't fit warnings on this label, just add the dosage content
+                        // We still want to maintain the 3-line limit, but count warning lines as half a line
+                    // This means we can fit twice as many warning lines compared to dosage lines
+                    if (warningLines.length === 0) {
+                        // No warnings to add, just include dosage content
                         combinedLabels.push({
                             dosageContent: dosageContent,
                             warningContent: ''
+                        });
+                    } else {
+                        // Calculate how many warning lines we can add
+                        // Each warning line counts as half a regular line
+                        // Round down to ensure we don't exceed the limit
+                        const availableLineCount = MAX_LINES_PER_LABEL - dosageLineCount;
+                        const availableWarningLineCount = availableLineCount * 2; // Each warning counts as half a line
+                        
+                        // Take only the number of warning lines we can fit
+                        const warningLinesToAdd = Math.min(availableWarningLineCount, warningLines.length);
+                        const warningLinesToInclude = warningLines.splice(0, warningLinesToAdd);
+                        
+                        combinedLabels.push({
+                            dosageContent: dosageContent,
+                            warningContent: warningLinesToInclude.join('<br>')
                         });
                     }
                 }
                 
                 // If we still have warning lines left, add them to their own labels
+                // applying the same half-line counting logic (2x warning lines per label)
                 if (warningLines.length > 0) {
-                    // Group remaining warnings into sets of 3 lines per label
-                    for (let i = 0; i < warningLines.length; i += MAX_LINES_PER_LABEL) {
-                        const labelWarningLines = warningLines.slice(i, i + MAX_LINES_PER_LABEL);
+                    // For warning-only labels, we can fit MAX_LINES_PER_LABEL * 2 warning lines per label
+                    // (since each warning line counts as half a regular line)
+                    const warningLinesPerLabel = MAX_LINES_PER_LABEL * 2;
+                    
+                    for (let i = 0; i < warningLines.length; i += warningLinesPerLabel) {
+                        const warningLinesToInclude = warningLines.slice(i, i + warningLinesPerLabel);
                         combinedLabels.push({
                             dosageContent: '',
-                            warningContent: labelWarningLines.join('<br>')
+                            warningContent: warningLinesToInclude.join('<br>')
                         });
                     }
                 }
