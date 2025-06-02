@@ -463,6 +463,8 @@ button[type="reset"]:hover {
     margin: 0.5rem 0;
     font-weight: bold;
     font-size: 10px;
+    /* Keep a reference height but don't hide overflow - we'll handle this with splitting */
+    min-height: 10px;
 }
 
 .warning {
@@ -649,8 +651,10 @@ button[type="reset"]:hover {
         padding-top: 1mm !important;
         display: flex !important;
         flex-direction: column !important;
-        margin-bottom: 1mm !important;
-        overflow: hidden !important;
+        margin-bottom: 3mm !important;
+        flex-grow: 1 !important;
+        max-height: 22mm !important; /* Ensure fixed height in printed labels */
+        overflow: hidden !important; /* Prevent content from flowing out */
     }
     
     .print-label .medication {
