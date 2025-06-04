@@ -247,28 +247,48 @@ const MedicationManager = {
      * @returns {Array} - List of medication suggestions
      */
     getMedicationSuggestions(input) {
-        const lowercaseInput = input.toLowerCase();
+        if (!input || input.trim() === '') {
+            return [];
+        }
+        
+        const lowercaseInput = input.toLowerCase().trim();
         const matches = [];
         
         // Search through medications and their aliases
         for (const med of this.medications) {
-            // Check medication name
+            const matchingAliases = [];
+            let mainNameMatches = false;
+            
+            // Check medication name (main name)
             if (med.name.toLowerCase().includes(lowercaseInput)) {
-                matches.push(med.name);
-                continue;
+                mainNameMatches = true;
+                matchingAliases.push(med.name); // Add main name first
             }
             
-            // Check aliases
+            // Check all aliases
             for (const alias of med.aliases || []) {
                 if (alias.toLowerCase().includes(lowercaseInput)) {
-                    matches.push(med.name);
-                    break;
+                    // Only add the alias if it's not the same as the main name (case insensitive comparison)
+                    if (alias.toLowerCase() !== med.name.toLowerCase()) {
+                        matchingAliases.push(alias);
+                    }
                 }
+            }
+            
+            // If we found any matches for this medication, add them all to the results
+            if (matchingAliases.length > 0) {
+                // If the main name doesn't match, but an alias does, add the main name first to provide context
+                if (!mainNameMatches && matchingAliases.length > 0) {
+                    matches.push(med.name); // Add main name first
+                }
+                
+                // Then add all matching aliases
+                matches.push(...matchingAliases);
             }
         }
         
-        // Return unique matches (max 10)
-        return [...new Set(matches)].slice(0, 10);
+        // Return unique matches (max 20 - increased to accommodate more aliases)
+        return [...new Set(matches)].slice(0, 20);
     },
     
     /**

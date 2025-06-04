@@ -425,12 +425,12 @@
     "label_number": [8, 10]
   },
   {
-    "name": ["Beclometasone/Formoterol And Glycopyrronium"],
+    "name": ["Beclometasone/Formoterol/Glycopyrronium"],
     "formulation": ["Pressurised inhalation"],
     "label_number": [8, 10]
   },
   {
-    "name": ["Beclometasone/Formoterol And Glycopyrronium"],
+    "name": ["Beclometasone/Formoterol/Glycopyrronium"],
     "formulation": ["Inhalation powder"],
     "label_number": [8, 10]
   },
@@ -540,7 +540,7 @@
     "label_number": [21, 25]
   },
   {
-    "name": ["Bictegravir/Emtricitabine And Tenofovir Alafenamide"],
+    "name": ["Bictegravir/Emtricitabine/Tenofovir Alafenamide"],
     "formulation": ["Oral tablet"],
     "label_number": [25]
   },
@@ -560,7 +560,7 @@
     "label_number": [5, 25]
   },
   {
-    "name": ["Bismuth Potassium/Metronidazole And Tetracycline "],
+    "name": ["Bismuth Potassium/Metronidazole/Tetracycline"],
     "formulation": ["Oral capsule"],
     "label_number": [4, 7, 9, 27]
   },
@@ -1085,12 +1085,12 @@
     "label_number": [28]
   },
   {
-    "name": ["Clobetasol Propionate/Neomycin Sulfate And Nystatin"],
+    "name": ["Clobetasol Propionate/Neomycin Sulfate/Nystatin"],
     "formulation": ["Cutaneous cream"],
     "label_number": [28]
   },
   {
-    "name": ["Clobetasol Propionate/Neomycin Sulfate And Nystatin"],
+    "name": ["Clobetasol Propionate/Neomycin Sulfate/Nystatin"],
     "formulation": ["Cutaneous ointment"],
     "label_number": [28]
   },
@@ -1105,7 +1105,7 @@
     "label_number": [28]
   },
   {
-    "name": ["Clobetasone Butyrate/Nystatin And Oxytetracycline"],
+    "name": ["Clobetasone Butyrate/Nystatin/Oxytetracycline"],
     "formulation": ["Cutaneous cream"],
     "label_number": [28]
   },
@@ -1405,7 +1405,7 @@
     "label_number": [21]
   },
   {
-    "name": ["Darunavir/Cobicistat, Emtricitabine And Tenofovir Alafenamide"],
+    "name": ["Darunavir/Cobicistat/Emtricitabine/Tenofovir Alafenamide"],
     "formulation": ["Oral tablet"],
     "label_number": [21]
   },
@@ -1610,7 +1610,7 @@
     "label_number": [25]
   },
   {
-    "name": ["Disodium Hydrogen Citrate/Glucose Potassium Chloride And Sodium Chloride"],
+    "name": ["Disodium Hydrogen Citrate/Glucose Potassium Chloride/Sodium Chloride"],
     "formulation": ["Powder for oral solution"],
     "label_number": [13]
   },
@@ -1630,7 +1630,7 @@
     "label_number": [28]
   },
   {
-    "name": ["Dithranol/Salicylic Acid And Zinc Oxide"],
+    "name": ["Dithranol/Salicylic Acid/Zinc Oxide"],
     "formulation": ["Paste"],
     "label_number": [28]
   },
@@ -1730,7 +1730,7 @@
     "label_number": [23]
   },
   {
-    "name": ["Efavirenz/Emtricitabine And Tenofovir Disoproxil"],
+    "name": ["Efavirenz/Emtricitabine/Tenofovir Disoproxil"],
     "formulation": ["Oral tablet"],
     "label_number": [23, 25]
   },
@@ -1760,12 +1760,12 @@
     "label_number": [13]
   },
   {
-    "name": ["Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide"],
+    "name": ["Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide"],
     "formulation": ["Oral tablet"],
     "label_number": [21]
   },
   {
-    "name": ["Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil"],
+    "name": ["Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil"],
     "formulation": ["Oral tablet"],
     "label_number": [21]
   },
@@ -1905,12 +1905,12 @@
     "label_number": [21]
   },
   {
-    "name": ["Emtricitabine/Rilpivirine And Tenofovir Alafenamide"],
+    "name": ["Emtricitabine/Rilpivirine/Tenofovir Alafenamide"],
     "formulation": ["Oral tablet"],
     "label_number": [3, 21]
   },
   {
-    "name": ["Emtricitabine/Rilpivirine And Tenofovir Disoproxil"],
+    "name": ["Emtricitabine/Rilpivirine/Tenofovir Disoproxil"],
     "formulation": ["Oral tablet"],
     "label_number": [21, 25]
   },
@@ -2305,7 +2305,7 @@
     "label_number": [8, 10]
   },
   {
-    "name": ["Fluticasone/Umeclidinium And Vilanterol"],
+    "name": ["Fluticasone/Umeclidinium/Vilanterol"],
     "formulation": ["Inhalation powder"],
     "label_number": [8, 10]
   },
@@ -2320,7 +2320,7 @@
     "label_number": [25]
   },
   {
-    "name": ["Formoterol Fumarate/Glycopyrronium And Budesonide"],
+    "name": ["Formoterol Fumarate/Glycopyrronium/Budesonide"],
     "formulation": ["Pressurised inhalation"],
     "label_number": [8, 10]
   },
@@ -2510,17 +2510,17 @@
     "label_number": [15, 28]
   },
   {
-    "name": ["Hydrocortisone/Benzalkonium Chloride Dimeticone And Nystatin"],
+    "name": ["Hydrocortisone/Benzalkonium Chloride/Dimeticone/Nystatin"],
     "formulation": ["Cutaneous cream"],
     "label_number": [28]
   },
   {
-    "name": ["Hydrocortisone/Chlorhexidine  And Nystatin"],
+    "name": ["Hydrocortisone/Chlorhexidine/Nystatin"],
     "formulation": ["Cutaneous cream"],
     "label_number": [28]
   },
   {
-    "name": ["Hydrocortisone/Chlorhexidine  And Nystatin"],
+    "name": ["Hydrocortisone/Chlorhexidine/Nystatin"],
     "formulation": ["Cutaneous ointment"],
     "label_number": [28]
   },
@@ -2765,7 +2765,7 @@
     "label_number": [25]
   },
   {
-    "name": ["Ivacaftor/Tezacaftor And Elexacaftor"],
+    "name": ["Ivacaftor/Tezacaftor/Elexacaftor"],
     "formulation": ["Oral tablet"],
     "label_number": [25]
   },
@@ -2820,7 +2820,7 @@
     "label_number": [8]
   },
   {
-    "name": ["Lamivudine/Tenofovir Disoproxil And Doravirine"],
+    "name": ["Lamivudine/Tenofovir Disoproxil/Doravirine"],
     "formulation": ["Oral tablet"],
     "label_number": [3, 25]
   },
@@ -2915,12 +2915,12 @@
     "label_number": [3, 8]
   },
   {
-    "name": ["Levodopa/Carbidopa And Entacapone"],
+    "name": ["Levodopa/Carbidopa/Entacapone"],
     "formulation": ["Oral tablet"],
     "label_number": [10, 14]
   },
   {
-    "name": ["Levodopa/Carbidopa And Entacapone"],
+    "name": ["Levodopa/Carbidopa/Entacapone"],
     "formulation": ["Intestinal gel"],
     "label_number": [10, 14]
   },
@@ -3040,22 +3040,22 @@
     "label_number": [25]
   },
   {
-    "name": ["Macrogol 3350"],
+    "name": ["Transisoft"],
     "formulation": ["Powder for oral solution"],
     "label_number": [13]
   },
   {
-    "name": ["Macrogol 3350/Anhydrous Sodium Sulfate Ascorbic Acid Potassium Chloride Sodium Ascorbate And Sodium Chloride"],
+    "name": ["Macrogol"],
     "formulation": ["Form unstated"],
     "label_number": [10, 13]
   },
   {
-    "name": ["Macrogol 3350/Potassium Chloride Sodium Bicarbonate And Sodium Chloride"],
+    "name": ["Macrogol"],
     "formulation": ["Oral solution"],
     "label_number": [13]
   },
   {
-    "name": ["Macrogol 3350/Potassium Chloride Sodium Bicarbonate And Sodium Chloride"],
+    "name": ["Macrogol"],
     "formulation": ["Powder for oral solution"],
     "label_number": [10, 13]
   },
@@ -3065,7 +3065,7 @@
     "label_number": [10, 13]
   },
   {
-    "name": ["Mebeverine "],
+    "name": ["Mebeverine"],
     "formulation": ["Modified release capsule"],
     "label_number": [25]
   },

@@ -2092,7 +2092,7 @@
     "aliases": ["efavirenz", "sustiva"]
   },
   {
-    "name": "Efavirenz/Emtricitabine/Tenofovir",
+    "name": "Efavirenz/Emtricitabine/Tenofovir Disoproxil",
     "aliases": ["efavirenz/emtricitabine/tenofovir", "atripla"]
   },
   {
@@ -3876,9 +3876,13 @@
     "aliases": ["macitentan", "opsumit"]
   },
   {
-    "name": "Macrogol",
-    "aliases": ["macrogol", "movicol", "laxido", "cosmocol", "molaxole", "macilax", "polyethylene glycol with elect"]
+    "name": "Macrogol 3350",
+    "aliases": ["macrogol", "Macrogol 3350", "movicol", "laxido", "cosmocol", "molaxole", "macilax", "polyethylene glycol with elect", "moviprep", "Prepu"]
   },
+{
+  "name": "Transisoft",
+  "aliases": ["transisoft"]
+},
   {
     "name": "Magnesium",
     "aliases": ["magnesium aspartate", "magnesium glycerophosphate", "magnesium sulphate", "magnesium trisilicate", "magnaspartate", "magnesiocard", "magnophate"]
@@ -5808,8 +5812,8 @@
     "aliases": ["streptokinase", "streptase"]
   },
   {
-    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil",
-    "aliases": ["stribild", "elvitegravir/cobicistat/emtricitabine/tenofovir disoproxil", "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil"]
+    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil",
+    "aliases": ["stribild", "elvitegravir/cobicistat/emtricitabine/tenofovir disoproxil", "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil"]
   },
   {
     "name": "Strontium",
@@ -5884,8 +5888,8 @@
     "aliases": ["symbicort", "budesonide/formoterol"]
   },
   {
-    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide",
-    "aliases": ["symtuza", "elvitegravir/cobicistat/emtricitabine/tenofovir", "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide"]
+    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide",
+    "aliases": ["elvitegravir/cobicistat/emtricitabine/tenofovir", "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide"]
   },
   {
     "name": "Syntometrine",
@@ -6541,7 +6545,7 @@
   },
   {
     "name": "Vosevi",
-    "aliases": ["vosevi", "sofosbuvir/velpatasvir/voxilaprevir"]
+    "aliases": ["vosevi", "sofosbuvir/velpatasvir/voxilaprevir", "Sofosbuvir/Velpatasvir And Voxilaprevir"]
   },
   {
     "name": "VSL#3",
@@ -6748,7 +6752,7 @@
     "aliases": ["balsalazide sodium", "balsalazide", "colazide"]
   },
   {
-    "name": "Beclometasone/Formoterol And Glycopyrronium",
+    "name": "Beclometasone/Formoterol/Glycopyrronium",
     "aliases": ["beclometasone/formoterol and glycopyrronium", "beclometasone/formoterol/glycopyrronium", "trimbow", "Formoterol Fumarate/Glycopyrronium And Budesonide", "Formoterol Fumarate/Glycopyrronium/Budesonide"]
   },
   {
@@ -6888,11 +6892,11 @@
     "aliases": ["elacestrant", "orserdu"]
   },
   {
-    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide",
+    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide",
     "aliases": ["elvitegravir/cobicistat, emtricitabine and tenofovir alafenamide", "elvitegravir/cobicistat emtricitabine/tenofovir alafenamide", "genvoya"]
   },
   {
-    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil",
+    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil",
     "aliases": ["elvitegravir/cobicistat, emtricitabine and tenofovir disoproxil", "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil", "stribild"]
   },
   {

@@ -1,0 +1,238 @@
+[
+  {
+    "name": "Acebutolol",
+    "aliases": ["acebutolol", "sectral"]
+  },
+  {
+    "name": "Aceclofenac",
+    "aliases": ["aceclofenac", "preservex"]
+  },
+  {
+    "name": "Acetazolamide",
+    "aliases": ["acetazolamide", "diamox"]
+  },
+  {
+    "name": "Acipimox",
+    "aliases": ["acipimox", "olbetam"]
+  },
+  {
+    "name": "Adapalene/Benzoyl Peroxide",
+    "aliases": ["adapalene/benzoyl peroxide", "epiduo"]
+  },
+  {
+    "name": "Alfuzosin",
+    "aliases": ["alfuzosin", "xatral", "besavar"]
+  },
+  {
+    "name": "Alogliptin/Metformin",
+    "aliases": ["alogliptin/metformin", "vipdomet"]
+  },
+  {
+    "name": "Alprazolam",
+    "aliases": ["alprazolam", "xanax"]
+  },
+  {
+    "name": "Aminosalicylic Acid",
+    "aliases": ["aminosalicylic acid", "granupas"]
+  },
+  {
+    "name": "Ampicillin",
+    "aliases": ["ampicillin", "penbritin"]
+  },
+  {
+    "name": "Artemether/Lumefantrine",
+    "aliases": ["artemether/lumefantrine", "riamet"]
+  },
+  {
+    "name": "Avapritinib",
+    "aliases": ["avapritinib", "ayvakyt"]
+  },
+  {
+    "name": "Balsalazide Sodium",
+    "aliases": ["balsalazide sodium", "balsalazide", "colazide"]
+  },
+  {
+    "name": "Beclometasone/Formoterol And Glycopyrronium",
+    "aliases": ["beclometasone/formoterol and glycopyrronium", "trimbow"]
+  },
+  {
+    "name": "Belumosudil",
+    "aliases": ["belumosudil", "rezurock"]
+  },
+  {
+    "name": "Bethanechol Chloride",
+    "aliases": ["bethanechol chloride", "bethanechol", "myotonine"]
+  },
+  {
+    "name": "Bilastine",
+    "aliases": ["bilastine", "ilaxten"]
+  },
+  {
+    "name": "Binimetinib",
+    "aliases": ["binimetinib", "mektovi"]
+  },
+  {
+    "name": "Bismuth Potassium/Metronidazole And Tetracycline",
+    "aliases": ["bismuth potassium/metronidazole and tetracycline", "pylera"]
+  },
+  {
+    "name": "Bismuth Subsalicylate",
+    "aliases": ["bismuth subsalicylate", "pepto-bismol"]
+  },
+  {
+    "name": "Brinzolamide/Brimonidine",
+    "aliases": ["brinzolamide/brimonidine", "simbrinza"]
+  },
+  {
+    "name": "Calamine/Zinc Oxide",
+    "aliases": ["calamine/zinc oxide", "calamine lotion"]
+  },
+  {
+    "name": "Calcium Acetate/Magnesium Carbonate",
+    "aliases": ["calcium acetate/magnesium carbonate", "osvaren"]
+  },
+  {
+    "name": "Calcium Carbonate/Calcium Lactate Gluconate",
+    "aliases": ["calcium carbonate/calcium lactate gluconate", "sandocal"]
+  },
+  {
+    "name": "Canagliflozin/Metformin",
+    "aliases": ["canagliflozin/metformin", "vokanamet"]
+  },
+  {
+    "name": "Cannabis Extract",
+    "aliases": ["cannabis extract", "sativex"]
+  },
+  {
+    "name": "Capivasertib",
+    "aliases": ["capivasertib", "truqap"]
+  },
+  {
+    "name": "Carglumic Acid",
+    "aliases": ["carglumic acid", "carbaglu"]
+  },
+  {
+    "name": "Cefaclor",
+    "aliases": ["cefaclor", "distaclor"]
+  },
+  {
+    "name": "Cefadroxil",
+    "aliases": ["cefadroxil", "baxan"]
+  },
+  {
+    "name": "Chlorhexidine Gluconate/Isopropyl Alcohol",
+    "aliases": ["chlorhexidine gluconate/isopropyl alcohol", "chloraprep"]
+  },
+  {
+    "name": "Cinnarizine/Dimenhydrinate",
+    "aliases": ["cinnarizine/dimenhydrinate", "arlevert"]
+  },
+  {
+    "name": "Citric Acid/Magnesium Carbonate",
+    "aliases": ["citric acid/magnesium carbonate", "kidney-caine"]
+  },
+  {
+    "name": "Citric Acid/Potassium Citrate",
+    "aliases": ["citric acid/potassium citrate", "cystopurin", "cymalon"]
+  },
+  {
+    "name": "Co Fluampicil",
+    "aliases": ["co fluampicil", "magnapen"]
+  },
+  {
+    "name": "Coal Tar/Salicylic Acid",
+    "aliases": ["coal tar/salicylic acid", "pragmatar"]
+  },
+  {
+    "name": "Coal Tar/Zinc Oxide",
+    "aliases": ["coal tar/zinc oxide", "carbo-dome"]
+  },
+  {
+    "name": "Danicopan",
+    "aliases": ["danicopan", "lampalizumab"]
+  },
+  {
+    "name": "Dapagliflozin/Metformin",
+    "aliases": ["dapagliflozin/metformin", "xigduo"]
+  },
+  {
+    "name": "Daridorexant",
+    "aliases": ["daridorexant", "quviviq"]
+  },
+  {
+    "name": "Decitabine/Cedazuridine",
+    "aliases": ["decitabine/cedazuridine", "inqovi"]
+  },
+  {
+    "name": "Delamanid",
+    "aliases": ["delamanid", "deltyba"]
+  },
+  {
+    "name": "Dexketoprofen",
+    "aliases": ["dexketoprofen", "keral", "ketesse"]
+  },
+  {
+    "name": "Diethyl Phthalate/Methyl Salicylate",
+    "aliases": ["diethyl phthalate/methyl salicylate", "muscular"]
+  },
+  {
+    "name": "Disodium Hydrogen Citrate/Glucose Potassium Chloride And Sodium Chloride",
+    "aliases": ["disodium hydrogen citrate/glucose potassium chloride and sodium chloride", "dioralyte"]
+  },
+  {
+    "name": "Dithranol/Salicylic Acid And Zinc Oxide",
+    "aliases": ["dithranol/salicylic acid and zinc oxide", "psorin"]
+  },
+  {
+    "name": "Doxylamine/Pyridoxine",
+    "aliases": ["doxylamine/pyridoxine", "xonvea"]
+  },
+  {
+    "name": "Elacestrant",
+    "aliases": ["elacestrant", "orserdu"]
+  },
+  {
+    "name": "Elvitegravir/Cobicistat Emtricitabine And Tenofovir Alafenamide",
+    "aliases": ["elvitegravir/cobicistat emtricitabine and tenofovir alafenamide", "genvoya"]
+  },
+  {
+    "name": "Elvitegravir/Cobicistat Emtricitabine And Tenofovir Disoproxil",
+    "aliases": ["elvitegravir/cobicistat emtricitabine and tenofovir disoproxil", "stribild"]
+  },
+  {
+    "name": "Empagliflozin/Metformin",
+    "aliases": ["empagliflozin/metformin", "synjardy"]
+  },
+  {
+    "name": "Emtricitabine/Rilpivirine And Tenofovir Alafenamide",
+    "aliases": ["emtricitabine/rilpivirine and tenofovir alafenamide", "odefsey"]
+  },
+  {
+    "name": "Emtricitabine/Rilpivirine And Tenofovir Disoproxil",
+    "aliases": ["emtricitabine/rilpivirine and tenofovir disoproxil", "eviplera"]
+  },
+  {
+    "name": "Erdafitinib",
+    "aliases": ["erdafitinib", "balversa"]
+  },
+  {
+    "name": "Fampridine",
+    "aliases": ["fampridine", "fampyra"]
+  },
+  {
+    "name": "Ferric Maltol",
+    "aliases": ["ferric maltol", "feraccru"]
+  },
+  {
+    "name": "Flurazepam",
+    "aliases": ["flurazepam", "dalmane"]
+  },
+  {
+    "name": "Formoterol Fumarate/Glycopyrronium And Budesonide",
+    "aliases": ["formoterol fumarate/glycopyrronium and budesonide", "trixeo"]
+  },
+  {
+    "name": "Fostemsavir",
+    "aliases": ["fostemsavir", "rukobia"]
+  }
+]
