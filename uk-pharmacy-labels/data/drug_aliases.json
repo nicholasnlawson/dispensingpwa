@@ -1445,7 +1445,7 @@
   },
   {
     "name": "Levodopa/Benserazide",
-    "aliases": ["levodopa/benserazide", "co-beneldopa", "madopar"]
+    "aliases": ["levodopa/benserazide", "co-beneldopa", "co beneldopa", "madopar"]
   },
   {
     "name": "Cobicistat",
@@ -1457,7 +1457,7 @@
   },
   {
     "name": "Levodopa/Carbodopa",
-    "aliases": ["levodopa/carbodopa", "co-careldopa", "duodopa", "sinemet", "caramet"]
+    "aliases": ["levodopa/carbodopa", "co-careldopa", "co careldopa", "duodopa", "sinemet", "caramet"]
   },
   {
     "name": "Cocois",
@@ -6824,8 +6824,8 @@
     "aliases": ["citric acid/potassium citrate", "cystopurin", "cymalon"]
   },
   {
-    "name": "Co Fluampicil",
-    "aliases": ["co fluampicil", "magnapen"]
+    "name": "Co-Fluampicil",
+    "aliases": ["co-fluampicil", "co fluampicil", "magnapen"]
   },
   {
     "name": "Coal Tar/Salicylic Acid",
