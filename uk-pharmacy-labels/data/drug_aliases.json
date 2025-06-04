@@ -1465,7 +1465,7 @@
   },
   {
     "name": "Codeine/Paracetamol",
-    "aliases": ["codeine phosphate with paracet", "codeine/phosphate/with/paracet", "codeine phosphate/paracetamol", "codeine/paracetamol", "codeine/paracet", "co-codamol", "solpadol", "zapain", "kapake", "tylex"]
+    "aliases": ["codeine phosphate with paracet", "codeine/phosphate/with/paracet", "codeine phosphate/paracetamol", "codeine/paracetamol", "codeine/paracet", "co-codamol", "solpadol", "zapain", "kapake", "tylex", "migraleve yellow"]
   },
   {
     "name": "Dantron/Poloxamer",
@@ -4132,10 +4132,6 @@
     "aliases": ["mifepristone", "mifegyne"]
   },
   {
-    "name": "Migraleve",
-    "aliases": ["migraleve pink", "migraleve duopack"]
-  },
-  {
     "name": "Millinette",
     "aliases": ["millinette"]
   },
@@ -6532,10 +6528,6 @@
     "aliases": ["von willebrand factor", "wilfactin", "wilstart"]
   },
   {
-    "name": "Voractiv",
-    "aliases": ["voractiv"]
-  },
-  {
     "name": "Voriconazole",
     "aliases": ["voriconazole", "vfend"]
   },
@@ -6934,5 +6926,249 @@
   {
     "name": "Fostemsavir",
     "aliases": ["fostemsavir", "rukobia"]
+  },
+  {
+    "name": "Deflazacort",
+    "aliases": ["deflazacort", "calcort"]
+  },
+  {
+    "name": "Idebenone",
+    "aliases": ["idebenone", "raxone"]
+  },
+  {
+    "name": "Inosine Pranobex",
+    "aliases": ["inosine pranobex", "imunovir"]
+  },
+  {
+    "name": "Insulin Glargine/Lixisenatide",
+    "aliases": ["insulin glargine/lixisenatide", "suliqua"]
+  },
+  {
+    "name": "Iptacopan",
+    "aliases": ["iptacopan", "fabhalta"]
+  },
+  {
+    "name": "Isocarboxazid",
+    "aliases": ["isocarboxazid"]
+  },
+  {
+    "name": "Isoniazid/Rifampicin",
+    "aliases": ["isoniazid/rifampicin", "rifinah"]
+  },
+  {
+    "name": "Ivacaftor",
+    "aliases": ["ivacaftor", "kalydeco"]
+  },
+  {
+    "name": "Ivacaftor/Tezacaftor/Elexacaftor",
+    "aliases": ["ivacaftor/tezacaftor/elexacaftor", "kaftrio"]
+  },
+  {
+    "name": "Lamivudine/Tenofovir Disoproxil/Doravirine",
+    "aliases": ["lamivudine/tenofovir disoproxil/doravirine", "delstrigo"]
+  },
+  {
+    "name": "Letermovir",
+    "aliases": ["letermovir", "prevymis"]
+  },
+  {
+    "name": "Lidocaine/Chlorhexidine",
+    "aliases": ["lidocaine/chlorhexidine", "instillagel"]
+  },
+  {
+    "name": "Lumacaftor/Ivacaftor",
+    "aliases": ["lumacaftor/ivacaftor", "orkambi"]
+  },
+  {
+    "name": "Magnesium Citrate/Sodium Picosulfate",
+    "aliases": ["magnesium citrate/sodium picosulfate", "citrafleet", "picolax", "picoprep"]
+  },
+  {
+    "name": "Mebeverine/Ispaghula Husk",
+    "aliases": ["mebeverine/ispaghula husk", "fybogel mebeverine"]
+  },
+  {
+    "name": "Mefloquine",
+    "aliases": ["mefloquine", "lariam"]
+  },
+  {
+    "name": "Mepolizumab",
+    "aliases": ["mepolizumab", "nucala"]
+  },
+  {
+    "name": "Migalastat",
+    "aliases": ["migalastat", "galafold"]
+  },
+  {
+    "name": "Nadolol",
+    "aliases": ["nadolol", "corgard"]
+  },
+  {
+    "name": "Nalmefene",
+    "aliases": ["nalmefene", "selincro"]
+  },
+  {
+    "name": "Naltrexone/Bupropion",
+    "aliases": ["naltrexone/bupropion", "mysimba"]
+  },
+  {
+    "name": "Naproxen/Esomeprazole",
+    "aliases": ["naproxen/esomeprazole", "vimovo"]
+  },
+  {
+    "name": "Nevirapine",
+    "aliases": ["nevirapine", "viramune"]
+  },
+  {
+    "name": "Nirmatrelvir/Ritonavir",
+    "aliases": ["nirmatrelvir/ritonavir", "paxlovid"]
+  },
+  {
+    "name": "Nitisinone",
+    "aliases": ["nitisinone", "orfadin", "nityr"]
+  },
+  {
+    "name": "Olaparib",
+    "aliases": ["olaparib", "lynparza"]
+  },
+  {
+    "name": "Olsalazine Sodium",
+    "aliases": ["olsalazine sodium", "olsalazine", "dipentum"]
+  },
+  {
+    "name": "Omega 3 Acid Ethyl Esters",
+    "aliases": ["omega 3 acid ethyl esters", "omacor", "omega-3"]
+  },
+  {
+    "name": "Opium",
+    "aliases": ["opium"]
+  },
+  {
+    "name": "Ospemifene",
+    "aliases": ["ospemifene", "senshio"]
+  },
+  {
+    "name": "Paracetamol/Buclizine/Codeine",
+    "aliases": ["paracetamol/buclizine/codeine", "migraleve pink", "migraleve duopack"]
+  },
+  {
+    "name": "Paracetamol/Isometheptene",
+    "aliases": ["paracetamol/isometheptene", "midrid"]
+  },
+  {
+    "name": "Peanut Protein",
+    "aliases": ["peanut protein", "palforzia"]
+  },
+  {
+    "name": "Pemigatinib",
+    "aliases": ["pemigatinib", "pemazyre"]
+  },
+  {
+    "name": "Pentazocine",
+    "aliases": ["pentazocine", "fortral"]
+  },
+  {
+    "name": "Perindopril Arginine",
+    "aliases": ["perindopril arginine", "coversyl arginine"]
+  },
+  {
+    "name": "Perindopril Arginine/Indapamide",
+    "aliases": ["perindopril arginine/indapamide", "coversyl plus arginine"]
+  },
+  {
+    "name": "Perindopril Erbumine",
+    "aliases": ["perindopril erbumine", "perindopril"]
+  },
+  {
+    "name": "Pioglitazone/Metformin",
+    "aliases": ["pioglitazone/metformin", "competact"]
+  },
+  {
+    "name": "Potassium Aminobenzoate",
+    "aliases": ["potassium aminobenzoate", "potaba"]
+  },
+  {
+    "name": "Potassium Chloride/Rice Powder/Sodium Chloride/Sodium Citrate",
+    "aliases": ["potassium chloride/rice powder/sodium chloride/sodium citrate", "dioralyte relief"]
+  },
+  {
+    "name": "Potassium Citrate/Potassium Bicarbonate",
+    "aliases": ["potassium citrate/potassium bicarbonate", "effercitrate"]
+  },
+  {
+    "name": "Rifampicin/Ethambutol/Isoniazid/Pyrazinamide",
+    "aliases": ["rifampicin/ethambutol/isoniazid/pyrazinamide", "voractiv"]
+  },
+  {
+    "name": "Rifampicin/Isoniazid/Pyrazinamide",
+    "aliases": ["rifampicin/isoniazid/pyrazinamide", "rifater"]
+  },
+  {
+    "name": "Ripretinib",
+    "aliases": ["ripretinib", "qinlock"]
+  },
+  {
+    "name": "Risdiplam",
+    "aliases": ["risdiplam", "evrysdi"]
+  },
+  {
+    "name": "Senna/Ispaghula Husk",
+    "aliases": ["senna/ispaghula husk", "manevac"]
+  },
+  {
+    "name": "Sodium Acid Phosphate/Sodium Phosphate",
+    "aliases": ["sodium acid phosphate/sodium phosphate", "phosphates enema", "fleet"]
+  },
+  {
+    "name": "Sodium Clodronate",
+    "aliases": ["sodium clodronate", "bonefos", "clasteon", "loron"]
+  },
+  {
+    "name": "Sodium Cromoglicate",
+    "aliases": ["sodium cromoglicate", "intal", "nalcrom", "opticrom", "vividrin"]
+  },
+  {
+    "name": "Tamsulosin/Dutasteride",
+    "aliases": ["tamsulosin/dutasteride", "combodart"]
+  },
+  {
+    "name": "Tezacaftor/Ivacaftor",
+    "aliases": ["tezacaftor/ivacaftor", "symkevi"]
+  },
+  {
+    "name": "Tiaprofenic Acid",
+    "aliases": ["tiaprofenic acid", "surgam"]
+  },
+  {
+    "name": "Tolfenamic Acid",
+    "aliases": ["tolfenamic acid", "clotam"]
+  },
+  {
+    "name": "Tramadol/Dexketoprofen",
+    "aliases": ["tramadol/dexketoprofen", "skudexa"]
+  },
+  {
+    "name": "Tree Pollen Extract",
+    "aliases": ["tree pollen extract", "itulazax"]
+  },
+  {
+    "name": "Tretinoin/Clindamycin",
+    "aliases": ["tretinoin/clindamycin", "treclin"]
+  },
+  {
+    "name": "Tretinoin/Erythromycin",
+    "aliases": ["tretinoin/erythromycin", "aknemycin plus"]
+  },
+  {
+    "name": "Triamterene/Chlortalidone",
+    "aliases": ["triamterene/chlortalidone", "kalspare"]
+  },
+  {
+    "name": "Typhoid Vaccine Live",
+    "aliases": ["typhoid vaccine live", "vivotif"]
+  },
+  {
+    "name": "Vericiguat",
+    "aliases": ["vericiguat", "verquvo"]
   }
 ]
