@@ -445,22 +445,39 @@ const MedicationManager = {
      */
     findWarningLabels(medicationName, formulation) {
         // Normalize inputs
-        const normalizedMed = medicationName.toLowerCase();
-        const normalizedForm = formulation.toLowerCase();
+        const normalizedMed = medicationName.toLowerCase().trim();
+        const normalizedForm = formulation.toLowerCase().trim();
         
         // Get standardized medication name and formulation
         const standardizedMed = this.standardizeMedicationName(normalizedMed);
         const standardizedForm = this.standardizeFormulation(normalizedForm);
+
+        // Find all possible medication names that could match (including all aliases)
+        const possibleMedNames = [normalizedMed, standardizedMed];
+        
+        // Add all aliases for the medication
+        for (const med of this.medications) {
+            const mainMedName = med.name.toLowerCase().trim();
+            const aliases = med.aliases.map(alias => alias.toLowerCase().trim());
+            
+            // If the input is the main medication name or any of its aliases,
+            // include the main medication name and all its aliases as possible matches
+            if (mainMedName === normalizedMed || mainMedName === standardizedMed || 
+                aliases.includes(normalizedMed) || aliases.includes(standardizedMed)) {
+                possibleMedNames.push(mainMedName, ...aliases);
+                break;
+            }
+        }
         
         // Find matching medication in warnings
         for (const med of this.medicationWarnings) {
             // Check if medication name matches
-            const medNames = med.name.map(name => name.toLowerCase());
+            const medNames = med.name.map(name => name.toLowerCase().trim());
             
-            // Determine if there's a medication match using standard names
+            // Determine if there's a medication match using standard names and aliases
             const isMedMatch = medNames.some(name => {
-                // For exact matches, return true
-                if (name === normalizedMed || name === standardizedMed) {
+                // Check against all possible medication names including aliases
+                if (possibleMedNames.includes(name)) {
                     return true;
                 }
                 
@@ -469,35 +486,31 @@ const MedicationManager = {
                     // If this is a combination drug with a slash
                     const nameParts = name.split('/');
                     
-                    // If searching for a single drug, it should NOT match a combination
+                    // If searching for a single drug, check if it matches any part of the combination
+                    // This is a change from the original approach to better support alias matching
                     if (!normalizedMed.includes('/') && !standardizedMed.includes('/')) {
-                        return false;
+                        return nameParts.some(part => possibleMedNames.includes(part.trim()));
                     }
                     
-                    // For a combo drug search term, check if all parts match
-                    const searchTerms = normalizedMed.includes('/') ? 
-                        normalizedMed.split('/') : standardizedMed.split('/');
+                    // For a combo drug search term, check parts matching
+                    const searchTerms = possibleMedNames.filter(term => term.includes('/')).flatMap(term => term.split('/').map(part => part.trim()));
+                    if (searchTerms.length === 0) {
+                        // If no combo terms in possibleMedNames, use the original inputs
+                        const inputSearchTerms = normalizedMed.includes('/') ? normalizedMed.split('/') : standardizedMed.split('/');
+                        searchTerms.push(...inputSearchTerms.map(term => term.trim()));
+                    }
                     
-                    // Both parts should match in either order
-                    const allPartsMatch = nameParts.every(part => 
-                        searchTerms.some(term => 
-                            term.trim() === part.trim() ||
-                            this.standardizeMedicationName(term.trim()) === part.trim() ||
-                            term.trim() === this.standardizeMedicationName(part.trim())
-                        )
+                    // Check if parts match (more flexible matching for aliases)
+                    const matchingParts = nameParts.filter(part => 
+                        searchTerms.some(term => term === part.trim() || possibleMedNames.includes(part.trim()))
                     );
                     
-                    return allPartsMatch;
+                    return matchingParts.length > 0;
                 }
                 
-                // Try to match based on standardized names
-                const standardizedName = this.standardizeMedicationName(name);
-                
-                // Check if any of the standardized names match
-                return name === standardizedMed || 
-                       standardizedName === standardizedMed || 
-                       name === normalizedMed || 
-                       standardizedName === normalizedMed;
+                // Check standardized versions of the warning medication name
+                const standardizedWarningName = this.standardizeMedicationName(name);
+                return possibleMedNames.includes(standardizedWarningName);
             });
             
             if (!isMedMatch) {
@@ -505,7 +518,7 @@ const MedicationManager = {
             }
             
             // Check if formulation matches (using both original and standardized forms)
-            const formulations = med.formulation.map(form => form.toLowerCase());
+            const formulations = med.formulation.map(form => form.toLowerCase().trim());
             if (!formulations.some(form => 
                 normalizedForm.includes(form) || 
                 form.includes(normalizedForm) ||
