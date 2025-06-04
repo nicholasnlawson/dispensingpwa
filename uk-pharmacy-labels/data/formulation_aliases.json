@@ -17,7 +17,7 @@
       "inhal powder", "powder inhaler", "pwd inhaler", 
       "dry powder for inhalation", "dry pwd for inhal"
     ],
-    "aerosol_inhalers": [
+    "pMDI": [
       "mdi", "m.d.i.", "m/d/i", "pmdi", "p.m.d.i.", "p/m/d/i", 
       "pressurized inhaler", "pressurised inhaler", "metered dose inhaler", 
       "aerosol inhaler", "pressurized metered dose inhaler", "pressurised metered dose inhaler", 
@@ -32,7 +32,7 @@
       "soft mist", "soft-mist", "smi", "s.m.i.", "s/m/i",
       "inhalation solution cartridge with device"
     ],
-    "nebulizers": [
+    "nebules": [
       "nebulizer solution", "nebuliser solution", "nebuliser liquid", 
       "nebulizer liquid", "neb solution", "nebulization solution", 
       "nebulisation solution", "respules", "solution for nebulisation", 
@@ -43,10 +43,10 @@
       "pwd for nebulisation", "neb", "nebs", "nebules", "nebule",
       "nebuliser liquid"
     ],
-    "generic_inhaler_terms": [
+    "inhalers": [
       "inhaler", "inhaled", "puffer", "inhaler device"
     ],
-    "oral_liquids": [
+    "liquids": [
       "concentrated oral solution", "concentrate for oral solution", 
       "oral concentrate", "conc oral soln", "concentrated soln", 
       "conc soln", "oral solution", "oral soln", "oral soln.", "solution for oral use", 
@@ -62,12 +62,12 @@
       "liquid emulsion", "emuls", "oromucosal gel", "oromucosal solution",
       "powder for oral or rectal suspension"
     ],
-    "oral_drops": [
+    "drops": [
       "oral drops", "oral liquid drops", "drops for oral use", 
       "oral use drops", "concentrate drops", "oral drops emulsion", 
       "drops", "liquid drops", "dropper bottle", "drop", "oral drop"
     ],
-    "oral_tablets": [
+    "tablets": [
       "tablet", "tab", "tabs", "tablets", "oral tablets", "oral tablet", "caplet", "caplets",
       "film coated tablet", "film-coated tablet", "film coated tablets", 
       "film-coated tablets", "fc tablet", "f/c tablet", "f.c. tablet", 
@@ -152,7 +152,7 @@
       "oral lyophilisate", "lozenge", "granules for oral solution",
       "effervescent powder", "effervescent granules", "granules for oral suspension"
     ],
-    "oral_sprays": [
+    "sprays": [
       "sublingual spray", "s/l spray", "sl spray", "sub-lingual spray", 
       "oral spray for sublingual use", "spray for sublingual use", 
       "sublingual oral spray", "under tongue spray", 

@@ -391,6 +391,33 @@ const MedicationManager = {
     },
     
     /**
+     * Standardize medication name based on drug aliases
+     * @param {string} medicationName - Medication name to standardize
+     * @returns {string} - Standardized medication name
+     */
+    standardizeMedicationName(medicationName) {
+        if (!medicationName) return '';
+        
+        const normalizedMed = medicationName.toLowerCase().trim();
+        
+        // Early return if empty
+        if (normalizedMed === '') return normalizedMed;
+        
+        // Find the medication entry that contains this as an alias
+        for (const med of this.medications) {
+            const aliases = med.aliases.map(alias => alias.toLowerCase().trim());
+            
+            // If this exact name is in aliases or is the main name
+            if (aliases.includes(normalizedMed) || med.name.toLowerCase().trim() === normalizedMed) {
+                return med.name.toLowerCase().trim();
+            }
+        }
+        
+        // If no match was found, return the original
+        return normalizedMed;
+    },
+    
+    /**
      * Find warning label numbers for a medication and formulation
      * @param {string} medicationName - Medication name
      * @param {string} formulation - Medication formulation
@@ -401,14 +428,59 @@ const MedicationManager = {
         const normalizedMed = medicationName.toLowerCase();
         const normalizedForm = formulation.toLowerCase();
         
-        // Get standardized formulation to handle aliases
+        // Get standardized medication name and formulation
+        const standardizedMed = this.standardizeMedicationName(normalizedMed);
         const standardizedForm = this.standardizeFormulation(normalizedForm);
         
         // Find matching medication in warnings
         for (const med of this.medicationWarnings) {
             // Check if medication name matches
             const medNames = med.name.map(name => name.toLowerCase());
-            if (!medNames.some(name => normalizedMed.includes(name) || name.includes(normalizedMed))) {
+            
+            // Determine if there's a medication match using standard names
+            const isMedMatch = medNames.some(name => {
+                // For exact matches, return true
+                if (name === normalizedMed || name === standardizedMed) {
+                    return true;
+                }
+                
+                // Special handling for combination drugs with slashes
+                if (name.includes('/')) {
+                    // If this is a combination drug with a slash
+                    const nameParts = name.split('/');
+                    
+                    // If searching for a single drug, it should NOT match a combination
+                    if (!normalizedMed.includes('/') && !standardizedMed.includes('/')) {
+                        return false;
+                    }
+                    
+                    // For a combo drug search term, check if all parts match
+                    const searchTerms = normalizedMed.includes('/') ? 
+                        normalizedMed.split('/') : standardizedMed.split('/');
+                    
+                    // Both parts should match in either order
+                    const allPartsMatch = nameParts.every(part => 
+                        searchTerms.some(term => 
+                            term.trim() === part.trim() ||
+                            this.standardizeMedicationName(term.trim()) === part.trim() ||
+                            term.trim() === this.standardizeMedicationName(part.trim())
+                        )
+                    );
+                    
+                    return allPartsMatch;
+                }
+                
+                // Try to match based on standardized names
+                const standardizedName = this.standardizeMedicationName(name);
+                
+                // Check if any of the standardized names match
+                return name === standardizedMed || 
+                       standardizedName === standardizedMed || 
+                       name === normalizedMed || 
+                       standardizedName === normalizedMed;
+            });
+            
+            if (!isMedMatch) {
                 continue;
             }
             

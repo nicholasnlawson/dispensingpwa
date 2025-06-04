@@ -623,7 +623,7 @@ button[type="reset"]:hover {
     .print-label .initials-boxes {
         position: absolute !important;
         top: 2mm !important;
-        right: 2mm !important;
+        right: 0.5mm !important; /* Moved further to the right */
         display: flex !important;
         gap: 1mm !important;
         z-index: 10 !important;
@@ -631,8 +631,8 @@ button[type="reset"]:hover {
     }
     
     .print-label .initials-box {
-        width: 4mm !important;
-        height: 4mm !important;
+        width: 3.5mm !important; /* Reduced width */
+        height: 3.5mm !important; /* Reduced height */
         border: 0.5pt solid #000 !important;
         font-size: 0 !important; /* Hide the text */
         background-color: white !important;
@@ -682,6 +682,14 @@ button[type="reset"]:hover {
         overflow: hidden !important;
     }
     
+    .print-label .medication .med-name.single-line {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 61mm !important; /* Expanded to use more space */
+        padding-right: 8mm !important; /* Add padding to avoid text running under the initials boxes */
+    }
+    
     .print-label .dosage-instructions {
         font-size: 8.5pt !important;  /* Increased from 8pt */
         font-weight: bold !important;
@@ -715,22 +723,33 @@ button[type="reset"]:hover {
     
     .print-label .content-wrapper .additional-info {
         font-size: 5.5pt !important;
-        margin: 1pt 0 !important;
-        line-height: 1.1 !important;
+        margin: 0.5pt 0 !important;
+        line-height: 1.0 !important;
         font-weight: normal !important;
+        width: 100% !important;
+        text-align: left !important;
+        word-spacing: 0.08em !important;
+        letter-spacing: 0.01em !important;
+        white-space: normal !important;
     }
     
     .print-label .additional-info {
         font-size: 5.5pt !important;
-        margin: 1pt 0 !important;
-        line-height: 1.1 !important;
+        margin: 0.5pt 0 !important;
+        line-height: 1.0 !important;
         flex-grow: 1 !important;
+        width: 100% !important;
+        text-align: left !important;
+        word-spacing: 0.08em !important;
+        letter-spacing: 0.01em !important;
+        white-space: normal !important;
+        display: block !important;
     }
     
     .print-label .warning {
         font-size: 5.5pt !important;
-        margin: 1pt 0 !important;
-        line-height: 1.1 !important;
+        margin: 0.5pt 0 !important;
+        line-height: 1.0 !important;
         color: var(--nhs-red) !important;
     }
     
