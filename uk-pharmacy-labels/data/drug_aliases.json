@@ -1485,7 +1485,7 @@
   },
   {
     "name": "Colecalciferol",
-    "aliases": ["colecalciferol", "vitamin d3", "fultium", "strivit", "invita d3", "thorens", "stexerol"]
+    "aliases": ["colecalciferol", "vitamin d3", "vit d3", "vit d 3", "vit-d3", "fultium", "strivit", "invita d3", "thorens", "stexerol"]
   },
   {
     "name": "Colestipol",
@@ -2137,7 +2137,11 @@
   },
   {
     "name": "Emtricitabine/Tenofovir",
-    "aliases": ["emtricitabine/tenofovir", "truvada", "descovy"]
+    "aliases": ["Emtricitabine/Tenofovir Disoproxil", "truvada"]
+  },
+    {
+    "name": "Emtricitabine/Tenofovir Alafenamide",
+    "aliases": ["emtricitabine/tenofovir alafenamide", "descovy"]
   },
   {
     "name": "Emulsifying Ointment",
@@ -5804,8 +5808,8 @@
     "aliases": ["streptokinase", "streptase"]
   },
   {
-    "name": "Stribild",
-    "aliases": ["stribild", "elvitegravir/cobicistat/emtricitabine/tenofovir"]
+    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil",
+    "aliases": ["stribild", "elvitegravir/cobicistat/emtricitabine/tenofovir disoproxil", "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil"]
   },
   {
     "name": "Strontium",
@@ -5880,8 +5884,8 @@
     "aliases": ["symbicort", "budesonide/formoterol"]
   },
   {
-    "name": "Symtuza",
-    "aliases": ["symtuza", "darunavir/cobicistat/emtricitabine/tenofovir"]
+    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide",
+    "aliases": ["symtuza", "elvitegravir/cobicistat/emtricitabine/tenofovir", "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide"]
   },
   {
     "name": "Syntometrine",
@@ -5988,8 +5992,12 @@
     "aliases": ["tenecteplase", "metalyse"]
   },
   {
-    "name": "Tenofovir",
-    "aliases": ["tenofovir alafenamide", "tenofovir disoproxil", "viread"]
+    "name": "Tenofovir disoproxil",
+    "aliases": ["tenofovir disoproxil", "viread"]
+  },
+  {
+    "name": "Tenofovir alafenamide",
+    "aliases": ["tenofovir alafenamide", "vemlidy"]
   },
   {
     "name": "Tepotinib",
@@ -6233,7 +6241,7 @@
   },
   {
     "name": "Trelegy",
-    "aliases": ["trelegy", "trelegy ellipta", "fluticasone/umeclidinium/vilanterol"]
+    "aliases": ["trelegy", "trelegy ellipta", "fluticasone/umeclidinium/vilanterol", "Fluticasone/Umeclidinium And Vilanterol"]
   },
   {
     "name": "Tretinoin",
@@ -6880,12 +6888,12 @@
     "aliases": ["elacestrant", "orserdu"]
   },
   {
-    "name": "Elvitegravir/Cobicistat Emtricitabine And Tenofovir Alafenamide",
-    "aliases": ["elvitegravir/cobicistat emtricitabine and tenofovir alafenamide", "elvitegravir/cobicistat emtricitabine/tenofovir alafenamide", "genvoya"]
+    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Alafenamide",
+    "aliases": ["elvitegravir/cobicistat, emtricitabine and tenofovir alafenamide", "elvitegravir/cobicistat emtricitabine/tenofovir alafenamide", "genvoya"]
   },
   {
-    "name": "Elvitegravir/Cobicistat Emtricitabine And Tenofovir Disoproxil",
-    "aliases": ["elvitegravir/cobicistat emtricitabine and tenofovir disoproxil", "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil", "stribild"]
+    "name": "Elvitegravir/Cobicistat, Emtricitabine And Tenofovir Disoproxil",
+    "aliases": ["elvitegravir/cobicistat, emtricitabine and tenofovir disoproxil", "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil", "stribild"]
   },
   {
     "name": "Empagliflozin/Metformin",

@@ -56,7 +56,7 @@
       "oral liquid emulsion", "emulsion for oral use", "solution", 
       "soln", "elixir", "liquid", "mixture", "mixt", "oral liquid", 
       "liquid oral", "suspension", "susp", "syrup", "syr", "emulsion", 
-      "liquid emulsion", "emuls", "oromucosal gel", "oromucosal solution",
+      "liquid emulsion", "emuls", "oromucosal solution",
       "powder for oral or rectal suspension"
     ],
     "drops": [
@@ -140,20 +140,21 @@
       "c.r. granules", "c r granules", "slow-release granules", "slow release granules", 
       "xl granules", "la granules", "retard granules", "spansule", "gastro resistant granules"
     ],
-    "oral_solids": [
-      "chewing gum", "chewing-gum",
-      "oral powder", "powder for oral solution", "oral granules", 
+    "chewing_gum": [
+    "chewing gum", "chewing-gum"],
+
+    "oral_powders": ["oral powder", "powder for oral solution", "oral granules", 
       "effervescent granules", "oral powder sachet", "sachet", "sach", 
-      "sachets", "powder for solution", "granules", "gran", "gran sachet",
-      "sublingual film", "buccal film", "oral film", "orodispersible film",
-      "oral lyophilisate", "lozenge", "granules for oral solution",
-      "effervescent powder", "effervescent granules", "granules for oral suspension"
-    ],
-    "sprays": [
+      "sachets","granules", "gran", "gran sachet"],
+    "buccal_film": [ "buccal film"],
+    "sublingual_film": [ "sublingual film", "oral film", "orodispersible film"],
+    "oral_lyophilisate": [ "oral lyophilisate", "lozenge", "granules for oral solution", "effervescent powder", "effervescent granules", "granules for oral suspension"],
+    "sublingual_sprays": [
       "sublingual spray", "s/l spray", "sl spray", "sub-lingual spray", 
       "oral spray for sublingual use", "spray for sublingual use", 
-      "sublingual oral spray", "under tongue spray", 
-      "mouth spray", "oral spray", "oromucosal spray"
+      "sublingual oral spray", "under tongue spray"],
+     "oromucosal_gel": [
+      "oromucosal gel", "oral gel", "oral mucosal gel", "oral mucosal gel"
     ],
     "injections": [
       "injection", "injectable solution", "inj", "injectable",
