@@ -484,28 +484,34 @@ const MedicationManager = {
                 // Special handling for combination drugs with slashes
                 if (name.includes('/')) {
                     // If this is a combination drug with a slash
-                    const nameParts = name.split('/');
+                    const nameParts = name.split('/').map(part => part.trim());
                     
-                    // If searching for a single drug, check if it matches any part of the combination
-                    // This is a change from the original approach to better support alias matching
+                    // If searching for a single drug, DO NOT match with combination drugs
+                    // This fixes the issue where selecting a single component would match with combination medications
                     if (!normalizedMed.includes('/') && !standardizedMed.includes('/')) {
-                        return nameParts.some(part => possibleMedNames.includes(part.trim()));
+                        return false; // Single medications should not match with combination medications
                     }
                     
-                    // For a combo drug search term, check parts matching
-                    const searchTerms = possibleMedNames.filter(term => term.includes('/')).flatMap(term => term.split('/').map(part => part.trim()));
-                    if (searchTerms.length === 0) {
-                        // If no combo terms in possibleMedNames, use the original inputs
-                        const inputSearchTerms = normalizedMed.includes('/') ? normalizedMed.split('/') : standardizedMed.split('/');
-                        searchTerms.push(...inputSearchTerms.map(term => term.trim()));
+                    // For a combination drug search, require ALL parts to match
+                    // (implementation of new requirements)
+                    const searchParts = normalizedMed.includes('/') ? 
+                        normalizedMed.split('/').map(part => part.trim()) : 
+                        standardizedMed.split('/').map(part => part.trim());
+                    
+                    // Must have the same number of parts in the combination
+                    if (searchParts.length !== nameParts.length) {
+                        return false;
                     }
                     
-                    // Check if parts match (more flexible matching for aliases)
-                    const matchingParts = nameParts.filter(part => 
-                        searchTerms.some(term => term === part.trim() || possibleMedNames.includes(part.trim()))
+                    // Check that ALL parts of the combination medication match
+                    // This ensures both/all parts before and after the slash are required to match
+                    const allPartsMatch = searchParts.every(searchPart => 
+                        nameParts.some(namePart => 
+                            searchPart === namePart || possibleMedNames.includes(namePart)
+                        )
                     );
                     
-                    return matchingParts.length > 0;
+                    return allPartsMatch;
                 }
                 
                 // Check standardized versions of the warning medication name
