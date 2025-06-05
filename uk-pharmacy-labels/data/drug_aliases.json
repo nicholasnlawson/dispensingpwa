@@ -17,7 +17,7 @@
   },
   {
     "name": "Abiraterone",
-    "aliases": ["abiraterone", "zytiga"]
+    "aliases": ["abiraterone", "abiraterone acetate", "zytiga"]
   },
   {
     "name": "Acalabrutinib",
@@ -25,7 +25,7 @@
   },
   {
     "name": "Acamprosate",
-    "aliases": ["acamprosate", "campral"]
+    "aliases": ["acamprosate", "acamprosate calcium", "campral"]
   },
   {
     "name": "Acarbose",
@@ -193,7 +193,7 @@
   },
   {
     "name": "Alimemazine",
-    "aliases": ["alimemazine", "theralen", "vallergan"]
+    "aliases": ["alimemazine", "alimemazine tartrate", "theralen", "vallergan"]
   },
   {
     "name": "Alirocumab",
@@ -257,7 +257,7 @@
   },
   {
     "name": "Aluminium Chloride",
-    "aliases": ["aluminium chloride", "anhydrol forte", "driclor"]
+    "aliases": ["aluminium chloride", "aluminium chloride hexahydrate", "anhydrol forte", "driclor"]
   },
   {
     "name": "Aluminium Hydroxide",
@@ -825,7 +825,7 @@
   },
   {
     "name": "Bisoprolol",
-    "aliases": ["bisoprolol", "cardicor", "congescor"]
+    "aliases": ["bisoprolol", "bisoprolol fumarate", "cardicor", "congescor"]
   },
   {
     "name": "Bivalirudin",
@@ -877,7 +877,7 @@
   },
   {
     "name": "Brimonidine",
-    "aliases": ["brimonidine", "alphagan", "mirvaso"]
+    "aliases": ["brimonidine", "brimonidine tartrate", "alphagan", "mirvaso"]
   },
   {
     "name": "Brinzolamide",
@@ -1368,6 +1368,10 @@
     "aliases": ["clobetasol", "dermovate", "etrivex"]
   },
   {
+    "name": "Clobetasol Propionate/Neomycin Sulfate/Nystatin",
+    "aliases": ["clobetasol propionate/neomycin sulfate/nystatin", "clobetasol propionate neomycin sulfate nystatin"]
+  },
+  {
     "name": "Clobetasone",
     "aliases": ["clobetasone", "eumovate"]
   },
@@ -1665,7 +1669,7 @@
   },
   {
     "name": "Dantrolene",
-    "aliases": ["dantrolene", "dantrium"]
+    "aliases": ["dantrolene", "dantrolene sodium", "dantrium"]
   },
   {
     "name": "Dapagliflozin",
@@ -1833,7 +1837,7 @@
   },
   {
     "name": "Diclofenac",
-    "aliases": ["diclofenac", "voltarol", "pennsaid", "solaraze", "voltaren"]
+    "aliases": ["diclofenac", "diclofenac sodium", "voltarol", "pennsaid", "solaraze", "voltaren"]
   },
   {
     "name": "Dicobalt Edetate",
@@ -2569,7 +2573,7 @@
   },
   {
     "name": "Fesoterodine",
-    "aliases": ["fesoterodine", "toviaz"]
+    "aliases": ["fesoterodine", "fesoterodine fumarate", "toviaz"]
   },
   {
     "name": "Fexofenadine",
@@ -2786,6 +2790,14 @@
   {
     "name": "Fructose",
     "aliases": ["fructose"]
+  },
+  {
+    "name": "Frovatriptan",
+    "aliases": ["frovatriptan", "mylatrip"]
+  },
+  {
+    "name": "Fruquintinib",
+    "aliases": ["fruquintinib", "fruzaqla"]
   },
   {
     "name": "Betamethasone/Fusidic Acid",
@@ -3081,7 +3093,7 @@
   },
   {
     "name": "Hydroxychloroquine",
-    "aliases": ["hydroxychloroquine", "plaquenil"]
+    "aliases": ["hydroxychloroquine", "hydroxychloroquine sulfate", "plaquenil"]
   },
   {
     "name": "Hydromorphone",
@@ -3761,7 +3773,7 @@
   },
   {
     "name": "Lisdexamfetamine",
-    "aliases": ["lisdexamfetamine", "elvanse"]
+    "aliases": ["lisdexamfetamine", "lisdexamfetamine mesilate", "elvanse"]
   },
   {
     "name": "Lisinopril",
@@ -4085,7 +4097,11 @@
   },
   {
     "name": "Metoprolol",
-    "aliases": ["metoprolol", "betaloc", "lopresor"]
+    "aliases": ["metoprolol", "metoprolol tartrate", "betaloc", "lopresor"]
+  },
+  {
+    "name": "Metreleptin",
+    "aliases": ["metreleptin", "myalepta"]
   },
   {
     "name": "Metronidazole",
@@ -5349,7 +5365,7 @@
   },
   {
     "name": "Resonium",
-    "aliases": ["resonium", "resonium a", "calcium resonium", "sps", "sodium polystyrene sulfonate"]
+    "aliases": ["resonium", "resonium a", "calcium resonium", "sps", "sodium polystyrene sulfonate", "Calcium Polystyrene Sulfonate"]
   },
   {
     "name": "Retigabine",
@@ -5552,6 +5568,10 @@
     "aliases": ["sandocal", "calvive", "sandocal", "Sandocal/Calvive"]
   },
   {
+    "name": "Sapropterin Dihydrochloride",
+    "aliases": ["sapropterin dihydrochloride", "sapropterin"]
+  },
+  {
     "name": "Sarilumab",
     "aliases": ["sarilumab", "kevzara"]
   },
@@ -5732,12 +5752,16 @@
     "aliases": ["sodium citrate"]
   },
   {
+    "name": "Sodium Oxybate",
+    "aliases": ["sodium oxybate", "xyrem"]
+  },
+  {
     "name": "Sodium Valproate",
     "aliases": ["Sodium Valp. (Epilim)", "Epilim", "Sodium Valp. (Episenta)", "Episenta", "Sodium valp.", "sodium valp", "valproate sodium", "valproate", "Dyzantil", "Epival", "Depakin"]
   },
   {
     "name": "Solifenacin",
-    "aliases": ["solifenacin"]
+    "aliases": ["solifenacin", "solifenacin succinate", "vesicare"]
   },
   {
     "name": "Somatropin",
@@ -5972,6 +5996,10 @@
     "aliases": ["telmisartan/hydrochlorothiazide", "micardis plus"]
   },
   {
+    "name": "Telotristat Ethyl",
+    "aliases": ["telotristat ethyl", "xermelo", "telotristat"]
+  },
+  {
     "name": "Temazepam",
     "aliases": ["temazepam", "normison"]
   },
@@ -6097,7 +6125,7 @@
   },
   {
     "name": "Timodine",
-    "aliases": ["timodine", "timodine cream", "hydrocortisone with nystatin d", "Timodine Cream 30 G"]
+    "aliases": ["timodine", "timodine cream", "hydrocortisone with nystatin d", "Timodine Cream 30 G", "Hydrocortisone/Benzalkonium Chloride/Dimeticone/Nystatin"]
   },
   {
     "name": "Timolol",
@@ -6181,7 +6209,7 @@
   },
   {
     "name": "Tolterodine",
-    "aliases": ["tolterodine", "detrusitol"]
+    "aliases": ["tolterodine", "tolterodine tartrate", "detrusitol"]
   },
   {
     "name": "Tolvaptan",
@@ -6677,7 +6705,7 @@
   },
   {
     "name": "Zolpidem",
-    "aliases": ["zolpidem", "stilnoct"]
+    "aliases": ["zolpidem", "zolpidem tartrate", "stilnoct"]
   },
   {
     "name": "Zonisamide",
