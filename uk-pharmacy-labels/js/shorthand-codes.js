@@ -231,6 +231,56 @@ const ShorthandCodes = window.ShorthandCodes = {
             return `Take ${minQuantity}-${maxQuantity}ml`;
         }
         
+        // Handwritten formulation patterns with 'X'
+        // X tablets pattern (for handwritten dosage): 'Xt'
+        const xTabletPattern = /^xt$/;
+        const xTabletMatch = normalizedCode.match(xTabletPattern);
+        if (xTabletMatch) {
+            return 'Take .......... tablets';
+        }
+        
+        // X capsules pattern (for handwritten dosage): 'Xc'
+        const xCapsulePattern = /^xc$/;
+        const xCapsuleMatch = normalizedCode.match(xCapsulePattern);
+        if (xCapsuleMatch) {
+            return 'Take .......... capsules';
+        }
+        
+        // X patches pattern (for handwritten dosage): 'Xpa'
+        const xPatchPattern = /^xpa$/;
+        const xPatchMatch = normalizedCode.match(xPatchPattern);
+        if (xPatchMatch) {
+            return 'Apply .......... patches';
+        }
+        
+        // X puffs pattern (for handwritten dosage): 'Xp'
+        const xPuffPattern = /^xp$/;
+        const xPuffMatch = normalizedCode.match(xPuffPattern);
+        if (xPuffMatch) {
+            return 'Inhale .......... puffs';
+        }
+        
+        // X drops pattern (for handwritten dosage): 'Xd'
+        const xDropPattern = /^xd$/;
+        const xDropMatch = normalizedCode.match(xDropPattern);
+        if (xDropMatch) {
+            return 'Apply .......... drops';
+        }
+        
+        // X ml pattern (for handwritten dosage): 'Xml'
+        const xMlPattern = /^xml$/;
+        const xMlMatch = normalizedCode.match(xMlPattern);
+        if (xMlMatch) {
+            return 'Take .......... ml';
+        }
+        
+        // X times a day pattern (for handwritten frequency): 'XDS'
+        const xTimesPattern = /^xDS$/i;
+        const xTimesMatch = normalizedCode.match(xTimesPattern);
+        if (xTimesMatch) {
+            return '.......... times a day';
+        }
+        
         // Tablets pattern: number followed by 't'
         const tabletPattern = /^([0-9]+\.?[0-9]*)t$/;
         const tabletMatch = normalizedCode.match(tabletPattern);

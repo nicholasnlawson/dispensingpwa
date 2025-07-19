@@ -11,11 +11,14 @@ const FILES_TO_CACHE = [
   './',
   './index.html',
   './css/styles.css',
+  './css/autocomplete.css',
   './js/app.js',
   './js/data-manager.js',
   './js/label-generator.js',
+  './js/medication-manager.js',
+  './js/shorthand-codes.js',
   './manifest.json',
-  './images/nhs-logo.svg'
+  './images/nhs_trust_logo.png'
 ];
 
 // Install event - cache all required resources
@@ -24,7 +27,16 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Caching app shell');
-        return cache.addAll(FILES_TO_CACHE);
+        // Cache files individually to handle missing files gracefully
+        return Promise.all(
+          FILES_TO_CACHE.map(url => {
+            return cache.add(url).catch(err => {
+              console.warn('Failed to cache:', url, err);
+              // Continue with other files even if one fails
+              return Promise.resolve();
+            });
+          })
+        );
       })
       .then(() => {
         return self.skipWaiting();

@@ -253,6 +253,11 @@ const LabelGenerator = {
         const dispensary = DataManager.getDispensaryInfo(data.dispensaryLocation);
         const date = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
         
+        // Handle overlabel mode - use placeholder text instead of actual patient name
+        const patientName = data.isOverlabelMode ? 
+            '<span class="overlabel-placeholder">Patient Name: ________________</span>' : 
+            data.patientName;
+        
         // Format medication name, strength and formulation
         const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
         const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
@@ -472,7 +477,7 @@ const LabelGenerator = {
                     mainContentClass: 'content-wrapper',
                     labelNumber: i + 1,
                     totalLabels: totalLabels,
-                    patientName: data.patientName,
+                    patientName: patientName,
                     date,
                     dispensary
                 }));
@@ -491,7 +496,7 @@ const LabelGenerator = {
                     mainContentClass: 'content-wrapper',
                     labelNumber: dosageLabels.length + standaloneWarningNumber,
                     totalLabels: totalLabels,
-                    patientName: data.patientName,
+                    patientName: patientName,
                     date,
                     dispensary
                 }));
@@ -531,7 +536,7 @@ const LabelGenerator = {
                 mainContentClass: 'content-wrapper',
                 labelNumber: 1,
                 totalLabels: 1,
-                patientName: data.patientName,
+                patientName: patientName,
                 date,
                 dispensary
             }));
@@ -548,7 +553,7 @@ const LabelGenerator = {
                 mainContentClass: 'content-wrapper',
                 labelNumber: 1,
                 totalLabels: 1,
-                patientName: data.patientName,
+                patientName: patientName,
                 date,
                 dispensary
             }));
@@ -648,7 +653,9 @@ const LabelGenerator = {
             <div class="bag-label">
                 <!-- Patient Information Section -->
                 <div class="bag-label-patient-section">
-                    <div class="bag-label-patient-name">${data.patientName || ''}</div>
+                    <div class="bag-label-patient-name">${data.isOverlabelMode ? 
+                        '<span class="overlabel-placeholder">Patient Name: ________________</span>' : 
+                        (data.patientName || '')}</div>
                     <div class="bag-label-patient-details">
                         <div>DOB: ${dob}</div>
                         ${data.patientNHS ? `<div>NHS: ${data.patientNHS}</div>` : ''}
@@ -723,7 +730,10 @@ const LabelGenerator = {
             <div class="label-bottom-section">
                 <!-- Row 4: Patient Name, Date -->
                 <div class="patient-row">
-                    <span class="patient-name">${data.patientName || ''}</span>
+                    ${data.isOverlabelMode ? 
+                        `<span class="patient-name placeholder">Patient Name: ________________</span>` : 
+                        `<span class="patient-name">${data.patientName || ''}</span>`
+                    }
                     <span class="dispensing-date">${date}</span>
                 </div>
                 
