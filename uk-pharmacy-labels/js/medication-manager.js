@@ -411,6 +411,24 @@ const MedicationManager = {
     },
     
     /**
+     * Normalize drug name for consistent matching (handles hyphens/spaces)
+     * @param {string} drugName - Drug name to normalize
+     * @returns {string} - Normalized drug name
+     */
+    normalizeDrugName(drugName) {
+        if (!drugName) return '';
+        
+        return drugName
+            .toLowerCase()
+            .trim()
+            // Replace hyphens and multiple spaces with single spaces
+            .replace(/[-\s]+/g, ' ')
+            // Remove extra whitespace
+            .replace(/\s+/g, ' ')
+            .trim();
+    },
+
+    /**
      * Standardize medication name based on drug aliases
      * @param {string} medicationName - Medication name to standardize
      * @returns {string} - Standardized medication name
@@ -418,22 +436,23 @@ const MedicationManager = {
     standardizeMedicationName(medicationName) {
         if (!medicationName) return '';
         
-        const normalizedMed = medicationName.toLowerCase().trim();
+        const normalizedMed = this.normalizeDrugName(medicationName);
         
         // Early return if empty
         if (normalizedMed === '') return normalizedMed;
         
         // Find the medication entry that contains this as an alias
         for (const med of this.medications) {
-            const aliases = med.aliases.map(alias => alias.toLowerCase().trim());
+            const normalizedMainName = this.normalizeDrugName(med.name);
+            const normalizedAliases = med.aliases.map(alias => this.normalizeDrugName(alias));
             
-            // If this exact name is in aliases or is the main name
-            if (aliases.includes(normalizedMed) || med.name.toLowerCase().trim() === normalizedMed) {
+            // If this normalized name matches the main name or any alias
+            if (normalizedAliases.includes(normalizedMed) || normalizedMainName === normalizedMed) {
                 return med.name.toLowerCase().trim();
             }
         }
         
-        // If no match was found, return the original
+        // If no match was found, return the original normalized version
         return normalizedMed;
     },
     
@@ -444,40 +463,45 @@ const MedicationManager = {
      * @returns {Array} - List of warning label numbers
      */
     findWarningLabels(medicationName, formulation) {
-        // Normalize inputs
-        const normalizedMed = medicationName.toLowerCase().trim();
+        // Normalize inputs using the new normalization function
+        const normalizedMed = this.normalizeDrugName(medicationName);
         const normalizedForm = formulation.toLowerCase().trim();
         
         // Get standardized medication name and formulation
-        const standardizedMed = this.standardizeMedicationName(normalizedMed);
+        const standardizedMed = this.standardizeMedicationName(medicationName);
         const standardizedForm = this.standardizeFormulation(normalizedForm);
 
         // Find all possible medication names that could match (including all aliases)
         const possibleMedNames = [normalizedMed, standardizedMed];
         
-        // Add all aliases for the medication
+        // Add all aliases for the medication using normalized names
         for (const med of this.medications) {
-            const mainMedName = med.name.toLowerCase().trim();
-            const aliases = med.aliases.map(alias => alias.toLowerCase().trim());
+            const normalizedMainName = this.normalizeDrugName(med.name);
+            const normalizedAliases = med.aliases.map(alias => this.normalizeDrugName(alias));
             
-            // If the input is the main medication name or any of its aliases,
+            // If the input matches the main medication name or any of its aliases,
             // include the main medication name and all its aliases as possible matches
-            if (mainMedName === normalizedMed || mainMedName === standardizedMed || 
-                aliases.includes(normalizedMed) || aliases.includes(standardizedMed)) {
-                possibleMedNames.push(mainMedName, ...aliases);
+            if (normalizedMainName === normalizedMed || normalizedMainName === standardizedMed || 
+                normalizedAliases.includes(normalizedMed) || normalizedAliases.includes(standardizedMed)) {
+                possibleMedNames.push(normalizedMainName, ...normalizedAliases);
+                // Also include original forms for backward compatibility
+                possibleMedNames.push(med.name.toLowerCase().trim(), ...med.aliases.map(alias => alias.toLowerCase().trim()));
                 break;
             }
         }
         
         // Find matching medication in warnings
         for (const med of this.medicationWarnings) {
-            // Check if medication name matches
+            // Check if medication name matches using normalized names
             const medNames = med.name.map(name => name.toLowerCase().trim());
+            const normalizedMedNames = med.name.map(name => this.normalizeDrugName(name));
             
             // Determine if there's a medication match using standard names and aliases
-            const isMedMatch = medNames.some(name => {
+            const isMedMatch = medNames.some((name, index) => {
+                const normalizedWarningName = normalizedMedNames[index];
+                
                 // Check against all possible medication names including aliases
-                if (possibleMedNames.includes(name)) {
+                if (possibleMedNames.includes(name) || possibleMedNames.includes(normalizedWarningName)) {
                     return true;
                 }
                 
@@ -485,6 +509,7 @@ const MedicationManager = {
                 if (name.includes('/')) {
                     // If this is a combination drug with a slash
                     const nameParts = name.split('/').map(part => part.trim());
+                    const normalizedNameParts = nameParts.map(part => this.normalizeDrugName(part));
                     
                     // If searching for a single drug, DO NOT match with combination drugs
                     // This fixes the issue where selecting a single component would match with combination medications
@@ -495,18 +520,18 @@ const MedicationManager = {
                     // For a combination drug search, require ALL parts to match
                     // (implementation of new requirements)
                     const searchParts = normalizedMed.includes('/') ? 
-                        normalizedMed.split('/').map(part => part.trim()) : 
-                        standardizedMed.split('/').map(part => part.trim());
+                        normalizedMed.split('/').map(part => this.normalizeDrugName(part.trim())) : 
+                        standardizedMed.split('/').map(part => this.normalizeDrugName(part.trim()));
                     
                     // Must have the same number of parts in the combination
-                    if (searchParts.length !== nameParts.length) {
+                    if (searchParts.length !== normalizedNameParts.length) {
                         return false;
                     }
                     
-                    // Check that ALL parts of the combination medication match
+                    // Check that ALL parts of the combination medication match using normalized names
                     // This ensures both/all parts before and after the slash are required to match
                     const allPartsMatch = searchParts.every(searchPart => 
-                        nameParts.some(namePart => 
+                        normalizedNameParts.some(namePart => 
                             searchPart === namePart || possibleMedNames.includes(namePart)
                         )
                     );
@@ -516,7 +541,7 @@ const MedicationManager = {
                 
                 // Check standardized versions of the warning medication name
                 const standardizedWarningName = this.standardizeMedicationName(name);
-                return possibleMedNames.includes(standardizedWarningName);
+                return possibleMedNames.includes(standardizedWarningName) || possibleMedNames.includes(normalizedWarningName);
             });
             
             if (!isMedMatch) {
