@@ -79,13 +79,6 @@
     ]
   },
   {
-    "name": "Acebutolol",
-    "aliases": [
-      "acebutolol",
-      "sectral"
-    ]
-  },
-  {
     "name": "Aceclofenac",
     "aliases": [
       "aceclofenac",
@@ -98,13 +91,6 @@
       "acenocoumarol",
       "sinthrome",
       "nicoumalone"
-    ]
-  },
-  {
-    "name": "Acetazolamide",
-    "aliases": [
-      "acetazolamide",
-      "diamox"
     ]
   },
   {
@@ -156,13 +142,6 @@
     "aliases": [
       "acid citrate dextrose",
       "Acid Cit. Dextrose"
-    ]
-  },
-  {
-    "name": "Acipimox",
-    "aliases": [
-      "acipimox",
-      "olbetam"
     ]
   },
   {
@@ -236,13 +215,7 @@
     "name": "Adapalene/Benzoyl Peroxide",
     "aliases": [
       "adapalene/benzoyl peroxide",
-      "epiduo"
-    ]
-  },
-  {
-    "name": "Adapalene/Benzoyl Peroxide",
-    "aliases": [
-      "adapalene/benzoyl peroxide",
+      "epiduo",
       "adapalene-with-benzoyl-peroxide"
     ]
   },
@@ -380,15 +353,8 @@
     "aliases": [
       "alfuzosin",
       "xatral",
-      "besavar"
-    ]
-  },
-  {
-    "name": "Alfuzosin",
-    "aliases": [
-      "alfuzosin",
-      "xatral",
-      "besavar"
+      "besavar",
+      "alfuzosin hydrochloride"
     ]
   },
   {
@@ -637,7 +603,8 @@
     "name": "Amiodarone",
     "aliases": [
       "amiodarone",
-      "cordarone x"
+      "cordarone x",
+      "amiodarone hydrochloride"
     ]
   },
   {
@@ -654,7 +621,8 @@
       "amitriptyline",
       "elavil",
       "tryptizol",
-      "lentizol"
+      "lentizol",
+      "amitriptyline hydrochloride"
     ]
   },
   {
@@ -766,8 +734,7 @@
   {
     "name": "Anoro",
     "aliases": [
-      "anoro",
-      "umeclidinium/vilanterol"
+      "anoro"
     ]
   },
   {
@@ -932,13 +899,7 @@
     "name": "Artemether/Lumefantrine",
     "aliases": [
       "artemether/lumefantrine",
-      "riamet"
-    ]
-  },
-  {
-    "name": "Artemether/Lumefantrine",
-    "aliases": [
-      "artemether/lumefantrine",
+      "riamet",
       "artemether-with-lumefantrine"
     ]
   },
@@ -967,8 +928,7 @@
   {
     "name": "Asasantin",
     "aliases": [
-      "asasantin",
-      "dipyridamole/aspirin"
+      "asasantin"
     ]
   },
   {
@@ -1075,17 +1035,12 @@
     ]
   },
   {
-    "name": "Atovaquone/Proguanil",
-    "aliases": [
-      "atovaquone/proguanil",
-      "malarone"
-    ]
-  },
-  {
     "name": "Atovaquone/Proguanil Hydrochloride",
     "aliases": [
       "atovaquone/proguanil hydrochloride",
-      "atovaquone-with-proguanil-hydrochloride"
+      "atovaquone-with-proguanil-hydrochloride",
+      "atovaquone/proguanil",
+      "malarone"
     ]
   },
   {
@@ -1199,8 +1154,7 @@
   {
     "name": "Azarga",
     "aliases": [
-      "azarga",
-      "brinzolamide/timolol"
+      "azarga"
     ]
   },
   {
@@ -1230,7 +1184,6 @@
   {
     "name": "Azelastine/Fluticasone",
     "aliases": [
-      "dymista",
       "azelastine/fluticasone",
       "azelastine/fluticsone"
     ]
@@ -1270,16 +1223,6 @@
     ]
   },
   {
-    "name": "BCG",
-    "aliases": [
-      "bcg",
-      "bcg tice",
-      "bcg-medac",
-      "connaught bcg",
-      "onco-tice"
-    ]
-  },
-  {
     "name": "Baclofen",
     "aliases": [
       "baclofen",
@@ -1299,13 +1242,6 @@
     "name": "Balneum",
     "aliases": [
       "balneum"
-    ]
-  },
-  {
-    "name": "Balsalazide",
-    "aliases": [
-      "balsalazide",
-      "colazide"
     ]
   },
   {
@@ -1351,6 +1287,16 @@
     ]
   },
   {
+    "name": "BCG",
+    "aliases": [
+      "bcg",
+      "bcg tice",
+      "bcg-medac",
+      "connaught bcg",
+      "onco-tice"
+    ]
+  },
+  {
     "name": "Beclometasone",
     "aliases": [
       "beclometasone",
@@ -1360,7 +1306,8 @@
       "beclomethasone",
       "asmabec",
       "beconase",
-      "soprobec"
+      "soprobec",
+      "beclometasone dipropionate"
     ]
   },
   {
@@ -1500,7 +1447,8 @@
     "name": "Betahistine",
     "aliases": [
       "betahistine",
-      "serc"
+      "serc",
+      "betahistine dihydrochloride"
     ]
   },
   {
@@ -1527,13 +1475,7 @@
     "name": "Betamethasone/Clioquinol",
     "aliases": [
       "betamethasone/clioquinol",
-      "betnovate-c"
-    ]
-  },
-  {
-    "name": "Betamethasone/Clioquinol",
-    "aliases": [
-      "betamethasone/clioquinol",
+      "betnovate-c",
       "betamethasone-with-clioquinol"
     ]
   },
@@ -1548,13 +1490,7 @@
     "name": "Betamethasone/Fusidic Acid",
     "aliases": [
       "betamethasone/fusidic acid",
-      "fucibet"
-    ]
-  },
-  {
-    "name": "Betamethasone/Fusidic Acid",
-    "aliases": [
-      "betamethasone/fusidic acid",
+      "fucibet",
       "betamethasone-with-fusidic-acid"
     ]
   },
@@ -1563,13 +1499,7 @@
     "aliases": [
       "betamethasone/neomycin",
       "betnovate-n",
-      "Betnesol-N"
-    ]
-  },
-  {
-    "name": "Betamethasone/Neomycin",
-    "aliases": [
-      "betamethasone/neomycin",
+      "Betnesol-N",
       "betamethasone-with-neomycin"
     ]
   },
@@ -1658,8 +1588,7 @@
   {
     "name": "Bimatoprost/Timolol",
     "aliases": [
-      "bimatoprost/timolol",
-      "ganfort"
+      "bimatoprost/timolol"
     ]
   },
   {
@@ -1830,13 +1759,7 @@
     "name": "Brinzolamide/Brimonidine",
     "aliases": [
       "brinzolamide/brimonidine",
-      "simbrinza"
-    ]
-  },
-  {
-    "name": "Brinzolamide/Brimonidine",
-    "aliases": [
-      "brinzolamide/brimonidine",
+      "simbrinza",
       "brinzolamide-with-brimonidine"
     ]
   },
@@ -1956,7 +1879,8 @@
     "name": "Bupropion",
     "aliases": [
       "bupropion",
-      "zyban"
+      "zyban",
+      "bupropion hydrochloride"
     ]
   },
   {
@@ -1989,23 +1913,6 @@
       "cinryze",
       "berinert",
       "ruconest"
-    ]
-  },
-  {
-    "name": "CAPD",
-    "aliases": [
-      "capd balance",
-      "capd sleep safe",
-      "capd stay safe"
-    ]
-  },
-  {
-    "name": "COVID-19 Vaccine",
-    "aliases": [
-      "comirnaty",
-      "spikevax",
-      "pfizer-biontech",
-      "moderna"
     ]
   },
   {
@@ -2056,13 +1963,7 @@
     "name": "Calamine/Zinc Oxide",
     "aliases": [
       "calamine/zinc oxide",
-      "calamine lotion"
-    ]
-  },
-  {
-    "name": "Calamine/Zinc Oxide",
-    "aliases": [
-      "calamine/zinc oxide",
+      "calamine lotion",
       "calamine-with-zinc-oxide"
     ]
   },
@@ -2078,13 +1979,7 @@
       "calcipotriol/betamethasone",
       "enstilar",
       "dovobet",
-      "xamiol"
-    ]
-  },
-  {
-    "name": "Calcipotriol/Betamethasone",
-    "aliases": [
-      "calcipotriol/betamethasone",
+      "xamiol",
       "calcipotriol-with-betamethasone"
     ]
   },
@@ -2117,13 +2012,7 @@
     "name": "Calcium Acetate/Magnesium Carbonate",
     "aliases": [
       "calcium acetate/magnesium carbonate",
-      "osvaren"
-    ]
-  },
-  {
-    "name": "Calcium Acetate/Magnesium Carbonate",
-    "aliases": [
-      "calcium acetate/magnesium carbonate",
+      "osvaren",
       "calcium-acetate-with-magnesium-carbonate"
     ]
   },
@@ -2144,13 +2033,7 @@
     "name": "Calcium Carbonate/Calcium Lactate Gluconate",
     "aliases": [
       "calcium carbonate/calcium lactate gluconate",
-      "sandocal"
-    ]
-  },
-  {
-    "name": "Calcium Carbonate/Calcium Lactate Gluconate",
-    "aliases": [
-      "calcium carbonate/calcium lactate gluconate",
+      "sandocal",
       "calcium-carbonate-with-calcium-lactate-gluconate"
     ]
   },
@@ -2202,13 +2085,7 @@
     "name": "Canagliflozin/Metformin",
     "aliases": [
       "canagliflozin/metformin",
-      "vokanamet"
-    ]
-  },
-  {
-    "name": "Canagliflozin/Metformin",
-    "aliases": [
-      "canagliflozin/metformin",
+      "vokanamet",
       "canagliflozin-with-metformin"
     ]
   },
@@ -2231,14 +2108,21 @@
   {
     "name": "Cannabis Extract",
     "aliases": [
-      "cannabis extract",
-      "sativex"
+      "cannabis extract"
     ]
   },
   {
     "name": "Capasal",
     "aliases": [
       "capasal"
+    ]
+  },
+  {
+    "name": "CAPD",
+    "aliases": [
+      "capd balance",
+      "capd sleep safe",
+      "capd stay safe"
     ]
   },
   {
@@ -2366,8 +2250,7 @@
       "celluvisc",
       "lumecare",
       "melophthal",
-      "optho-lube",
-      "viscotears"
+      "optho-lube"
     ]
   },
   {
@@ -2510,7 +2393,8 @@
     "name": "Celiprolol",
     "aliases": [
       "celiprolol",
-      "celectol"
+      "celectol",
+      "celiprolol hydrochloride"
     ]
   },
   {
@@ -2599,7 +2483,7 @@
     ]
   },
   {
-    "name": "Chlordiazepoxide",
+    "name": "Chlordiazepoxide-Hydrochloride",
     "aliases": [
       "chlordiazepoxide",
       "librium"
@@ -2647,14 +2531,16 @@
     "aliases": [
       "chlorphenamine",
       "piriton",
-      "chlorpheniramine"
+      "chlorpheniramine",
+      "chlorphenamine maleate"
     ]
   },
   {
     "name": "Chlorpromazine",
     "aliases": [
       "chlorpromazine",
-      "largactil"
+      "largactil",
+      "chlorpromazine hydrochloride"
     ]
   },
   {
@@ -2758,13 +2644,7 @@
     "name": "Cinnarizine/Dimenhydrinate",
     "aliases": [
       "cinnarizine/dimenhydrinate",
-      "arlevert"
-    ]
-  },
-  {
-    "name": "Cinnarizine/Dimenhydrinate",
-    "aliases": [
-      "cinnarizine/dimenhydrinate",
+      "arlevert",
       "cinnarizine-with-dimenhydrinate"
     ]
   },
@@ -2811,13 +2691,7 @@
     "name": "Citric Acid/Magnesium Carbonate",
     "aliases": [
       "citric acid/magnesium carbonate",
-      "kidney-caine"
-    ]
-  },
-  {
-    "name": "Citric Acid/Magnesium Carbonate",
-    "aliases": [
-      "citric acid/magnesium carbonate",
+      "kidney-caine",
       "citric-acid-with-magnesium-carbonate"
     ]
   },
@@ -2826,13 +2700,7 @@
     "aliases": [
       "citric acid/potassium citrate",
       "cystopurin",
-      "cymalon"
-    ]
-  },
-  {
-    "name": "Citric Acid/Potassium Citrate",
-    "aliases": [
-      "citric acid/potassium citrate",
+      "cymalon",
       "citric-acid-with-potassium-citrate"
     ]
   },
@@ -2893,20 +2761,15 @@
     "aliases": [
       "clobetasol",
       "dermovate",
-      "etrivex"
+      "etrivex",
+      "clobetasol propionate"
     ]
   },
   {
     "name": "Clobetasol Propionate/Neomycin Sulfate/Nystatin",
     "aliases": [
       "clobetasol propionate/neomycin sulfate/nystatin",
-      "clobetasol propionate neomycin sulfate nystatin"
-    ]
-  },
-  {
-    "name": "Clobetasol Propionate/Neomycin Sulfate/Nystatin",
-    "aliases": [
-      "clobetasol propionate/neomycin sulfate/nystatin",
+      "clobetasol propionate neomycin sulfate nystatin",
       "clobetasol-propionate-with-neomycin-sulfate-and-nystatin"
     ]
   },
@@ -2914,7 +2777,8 @@
     "name": "Clobetasone",
     "aliases": [
       "clobetasone",
-      "eumovate"
+      "eumovate",
+      "clobetasone butyrate"
     ]
   },
   {
@@ -2956,7 +2820,8 @@
     "name": "Clomipramine",
     "aliases": [
       "clomipramine",
-      "anafranil"
+      "anafranil",
+      "clomipramine hydrochloride"
     ]
   },
   {
@@ -2970,7 +2835,8 @@
     "name": "Clonidine",
     "aliases": [
       "clonidine",
-      "catapres"
+      "catapres",
+      "clonidine hydrochloride"
     ]
   },
   {
@@ -3019,10 +2885,7 @@
     "name": "Co-Amoxiclav",
     "aliases": [
       "co-amoxiclav",
-      "augmentin",
-      "amoxicillin/clavulanic acid",
-      "Amoxicillin/Clavulanate",
-      "Amoxicillin/Clavulanate Potassium"
+      "augmentin"
     ]
   },
   {
@@ -3057,22 +2920,19 @@
     "name": "Co-Phenotrope",
     "aliases": [
       "co-phenotrope",
-      "diphenoxylate/atropine",
       "lomotil"
     ]
   },
   {
     "name": "Co-Proxamol",
     "aliases": [
-      "co-proxamol",
-      "dextropropoxyphene/paracetamol"
+      "co-proxamol"
     ]
   },
   {
     "name": "Co-Tenidone",
     "aliases": [
       "co-tenidone",
-      "atenolol/chlortalidone",
       "tenoret",
       "tenoretic"
     ]
@@ -3081,8 +2941,7 @@
     "name": "Co-Trimoxazole",
     "aliases": [
       "co-trimoxazole",
-      "septrin",
-      "trimethoprim/sulfamethoxazole"
+      "septrin"
     ]
   },
   {
@@ -3098,13 +2957,7 @@
     "name": "Coal Tar/Salicylic Acid",
     "aliases": [
       "coal tar/salicylic acid",
-      "pragmatar"
-    ]
-  },
-  {
-    "name": "Coal Tar/Salicylic Acid",
-    "aliases": [
-      "coal tar/salicylic acid",
+      "pragmatar",
       "coal-tar-with-salicylic-acid"
     ]
   },
@@ -3112,13 +2965,7 @@
     "name": "Coal Tar/Zinc Oxide",
     "aliases": [
       "coal tar/zinc oxide",
-      "carbo-dome"
-    ]
-  },
-  {
-    "name": "Coal Tar/Zinc Oxide",
-    "aliases": [
-      "coal tar/zinc oxide",
+      "carbo-dome",
       "coal-tar-with-zinc-oxide"
     ]
   },
@@ -3138,7 +2985,6 @@
   {
     "name": "Cocois",
     "aliases": [
-      "cocois",
       "sebco"
     ]
   },
@@ -3190,36 +3036,27 @@
   {
     "name": "Colecalciferol/Calcium Carbonate",
     "aliases": [
-      "Colecalciferol/Calcium Carbonate",
+      "colecalciferol/calcium carbonate",
       "calcium/vitamin d3",
-      "Accrete D3",
-      "Accrete-D3",
+      "accrete d3",
+      "accrete-d3",
       "calceos",
-      "Calcium Carb/Vit D3",
+      "calcium carb/vit d3",
       "calcium carbonate/colecal",
-      "Calc Carb/Vit D3",
+      "calc carb/vit d3",
       "calcium/colecalciferol",
       "calc/colecalciferol",
-      "calcium/colecalciferol",
       "calcichew d3",
       "calfovit d3",
       "cacit d3",
-      "calcium/vitamin d3",
       "calcichew-d3",
       "calfovit-d3",
       "cacit-d3",
       "adcal-d3",
-      "calceos",
       "natecal",
       "calcichew d3 forte",
       "evacal d3",
-      "Calcium Carb 1.5G/Vit D3"
-    ]
-  },
-  {
-    "name": "Colecalciferol/Calcium Carbonate",
-    "aliases": [
-      "colecalciferol/calcium carbonate",
+      "calcium carb 1.5g/vit d3",
       "colecalciferol-with-calcium-carbonate"
     ]
   },
@@ -3227,7 +3064,8 @@
     "name": "Colesevelam",
     "aliases": [
       "colesevelam",
-      "cholestagel"
+      "cholestagel",
+      "colesevelam hydrochloride"
     ]
   },
   {
@@ -3264,15 +3102,13 @@
   {
     "name": "Combigan",
     "aliases": [
-      "combigan",
-      "brimonidine/timolol"
+      "combigan"
     ]
   },
   {
     "name": "Competact",
     "aliases": [
-      "competact",
-      "pioglitazone/metformin"
+      "competact"
     ]
   },
   {
@@ -3291,8 +3127,7 @@
   {
     "name": "Conestat Alfa",
     "aliases": [
-      "conestat alfa",
-      "ruconest"
+      "conestat alfa"
     ]
   },
   {
@@ -3330,6 +3165,15 @@
     ]
   },
   {
+    "name": "COVID-19 Vaccine",
+    "aliases": [
+      "comirnaty",
+      "spikevax",
+      "pfizer-biontech",
+      "moderna"
+    ]
+  },
+  {
     "name": "Creon",
     "aliases": [
       "creon",
@@ -3341,8 +3185,7 @@
   {
     "name": "Crisantaspase",
     "aliases": [
-      "crisantaspase",
-      "erwinase"
+      "crisantaspase"
     ]
   },
   {
@@ -3398,7 +3241,8 @@
     "name": "Cyproheptadine",
     "aliases": [
       "cyproheptadine",
-      "periactin"
+      "periactin",
+      "cyproheptadine hydrochloride"
     ]
   },
   {
@@ -3456,8 +3300,7 @@
   {
     "name": "Daktacort",
     "aliases": [
-      "daktacort",
-      "miconazole/hydrocortisone"
+      "daktacort"
     ]
   },
   {
@@ -3507,7 +3350,6 @@
     "name": "Dantron/Poloxamer",
     "aliases": [
       "dantron/poloxamer",
-      "co-danthramer",
       "codalax"
     ]
   },
@@ -3522,13 +3364,7 @@
     "name": "Dapagliflozin/Metformin",
     "aliases": [
       "dapagliflozin/metformin",
-      "xigduo"
-    ]
-  },
-  {
-    "name": "Dapagliflozin/Metformin",
-    "aliases": [
-      "dapagliflozin/metformin",
+      "xigduo",
       "dapagliflozin-with-metformin"
     ]
   },
@@ -3631,6 +3467,12 @@
     ]
   },
   {
+    "name": "Decitabine With Cedazuridine",
+    "aliases": [
+      "decitabine with cedazuridine"
+    ]
+  },
+  {
     "name": "Decitabine/Cedazuridine",
     "aliases": [
       "decitabine/cedazuridine",
@@ -3685,17 +3527,23 @@
     ]
   },
   {
+    "name": "Delgocitinib",
+    "aliases": [
+      "delgocitinib"
+    ]
+  },
+  {
     "name": "Delstrigo",
     "aliases": [
-      "delstrigo",
-      "doravirine/lamivudine/tenofovir"
+      "delstrigo"
     ]
   },
   {
     "name": "Demeclocycline",
     "aliases": [
       "demeclocycline",
-      "ledermycin"
+      "ledermycin",
+      "demeclocycline hydrochloride"
     ]
   },
   {
@@ -3734,8 +3582,7 @@
   {
     "name": "Descovy",
     "aliases": [
-      "descovy",
-      "emtricitabine/tenofovir alafenamide"
+      "descovy"
     ]
   },
   {
@@ -3827,8 +3674,7 @@
   {
     "name": "Diaminopyridine",
     "aliases": [
-      "diaminopyridine",
-      "firdapse"
+      "diaminopyridine"
     ]
   },
   {
@@ -3843,8 +3689,7 @@
     "name": "Dianette",
     "aliases": [
       "dianette",
-      "co-cyprindiol",
-      "cyproterone/ethinylestradiol"
+      "co-cyprindiol"
     ]
   },
   {
@@ -3879,7 +3724,8 @@
       "voltarol",
       "pennsaid",
       "solaraze",
-      "voltaren"
+      "voltaren",
+      "diclofenac potassium"
     ]
   },
   {
@@ -3920,13 +3766,7 @@
     "name": "Diethyl Phthalate/Methyl Salicylate",
     "aliases": [
       "diethyl phthalate/methyl salicylate",
-      "muscular"
-    ]
-  },
-  {
-    "name": "Diethyl Phthalate/Methyl Salicylate",
-    "aliases": [
-      "diethyl phthalate/methyl salicylate",
+      "muscular",
       "diethyl-phthalate-with-methyl-salicylate"
     ]
   },
@@ -3991,7 +3831,8 @@
       "zemtard",
       "adizem",
       "angitil",
-      "dilzem"
+      "dilzem",
+      "diltiazem hydrochloride"
     ]
   },
   {
@@ -4038,8 +3879,7 @@
   {
     "name": "Diprosalic",
     "aliases": [
-      "diprosalic",
-      "betamethasone/salicylic acid"
+      "diprosalic"
     ]
   },
   {
@@ -4067,14 +3907,12 @@
     "name": "Disodium Hydrogen Citrate/Glucose Potassium Chloride And Sodium Chloride",
     "aliases": [
       "disodium hydrogen citrate/glucose potassium chloride and sodium chloride",
-      "dioralyte",
       "Disodium Hydrogen Citrate/Glucose Potassium Chloride/Sodium Chloride"
     ]
   },
   {
     "name": "Disodium Hydrogen Citrate/Glucose Potassium Chloride/Sodium Chloride",
     "aliases": [
-      "disodium hydrogen citrate/glucose potassium chloride/sodium chloride",
       "disodium-hydrogen-citrate-with-glucose-potassium-chloride-and-sodium-chloride"
     ]
   },
@@ -4093,6 +3931,12 @@
     ]
   },
   {
+    "name": "Dithranol",
+    "aliases": [
+      "dithranol"
+    ]
+  },
+  {
     "name": "Dithranol/Salicylic Acid And Zinc Oxide",
     "aliases": [
       "dithranol/salicylic acid and zinc oxide",
@@ -4103,7 +3947,6 @@
   {
     "name": "Dithranol/Salicylic Acid/Zinc Oxide",
     "aliases": [
-      "dithranol/salicylic acid/zinc oxide",
       "dithranol-with-salicylic-acid-and-zinc-oxide"
     ]
   },
@@ -4151,13 +3994,7 @@
     "name": "Dolutegravir/Rilpivirine",
     "aliases": [
       "dolutegravir/rilpivirine",
-      "juluca"
-    ]
-  },
-  {
-    "name": "Dolutegravir/Rilpivirine",
-    "aliases": [
-      "dolutegravir/rilpivirine",
+      "juluca",
       "dolutegravir-with-rilpivirine"
     ]
   },
@@ -4222,8 +4059,6 @@
   {
     "name": "Dorzolamide/Timolol",
     "aliases": [
-      "dorzolamide/timolol",
-      "cosopt",
       "cosopt preservative free"
     ]
   },
@@ -4239,7 +4074,8 @@
     "aliases": [
       "dosulepin",
       "dothiepin",
-      "prothiaden"
+      "prothiaden",
+      "dosulepin hydrochloride"
     ]
   },
   {
@@ -4249,14 +4085,6 @@
       "doublebase gel",
       "doublebase gel 100",
       "doublebase gel 500"
-    ]
-  },
-  {
-    "name": "Dovobet",
-    "aliases": [
-      "dovobet",
-      "calcipotriol/betamethasone",
-      "enstilar"
     ]
   },
   {
@@ -4304,20 +4132,7 @@
     "name": "Doxylamine/Pyridoxine",
     "aliases": [
       "doxylamine/pyridoxine",
-      "Xonvea"
-    ]
-  },
-  {
-    "name": "Doxylamine/Pyridoxine",
-    "aliases": [
-      "doxylamine/pyridoxine",
-      "xonvea"
-    ]
-  },
-  {
-    "name": "Doxylamine/Pyridoxine",
-    "aliases": [
-      "doxylamine/pyridoxine",
+      "Xonvea",
       "doxylamine-with-pyridoxine"
     ]
   },
@@ -4337,8 +4152,7 @@
   {
     "name": "Duaklir",
     "aliases": [
-      "duaklir genuair",
-      "aclidinium/formoterol"
+      "duaklir genuair"
     ]
   },
   {
@@ -4403,13 +4217,6 @@
     ]
   },
   {
-    "name": "EMLA",
-    "aliases": [
-      "emla",
-      "lidocaine/prilocaine"
-    ]
-  },
-  {
     "name": "Eculizumab",
     "aliases": [
       "eculizumab",
@@ -4434,12 +4241,7 @@
     "name": "Efavirenz/Emtricitabine/Tenofovir Disoproxil",
     "aliases": [
       "efavirenz/emtricitabine/tenofovir",
-      "atripla"
-    ]
-  },
-  {
-    "name": "Efavirenz/Emtricitabine/Tenofovir Disoproxil",
-    "aliases": [
+      "atripla",
       "efavirenz/emtricitabine/tenofovir disoproxil",
       "efavirenz-with-emtricitabine-and-tenofovir-disoproxil"
     ]
@@ -4456,6 +4258,12 @@
     "aliases": [
       "elacestrant",
       "orserdu"
+    ]
+  },
+  {
+    "name": "Elbasvir With Grazoprevir",
+    "aliases": [
+      "elbasvir with grazoprevir"
     ]
   },
   {
@@ -4515,100 +4323,58 @@
     ]
   },
   {
-    "name": "Elvitegravir/Cobicistat Emtricitabine/Tenofovir Alafenamide",
+    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide",
     "aliases": [
+      "elvitegravir/cobicistat/emtricitabine/tenofovir alafenamide",
       "elvitegravir/cobicistat emtricitabine/tenofovir alafenamide",
-      "elvitegravir-with-cobicistat-emtricitabine-and-tenofovir-alafenamide"
-    ]
-  },
-  {
-    "name": "Elvitegravir/Cobicistat Emtricitabine/Tenofovir Disoproxil",
-    "aliases": [
-      "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil",
-      "elvitegravir-with-cobicistat-emtricitabine-and-tenofovir-disoproxil"
-    ]
-  },
-  {
-    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir",
-    "aliases": [
-      "elvitegravir/cobicistat/emtricitabine/tenofovir",
+      "elvitegravir-with-cobicistat-emtricitabine-and-tenofovir-alafenamide",
+      "elvitegravir/cobicistat, emtricitabine and tenofovir alafenamide",
       "genvoya"
     ]
   },
   {
-    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide",
-    "aliases": [
-      "elvitegravir/cobicistat/emtricitabine/tenofovir",
-      "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide"
-    ]
-  },
-  {
-    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Alafenamide",
-    "aliases": [
-      "elvitegravir/cobicistat, emtricitabine and tenofovir alafenamide",
-      "elvitegravir/cobicistat emtricitabine/tenofovir alafenamide",
-      "genvoya",
-      "Elvitegravir-With-Cobicistat-Emtricitabine-And-Tenofovir-Alafenamide"
-    ]
-  },
-  {
     "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil",
     "aliases": [
-      "stribild",
       "elvitegravir/cobicistat/emtricitabine/tenofovir disoproxil",
-      "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil"
+      "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil",
+      "elvitegravir-with-cobicistat-emtricitabine-and-tenofovir-disoproxil",
+      "elvitegravir/cobicistat, emtricitabine and tenofovir disoproxil",
+      "stribild"
     ]
   },
   {
-    "name": "Elvitegravir/Cobicistat/Emtricitabine/Tenofovir Disoproxil",
+    "name": "EMLA",
     "aliases": [
-      "elvitegravir/cobicistat, emtricitabine and tenofovir disoproxil",
-      "elvitegravir/cobicistat emtricitabine/tenofovir disoproxil",
-      "stribild",
-      "Elvitegravir-With-Cobicistat-Emtricitabine-And-Tenofovir-Disoproxil"
+      "emla"
     ]
   },
   {
     "name": "Emollient Bath And Shower Products Antimicrobial Containing",
-    "aliases": [
-      "emollient bath and shower products antimicrobial containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Bath And Shower Products Paraffin Containing",
-    "aliases": [
-      "emollient bath and shower products paraffin containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Bath And Shower Products Soya Bean Oil Containing",
-    "aliases": [
-      "emollient bath and shower products soya bean oil containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Creams And Ointments Antimicrobial Containing",
-    "aliases": [
-      "emollient creams and ointments antimicrobial containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Creams And Ointments Colloidal Oatmeal Containing",
-    "aliases": [
-      "emollient creams and ointments colloidal oatmeal containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Creams And Ointments Hydrogenated Castor Oil Containing",
-    "aliases": [
-      "emollient creams and ointments hydrogenated castor oil containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollient Creams And Ointments Paraffin Containing",
-    "aliases": [
-      "emollient creams and ointments paraffin containing"
-    ]
+    "aliases": []
   },
   {
     "name": "Emollients Urea Containing",
@@ -4633,13 +4399,7 @@
     "name": "Empagliflozin/Metformin",
     "aliases": [
       "empagliflozin/metformin",
-      "synjardy"
-    ]
-  },
-  {
-    "name": "Empagliflozin/Metformin",
-    "aliases": [
-      "empagliflozin/metformin",
+      "synjardy",
       "empagliflozin-with-metformin"
     ]
   },
@@ -4669,14 +4429,12 @@
   {
     "name": "Emtricitabine/Rilpivirine/Tenofovir Alafenamide",
     "aliases": [
-      "emtricitabine/rilpivirine/tenofovir alafenamide",
       "emtricitabine-with-rilpivirine-and-tenofovir-alafenamide"
     ]
   },
   {
     "name": "Emtricitabine/Rilpivirine/Tenofovir Disoproxil",
     "aliases": [
-      "emtricitabine/rilpivirine/tenofovir disoproxil",
       "emtricitabine-with-rilpivirine-and-tenofovir-disoproxil"
     ]
   },
@@ -4690,14 +4448,6 @@
   {
     "name": "Emtricitabine/Tenofovir Alafenamide",
     "aliases": [
-      "emtricitabine/tenofovir alafenamide",
-      "descovy"
-    ]
-  },
-  {
-    "name": "Emtricitabine/Tenofovir Alafenamide",
-    "aliases": [
-      "emtricitabine/tenofovir alafenamide",
       "emtricitabine-with-tenofovir-alafenamide"
     ]
   },
@@ -4772,8 +4522,7 @@
   {
     "name": "Epclusa",
     "aliases": [
-      "epclusa",
-      "sofosbuvir/velpatasvir"
+      "epclusa"
     ]
   },
   {
@@ -4791,24 +4540,10 @@
     ]
   },
   {
-    "name": "Epiduo",
-    "aliases": [
-      "epiduo",
-      "adapalene/benzoyl peroxide"
-    ]
-  },
-  {
     "name": "Epimax",
     "aliases": [
       "epimax",
       "epi-max"
-    ]
-  },
-  {
-    "name": "Epinephrine",
-    "aliases": [
-      "epinephrine",
-      "adrenaline"
     ]
   },
   {
@@ -4945,7 +4680,8 @@
     "name": "Eslicarbazepine",
     "aliases": [
       "eslicarbazepine",
-      "zebinix"
+      "zebinix",
+      "eslicarbazepine acetate"
     ]
   },
   {
@@ -4983,6 +4719,12 @@
     ]
   },
   {
+    "name": "Eszopiclone",
+    "aliases": [
+      "eszopiclone"
+    ]
+  },
+  {
     "name": "Etamsylate",
     "aliases": [
       "etamsylate",
@@ -5014,7 +4756,8 @@
   {
     "name": "Ethambutol",
     "aliases": [
-      "ethambutol"
+      "ethambutol",
+      "ethambutol hydrochloride"
     ]
   },
   {
@@ -5081,8 +4824,7 @@
   {
     "name": "Eucreas",
     "aliases": [
-      "eucreas",
-      "vildagliptin/metformin"
+      "eucreas"
     ]
   },
   {
@@ -5092,13 +4834,6 @@
       "afinitor",
       "certican",
       "votubia"
-    ]
-  },
-  {
-    "name": "Eviplera",
-    "aliases": [
-      "eviplera",
-      "rilpivirine/emtricitabine/tenofovir"
     ]
   },
   {
@@ -5117,8 +4852,7 @@
   {
     "name": "Evotaz",
     "aliases": [
-      "evotaz",
-      "atazanavir/cobicistat"
+      "evotaz"
     ]
   },
   {
@@ -5150,21 +4884,13 @@
   },
   {
     "name": "Eylamdo",
-    "aliases": [
-      "eylamdo"
-    ]
+    "aliases": []
   },
   {
     "name": "Ezetimibe",
     "aliases": [
       "ezetimibe",
       "ezetrol"
-    ]
-  },
-  {
-    "name": "FMT",
-    "aliases": [
-      "faecal microbiota transplant"
     ]
   },
   {
@@ -5228,8 +4954,7 @@
       "felodipine",
       "cardioplen",
       "felogen",
-      "plendil",
-      "vascalpha"
+      "plendil"
     ]
   },
   {
@@ -5296,20 +5021,6 @@
     ]
   },
   {
-    "name": "Ferric Derisomaltose",
-    "aliases": [
-      "ferric derisomaltose",
-      "monofer"
-    ]
-  },
-  {
-    "name": "Ferric Maltol",
-    "aliases": [
-      "ferric maltol",
-      "feraccru"
-    ]
-  },
-  {
     "name": "Ferric Maltol",
     "aliases": [
       "ferric maltol",
@@ -5351,28 +5062,16 @@
       "ferrous sulfate/ascorbic acid",
       "ferrous sulphate/ascorbic acid",
       "iron/vitamin c",
-      "ferrograd c",
-      "feospan spansules"
-    ]
-  },
-  {
-    "name": "Ferrous Sulfate/Ascorbic Acid",
-    "aliases": [
-      "ferrous sulfate/ascorbic acid",
+      "feospan spansules",
       "ferrous-sulfate-with-ascorbic-acid"
-    ]
-  },
-  {
-    "name": "Ferrous Sulfate/Folic Acid",
-    "aliases": [
-      "ferrous sulfate/folic acid",
-      "ferrous-sulfate-with-folic-acid"
     ]
   },
   {
     "name": "Ferrous sulfate/Folic Acid",
     "aliases": [
-      "Ferrous sulphate/folic acid"
+      "Ferrous sulphate/folic acid",
+      "ferrous sulfate/folic acid",
+      "ferrous-sulfate-with-folic-acid"
     ]
   },
   {
@@ -5387,7 +5086,8 @@
     "name": "Fexofenadine",
     "aliases": [
       "fexofenadine",
-      "telfast"
+      "telfast",
+      "fexofenadine hydrochloride"
     ]
   },
   {
@@ -5445,7 +5145,8 @@
   {
     "name": "Flavoxate",
     "aliases": [
-      "flavoxate"
+      "flavoxate",
+      "flavoxate hydrochloride"
     ]
   },
   {
@@ -5500,7 +5201,8 @@
     "name": "Fludrocortisone",
     "aliases": [
       "fludrocortisone",
-      "florinef"
+      "florinef",
+      "fludrocortisone acetate"
     ]
   },
   {
@@ -5536,7 +5238,8 @@
     "aliases": [
       "fluocinolone",
       "synalar",
-      "iluvien"
+      "iluvien",
+      "fluocinolone acetonide"
     ]
   },
   {
@@ -5572,13 +5275,7 @@
     "name": "Fluorouracil/Salicylic Acid",
     "aliases": [
       "fluorouracil/salicylic acid",
-      "5-fu/salicylic acid"
-    ]
-  },
-  {
-    "name": "Fluorouracil/Salicylic Acid",
-    "aliases": [
-      "fluorouracil/salicylic acid",
+      "5-fu/salicylic acid",
       "fluorouracil-with-salicylic-acid"
     ]
   },
@@ -5671,6 +5368,12 @@
     ]
   },
   {
+    "name": "FMT",
+    "aliases": [
+      "faecal microbiota transplant"
+    ]
+  },
+  {
     "name": "Folic Acid",
     "aliases": [
       "folic acid"
@@ -5727,15 +5430,12 @@
   {
     "name": "Formoterol Fumarate/Glycopyrronium And Budesonide",
     "aliases": [
-      "formoterol fumarate/glycopyrronium and budesonide",
-      "formoterol fumarate/glycopyrronium/budesonide",
       "trixeo"
     ]
   },
   {
     "name": "Formoterol Fumarate/Glycopyrronium/Budesonide",
     "aliases": [
-      "formoterol fumarate/glycopyrronium/budesonide",
       "formoterol-fumarate-with-glycopyrronium-and-budesonide"
     ]
   },
@@ -5810,8 +5510,7 @@
   {
     "name": "Fosavance",
     "aliases": [
-      "fosavance",
-      "alendronic acid/colecalciferol"
+      "fosavance"
     ]
   },
   {
@@ -5832,6 +5531,12 @@
     "name": "Fosinopril",
     "aliases": [
       "fosinopril"
+    ]
+  },
+  {
+    "name": "Foslevodopa With Foscarbidopa",
+    "aliases": [
+      "foslevodopa with foscarbidopa"
     ]
   },
   {
@@ -5990,8 +5695,7 @@
   {
     "name": "Gaviscon Advance",
     "aliases": [
-      "gaviscon advance",
-      "sodium alginate/potassium bicarbonate"
+      "gaviscon advance"
     ]
   },
   {
@@ -6088,6 +5792,12 @@
     ]
   },
   {
+    "name": "Givinostat",
+    "aliases": [
+      "givinostat"
+    ]
+  },
+  {
     "name": "Glacial Acetic Acid",
     "aliases": [
       "glacial acetic acid"
@@ -6096,9 +5806,7 @@
   {
     "name": "Glatiramer",
     "aliases": [
-      "glatiramer",
       "brabio",
-      "copaxone",
       "remurel"
     ]
   },
@@ -6106,13 +5814,7 @@
     "name": "Glecaprevir/Pibrentasvir",
     "aliases": [
       "glecaprevir/pibrentasvir",
-      "maviret"
-    ]
-  },
-  {
-    "name": "Glecaprevir/Pibrentasvir",
-    "aliases": [
-      "glecaprevir/pibrentasvir",
+      "maviret",
       "glecaprevir-with-pibrentasvir"
     ]
   },
@@ -6171,8 +5873,7 @@
   {
     "name": "Glucose",
     "aliases": [
-      "glucose",
-      "dextrose"
+      "glucose"
     ]
   },
   {
@@ -6291,14 +5992,6 @@
     ]
   },
   {
-    "name": "HPV Vaccine",
-    "aliases": [
-      "papilloma vaccine",
-      "gardasil",
-      "cervarix"
-    ]
-  },
-  {
     "name": "Haem Arginate",
     "aliases": [
       "haem arginate",
@@ -6323,8 +6016,7 @@
   {
     "name": "Harvoni",
     "aliases": [
-      "harvoni",
-      "ledipasvir/sofosbuvir"
+      "harvoni"
     ]
   },
   {
@@ -6348,7 +6040,6 @@
     "aliases": [
       "hepatitis a vaccine",
       "hepatitis b vaccine",
-      "hepatitis a/b vaccine",
       "havrix",
       "avaxim",
       "vaqta",
@@ -6370,6 +6061,14 @@
     "aliases": [
       "hib/men c",
       "menitorix"
+    ]
+  },
+  {
+    "name": "HPV Vaccine",
+    "aliases": [
+      "papilloma vaccine",
+      "gardasil",
+      "cervarix"
     ]
   },
   {
@@ -6482,7 +6181,8 @@
     "name": "Hydromorphone",
     "aliases": [
       "hydromorphone",
-      "palladone"
+      "palladone",
+      "hydromorphone hydrochloride"
     ]
   },
   {
@@ -6521,7 +6221,8 @@
     "aliases": [
       "hydroxyzine",
       "atarax",
-      "ucerax"
+      "ucerax",
+      "hydroxyzine hydrochloride"
     ]
   },
   {
@@ -6559,7 +6260,6 @@
       "hypromellose",
       "isopto plain",
       "artelac",
-      "lumecare",
       "hydroxypropylmethylcellulose",
       "hpmc",
       "artificial tears"
@@ -6686,7 +6386,8 @@
     "name": "Imipramine",
     "aliases": [
       "imipramine",
-      "tofranil"
+      "tofranil",
+      "imipramine hydrochloride"
     ]
   },
   {
@@ -6911,13 +6612,7 @@
     "name": "Insulin Glargine/Lixisenatide",
     "aliases": [
       "insulin glargine/lixisenatide",
-      "suliqua"
-    ]
-  },
-  {
-    "name": "Insulin Glargine/Lixisenatide",
-    "aliases": [
-      "insulin glargine/lixisenatide",
+      "suliqua",
       "insulin-glargine-with-lixisenatide"
     ]
   },
@@ -7012,8 +6707,7 @@
   {
     "name": "Insulin Semglee",
     "aliases": [
-      "insulin semglee",
-      "semglee"
+      "insulin semglee"
     ]
   },
   {
@@ -7193,14 +6887,8 @@
   {
     "name": "Iron Dextran",
     "aliases": [
-      "cosmofer"
-    ]
-  },
-  {
-    "name": "Iron Dextran",
-    "aliases": [
-      "iron dextran",
-      "cosmofer"
+      "cosmofer",
+      "iron dextran"
     ]
   },
   {
@@ -7247,13 +6935,6 @@
     "aliases": [
       "isoniazid",
       "rimifon"
-    ]
-  },
-  {
-    "name": "Isoniazid/Rifampicin",
-    "aliases": [
-      "isoniazid/rifampicin",
-      "rifinah"
     ]
   },
   {
@@ -7333,13 +7014,7 @@
     "name": "Ivacaftor/Tezacaftor/Elexacaftor",
     "aliases": [
       "ivacaftor/tezacaftor/elexacaftor",
-      "kaftrio"
-    ]
-  },
-  {
-    "name": "Ivacaftor/Tezacaftor/Elexacaftor",
-    "aliases": [
-      "ivacaftor/tezacaftor/elexacaftor",
+      "kaftrio",
       "ivacaftor-with-tezacaftor-and-elexacaftor"
     ]
   },
@@ -7435,12 +7110,6 @@
     ]
   },
   {
-    "name": "L-Arginine",
-    "aliases": [
-      "l-arginine"
-    ]
-  },
-  {
     "name": "L-Ornithine/L-Aspartate",
     "aliases": [
       "l-ornithine/l-aspartate"
@@ -7456,7 +7125,8 @@
     "name": "Labetalol",
     "aliases": [
       "labetalol",
-      "trandate"
+      "trandate",
+      "labetalol hydrochloride"
     ]
   },
   {
@@ -7498,13 +7168,6 @@
       "lamivudine",
       "epivir",
       "zeffix"
-    ]
-  },
-  {
-    "name": "Lamivudine/Tenofovir Disoproxil/Doravirine",
-    "aliases": [
-      "lamivudine/tenofovir disoproxil/doravirine",
-      "delstrigo"
     ]
   },
   {
@@ -7601,7 +7264,6 @@
   {
     "name": "Ledipasvir/Sofosbuvir",
     "aliases": [
-      "ledipasvir/sofosbuvir",
       "ledipasvir-with-sofosbuvir"
     ]
   },
@@ -7638,7 +7300,8 @@
     "name": "Lercanidipine",
     "aliases": [
       "lercanidipine",
-      "zanidip"
+      "zanidip",
+      "lercanidipine hydrochloride"
     ]
   },
   {
@@ -7702,6 +7365,12 @@
     "aliases": [
       "levocarnitine",
       "carnitor"
+    ]
+  },
+  {
+    "name": "Levodopa With Carbidopa And Entacapone",
+    "aliases": [
+      "levodopa with carbidopa and entacapone"
     ]
   },
   {
@@ -7800,13 +7469,6 @@
     ]
   },
   {
-    "name": "Lidocaine/Chlorhexidine",
-    "aliases": [
-      "lidocaine/chlorhexidine",
-      "instillagel"
-    ]
-  },
-  {
     "name": "Lidocaine/Fluorescein",
     "aliases": [
       "lidocaine/fluorescein",
@@ -7822,8 +7484,7 @@
   {
     "name": "Lidocaine/Phenylephrine",
     "aliases": [
-      "lidocaine/phenylephrine",
-      "instillagel"
+      "lidocaine/phenylephrine"
     ]
   },
   {
@@ -7844,13 +7505,7 @@
     "name": "Linagliptin/Metformin",
     "aliases": [
       "linagliptin/metformin",
-      "jentadueto"
-    ]
-  },
-  {
-    "name": "Linagliptin/Metformin",
-    "aliases": [
-      "linagliptin/metformin",
+      "jentadueto",
       "linagliptin-with-metformin"
     ]
   },
@@ -7885,7 +7540,6 @@
   {
     "name": "Liquid and White Soft Paraffin 50:50 Ointment",
     "aliases": [
-      "liquid and white soft paraffin 50:50 ointment",
       "Fifty:50"
     ]
   },
@@ -8003,13 +7657,7 @@
     "name": "Lopinavir/Ritonavir",
     "aliases": [
       "lopinavir/ritonavir",
-      "kaletra"
-    ]
-  },
-  {
-    "name": "Lopinavir/Ritonavir",
-    "aliases": [
-      "lopinavir/ritonavir",
+      "kaletra",
       "lopinavir-with-ritonavir"
     ]
   },
@@ -8077,13 +7725,7 @@
     "name": "Lumacaftor/Ivacaftor",
     "aliases": [
       "lumacaftor/ivacaftor",
-      "orkambi"
-    ]
-  },
-  {
-    "name": "Lumacaftor/Ivacaftor",
-    "aliases": [
-      "lumacaftor/ivacaftor",
+      "orkambi",
       "lumacaftor-with-ivacaftor"
     ]
   },
@@ -8091,7 +7733,8 @@
     "name": "Lurasidone",
     "aliases": [
       "lurasidone",
-      "latuda"
+      "latuda",
+      "lurasidone hydrochloride"
     ]
   },
   {
@@ -8105,14 +7748,6 @@
     "aliases": [
       "lymecycline",
       "tetralysal"
-    ]
-  },
-  {
-    "name": "MMR Vaccine",
-    "aliases": [
-      "mmr vaccine",
-      "priorix",
-      "mmrvaxpro"
     ]
   },
   {
@@ -8132,7 +7767,6 @@
       "cosmocol",
       "molaxole",
       "macilax",
-      "polyethylene glycol with elect",
       "moviprep",
       "Prepu"
     ]
@@ -8155,13 +7789,7 @@
       "magnesium citrate/sodium picosulfate",
       "citrafleet",
       "picolax",
-      "picoprep"
-    ]
-  },
-  {
-    "name": "Magnesium Citrate/Sodium Picosulfate",
-    "aliases": [
-      "magnesium citrate/sodium picosulfate",
+      "picoprep",
       "magnesium-citrate-with-sodium-picosulfate"
     ]
   },
@@ -8215,20 +7843,15 @@
     "aliases": [
       "mebeverine",
       "colofac",
-      "aurobeverine"
+      "aurobeverine",
+      "mebeverine hydrochloride"
     ]
   },
   {
     "name": "Mebeverine/Ispaghula Husk",
     "aliases": [
       "mebeverine/ispaghula husk",
-      "fybogel mebeverine"
-    ]
-  },
-  {
-    "name": "Mebeverine/Ispaghula Husk",
-    "aliases": [
-      "mebeverine/ispaghula husk",
+      "fybogel mebeverine",
       "mebeverine-with-ispaghula-husk"
     ]
   },
@@ -8336,14 +7959,14 @@
   {
     "name": "Menthol",
     "aliases": [
-      "menthol",
-      "menthol/eucalyptus"
+      "menthol"
     ]
   },
   {
     "name": "Mepacrine",
     "aliases": [
-      "mepacrine"
+      "mepacrine",
+      "mepacrine hydrochloride"
     ]
   },
   {
@@ -8351,13 +7974,6 @@
     "aliases": [
       "mepivacaine",
       "scandonest"
-    ]
-  },
-  {
-    "name": "Mepolizumab",
-    "aliases": [
-      "mepolizumab",
-      "nucala"
     ]
   },
   {
@@ -8441,14 +8057,14 @@
       "bolamyn",
       "diagemet",
       "glucient",
-      "metabet"
+      "metabet",
+      "metformin hydrochloride"
     ]
   },
   {
     "name": "Metformin/Alogliptin",
     "aliases": [
-      "metformin/alogliptin",
-      "Vipdomet"
+      "metformin/alogliptin"
     ]
   },
   {
@@ -8463,7 +8079,8 @@
     "aliases": [
       "methadone",
       "physeptone",
-      "methadose"
+      "methadose",
+      "methadone hydrochloride"
     ]
   },
   {
@@ -8525,7 +8142,8 @@
       "concerta",
       "equasym",
       "medikinet",
-      "xaggitin"
+      "xaggitin",
+      "methylphenidate hydrochloride"
     ]
   },
   {
@@ -8606,7 +8224,8 @@
     "name": "Mianserin",
     "aliases": [
       "mianserin",
-      "tolvon"
+      "tolvon",
+      "mianserin hydrochloride"
     ]
   },
   {
@@ -8753,6 +8372,14 @@
     ]
   },
   {
+    "name": "MMR Vaccine",
+    "aliases": [
+      "mmr vaccine",
+      "priorix",
+      "mmrvaxpro"
+    ]
+  },
+  {
     "name": "Mobocertinib",
     "aliases": [
       "mobocertinib",
@@ -8798,7 +8425,8 @@
       "mometasone",
       "elocon",
       "nasonex",
-      "asmanex"
+      "asmanex",
+      "mometasone furoate"
     ]
   },
   {
@@ -8908,13 +8536,6 @@
     ]
   },
   {
-    "name": "Nadolol",
-    "aliases": [
-      "nadolol",
-      "corgard"
-    ]
-  },
-  {
     "name": "Nafarelin",
     "aliases": [
       "nafarelin",
@@ -8925,7 +8546,8 @@
     "name": "Naftidrofuryl",
     "aliases": [
       "naftidrofuryl",
-      "praxilene"
+      "praxilene",
+      "naftidrofuryl oxalate"
     ]
   },
   {
@@ -8975,13 +8597,7 @@
     "name": "Naltrexone/Bupropion",
     "aliases": [
       "naltrexone/bupropion",
-      "mysimba"
-    ]
-  },
-  {
-    "name": "Naltrexone/Bupropion",
-    "aliases": [
-      "naltrexone/bupropion",
+      "mysimba",
       "naltrexone-with-bupropion"
     ]
   },
@@ -8997,13 +8613,7 @@
     "name": "Naproxen/Esomeprazole",
     "aliases": [
       "naproxen/esomeprazole",
-      "vimovo"
-    ]
-  },
-  {
-    "name": "Naproxen/Esomeprazole",
-    "aliases": [
-      "naproxen/esomeprazole",
+      "vimovo",
       "naproxen-with-esomeprazole"
     ]
   },
@@ -9017,8 +8627,7 @@
   {
     "name": "Naseptin",
     "aliases": [
-      "naseptin",
-      "chlorhexidine/neomycin"
+      "naseptin"
     ]
   },
   {
@@ -9053,7 +8662,8 @@
     "name": "Nefopam",
     "aliases": [
       "nefopam",
-      "acupan"
+      "acupan",
+      "nefopam hydrochloride"
     ]
   },
   {
@@ -9108,13 +8718,6 @@
     "aliases": [
       "akynzeo",
       "netupitant/palonosetron"
-    ]
-  },
-  {
-    "name": "Nevirapine",
-    "aliases": [
-      "nevirapine",
-      "viramune"
     ]
   },
   {
@@ -9195,20 +8798,7 @@
     "name": "Nirmatrelvir/Ritonavir",
     "aliases": [
       "nirmatrelvir/ritonavir",
-      "paxlovid"
-    ]
-  },
-  {
-    "name": "Nirmatrelvir/Ritonavir",
-    "aliases": [
-      "nirmatrelvir/ritonavir",
-      "paxlovid"
-    ]
-  },
-  {
-    "name": "Nirmatrelvir/Ritonavir",
-    "aliases": [
-      "nirmatrelvir/ritonavir",
+      "paxlovid",
       "nirmatrelvir-with-ritonavir"
     ]
   },
@@ -9276,8 +8866,6 @@
   {
     "name": "Norgeston",
     "aliases": [
-      "norgeston",
-      "levonorgestrel",
       "Levonorgestrel (Norgeston)"
     ]
   },
@@ -9548,8 +9136,7 @@
   {
     "name": "Otrivine-Antistin",
     "aliases": [
-      "otrivine-antistin",
-      "xylometazoline/antazoline"
+      "otrivine-antistin"
     ]
   },
   {
@@ -9598,7 +9185,8 @@
     "aliases": [
       "oxybutynin",
       "kentera",
-      "lyrinel xl"
+      "lyrinel xl",
+      "oxybutynin hydrochloride"
     ]
   },
   {
@@ -9610,7 +9198,8 @@
       "shortec",
       "longtec",
       "reltebon",
-      "oxypro"
+      "oxypro",
+      "oxycodone hydrochloride"
     ]
   },
   {
@@ -9618,12 +9207,6 @@
     "aliases": [
       "oxycodone/naloxone",
       "targinact"
-    ]
-  },
-  {
-    "name": "Oxygen",
-    "aliases": [
-      "oxygen"
     ]
   },
   {
@@ -9773,13 +9356,7 @@
     "name": "Paracetamol/Isometheptene",
     "aliases": [
       "paracetamol/isometheptene",
-      "midrid"
-    ]
-  },
-  {
-    "name": "Paracetamol/Isometheptene",
-    "aliases": [
-      "paracetamol/isometheptene",
+      "midrid",
       "paracetamol-with-isometheptene"
     ]
   },
@@ -9834,7 +9411,8 @@
     "name": "Patiromer",
     "aliases": [
       "patiromer",
-      "veltassa"
+      "veltassa",
+      "patiromer calcium"
     ]
   },
   {
@@ -9887,8 +9465,7 @@
   {
     "name": "Peginterferon Beta",
     "aliases": [
-      "peginterferon beta-1a",
-      "plegridy"
+      "peginterferon beta-1a"
     ]
   },
   {
@@ -9944,7 +9521,8 @@
     "name": "Pentosan",
     "aliases": [
       "pentosan polysulphate",
-      "elmiron"
+      "elmiron",
+      "pentosan polysulfate sodium"
     ]
   },
   {
@@ -9995,8 +9573,7 @@
   {
     "name": "Peptisorb",
     "aliases": [
-      "peptisorb",
-      "nutrison peptisorb plus hehp"
+      "peptisorb"
     ]
   },
   {
@@ -10016,7 +9593,6 @@
   {
     "name": "Pergoveris",
     "aliases": [
-      "follitropin/lutropin",
       "pergoveris"
     ]
   },
@@ -10025,13 +9601,6 @@
     "aliases": [
       "pericyazine",
       "neulactil"
-    ]
-  },
-  {
-    "name": "Perindopril",
-    "aliases": [
-      "perindopril",
-      "coversyl"
     ]
   },
   {
@@ -10045,26 +9614,23 @@
     "name": "Perindopril Arginine/Indapamide",
     "aliases": [
       "perindopril arginine/indapamide",
-      "coversyl plus arginine"
+      "coversyl plus arginine",
+      "perindopril/indapamide"
     ]
   },
   {
     "name": "Perindopril Erbumine",
     "aliases": [
       "perindopril erbumine",
+      "perindopril tert-butylamine",
       "perindopril"
     ]
   },
   {
     "name": "Perindopril/Amlodipine",
     "aliases": [
-      "perindopril/amlodipine"
-    ]
-  },
-  {
-    "name": "Perindopril/Indapamide",
-    "aliases": [
-      "perindopril/indapamide"
+      "perindopril/amlodipine",
+      "perindopril erbumine/amlodipine"
     ]
   },
   {
@@ -10092,7 +9658,8 @@
     "name": "Pethidine",
     "aliases": [
       "pethidine",
-      "meperidine"
+      "meperidine",
+      "pethidine hydrochloride"
     ]
   },
   {
@@ -10236,14 +9803,6 @@
   {
     "name": "Pioglitazone/Metformin",
     "aliases": [
-      "pioglitazone/metformin",
-      "competact"
-    ]
-  },
-  {
-    "name": "Pioglitazone/Metformin",
-    "aliases": [
-      "pioglitazone/metformin",
       "pioglitazone-with-metformin"
     ]
   },
@@ -10286,7 +9845,8 @@
     "name": "Pivmecillinam",
     "aliases": [
       "pivmecillinam",
-      "selexid"
+      "selexid",
+      "pivmecillinam hydrochloride"
     ]
   },
   {
@@ -10406,9 +9966,7 @@
   },
   {
     "name": "Potassium Acid Phosphate",
-    "aliases": [
-      "potassium acid phosphate"
-    ]
+    "aliases": []
   },
   {
     "name": "Potassium Aminobenzoate",
@@ -10461,13 +10019,6 @@
     "name": "Potassium Citrate",
     "aliases": [
       "potassium citrate",
-      "effercitrate"
-    ]
-  },
-  {
-    "name": "Potassium Citrate/Potassium Bicarbonate",
-    "aliases": [
-      "potassium citrate/potassium bicarbonate",
       "effercitrate"
     ]
   },
@@ -10528,8 +10079,7 @@
     "name": "Povidone Iodine",
     "aliases": [
       "povidone iodine",
-      "betadine",
-      "videne"
+      "betadine"
     ]
   },
   {
@@ -10750,14 +10300,16 @@
   {
     "name": "Promazine",
     "aliases": [
-      "promazine"
+      "promazine",
+      "promazine hydrochloride"
     ]
   },
   {
     "name": "Promethazine",
     "aliases": [
       "promethazine",
-      "phenergan"
+      "phenergan",
+      "promethazine hydrochloride"
     ]
   },
   {
@@ -10775,15 +10327,14 @@
   },
   {
     "name": "Prontosan",
-    "aliases": [
-      "prontosan"
-    ]
+    "aliases": []
   },
   {
     "name": "Propafenone",
     "aliases": [
       "propafenone",
-      "arythmol"
+      "arythmol",
+      "propafenone hydrochloride"
     ]
   },
   {
@@ -10797,14 +10348,16 @@
     "name": "Propantheline",
     "aliases": [
       "propantheline",
-      "pro-banthine"
+      "pro-banthine",
+      "propantheline bromide"
     ]
   },
   {
     "name": "Propiverine",
     "aliases": [
       "propiverine",
-      "detrunorm"
+      "detrunorm",
+      "propiverine hydrochloride"
     ]
   },
   {
@@ -10822,7 +10375,8 @@
       "inderal",
       "bedranol",
       "beta-prograne",
-      "syprol"
+      "syprol",
+      "propranolol hydrochloride"
     ]
   },
   {
@@ -10853,7 +10407,6 @@
     "name": "Prothrombin",
     "aliases": [
       "prothrombin complex",
-      "beriplex",
       "octaplex"
     ]
   },
@@ -10898,9 +10451,7 @@
   },
   {
     "name": "Psoriderm",
-    "aliases": [
-      "psoriderm"
-    ]
+    "aliases": []
   },
   {
     "name": "Pyrazinamide",
@@ -10927,12 +10478,6 @@
     "aliases": [
       "pyrimethamine",
       "daraprim"
-    ]
-  },
-  {
-    "name": "QV Cream",
-    "aliases": [
-      "QV cream"
     ]
   },
   {
@@ -10972,11 +10517,9 @@
     ]
   },
   {
-    "name": "RSV Vaccine",
+    "name": "QV Cream",
     "aliases": [
-      "rsv vaccine",
-      "arexvy",
-      "beyfortus"
+      "QV cream"
     ]
   },
   {
@@ -11082,9 +10625,7 @@
   {
     "name": "Relvar",
     "aliases": [
-      "relvar ellipta",
-      "fluticasone furoate/vilanterol",
-      "fluticasone/vilanterol"
+      "relvar ellipta"
     ]
   },
   {
@@ -11159,20 +10700,6 @@
     ]
   },
   {
-    "name": "Rezolsta",
-    "aliases": [
-      "rezolsta",
-      "darunavir/cobicistat"
-    ]
-  },
-  {
-    "name": "Riamet",
-    "aliases": [
-      "riamet",
-      "artemether/lumefantrine"
-    ]
-  },
-  {
     "name": "Ribavirin",
     "aliases": [
       "ribavirin",
@@ -11227,21 +10754,8 @@
     "name": "Rifampicin/Isoniazid/Pyrazinamide",
     "aliases": [
       "rifampicin/isoniazid/pyrazinamide",
-      "rifater"
-    ]
-  },
-  {
-    "name": "Rifampicin/Isoniazid/Pyrazinamide",
-    "aliases": [
-      "rifampicin/isoniazid/pyrazinamide",
-      "rifampicin-with-isoniazid-and-pyrazinamide"
-    ]
-  },
-  {
-    "name": "Rifater",
-    "aliases": [
       "rifater",
-      "rifampicin/isoniazid/pyrazinamide"
+      "rifampicin-with-isoniazid-and-pyrazinamide"
     ]
   },
   {
@@ -11452,6 +10966,14 @@
     ]
   },
   {
+    "name": "RSV Vaccine",
+    "aliases": [
+      "rsv vaccine",
+      "arexvy",
+      "beyfortus"
+    ]
+  },
+  {
     "name": "Rucaparib",
     "aliases": [
       "rucaparib",
@@ -11470,19 +10992,6 @@
     "aliases": [
       "ruxolitinib",
       "jakavi"
-    ]
-  },
-  {
-    "name": "SMA",
-    "aliases": [
-      "sma high energy",
-      "sma powder lactose free"
-    ]
-  },
-  {
-    "name": "SOS",
-    "aliases": [
-      "s.o.s"
     ]
   },
   {
@@ -11545,13 +11054,6 @@
     "aliases": [
       "salicylic acid/lactic acid",
       "duofilm",
-      "salactol"
-    ]
-  },
-  {
-    "name": "Salicylic Acid/Lactic Acid",
-    "aliases": [
-      "salicylic acid/lactic acid",
       "salicylic-acid-with-lactic-acid"
     ]
   },
@@ -11571,10 +11073,7 @@
   {
     "name": "Sandocal",
     "aliases": [
-      "sandocal",
-      "calvive",
-      "sandocal",
-      "Sandocal/Calvive"
+      "calvive"
     ]
   },
   {
@@ -11594,7 +11093,6 @@
   {
     "name": "Sativex",
     "aliases": [
-      "sativex",
       "nabiximols"
     ]
   },
@@ -11609,13 +11107,7 @@
     "name": "Saxagliptin/Metformin",
     "aliases": [
       "saxagliptin/metformin",
-      "komboglyze"
-    ]
-  },
-  {
-    "name": "Saxagliptin/Metformin",
-    "aliases": [
-      "saxagliptin/metformin",
+      "komboglyze",
       "saxagliptin-with-metformin"
     ]
   },
@@ -11707,22 +11199,12 @@
     "name": "Senna/Ispaghula Husk",
     "aliases": [
       "senna/ispaghula husk",
-      "manevac"
-    ]
-  },
-  {
-    "name": "Senna/Ispaghula Husk",
-    "aliases": [
-      "senna/ispaghula husk",
       "senna-with-ispaghula-husk"
     ]
   },
   {
     "name": "Senna/Isphagua Husk",
-    "aliases": [
-      "manevac",
-      "senna/ispaghula husk"
-    ]
+    "aliases": []
   },
   {
     "name": "Sertraline",
@@ -11775,13 +11257,6 @@
     ]
   },
   {
-    "name": "Simbrinza",
-    "aliases": [
-      "simbrinza",
-      "brinzolamide/brimonidine"
-    ]
-  },
-  {
     "name": "Simeprevir",
     "aliases": [
       "simeprevir",
@@ -11805,7 +11280,6 @@
     "name": "Simple Linctus",
     "aliases": [
       "simple linctus",
-      "Simple S/F Linctus",
       "simple paediatric linctus"
     ]
   },
@@ -11854,21 +11328,21 @@
     "name": "Sitagliptin/Metformin",
     "aliases": [
       "sitagliptin/metformin",
-      "janumet"
+      "janumet",
+      "sitagliptin-with-metformin"
     ]
   },
   {
-    "name": "Sitagliptin/Metformin",
+    "name": "SMA",
     "aliases": [
-      "sitagliptin/metformin",
-      "sitagliptin-with-metformin"
+      "sma high energy",
+      "sma powder lactose free"
     ]
   },
   {
     "name": "Smallpox Vaccine",
     "aliases": [
       "smallpox vaccine",
-      "smallpox/monkeypox vaccine",
       "imvanex",
       "jynneos"
     ]
@@ -11899,13 +11373,7 @@
     "aliases": [
       "sodium acid phosphate/sodium phosphate",
       "phosphates enema",
-      "fleet"
-    ]
-  },
-  {
-    "name": "Sodium Acid Phosphate/Sodium Phosphate",
-    "aliases": [
-      "sodium acid phosphate/sodium phosphate",
+      "fleet",
       "sodium-acid-phosphate-with-sodium-phosphate"
     ]
   },
@@ -11954,15 +11422,8 @@
     "name": "Sodium Cromoglicate",
     "aliases": [
       "Sodium cromoglicate",
-      "cromoglicate"
-    ]
-  },
-  {
-    "name": "Sodium Cromoglicate",
-    "aliases": [
-      "sodium cromoglicate",
+      "cromoglicate",
       "intal",
-      "nalcrom",
       "opticrom",
       "vividrin"
     ]
@@ -12013,7 +11474,6 @@
   {
     "name": "Sofosbuvir/Velpatasvir",
     "aliases": [
-      "sofosbuvir/velpatasvir",
       "sofosbuvir-with-velpatasvir"
     ]
   },
@@ -12060,11 +11520,17 @@
     ]
   },
   {
+    "name": "SOS",
+    "aliases": [
+      "s.o.s"
+    ]
+  },
+  {
     "name": "Sotalol",
     "aliases": [
       "sotalol",
-      "beta-cardone",
-      "sotacor"
+      "sotacor",
+      "sotalol hydrochloride"
     ]
   },
   {
@@ -12090,8 +11556,7 @@
   {
     "name": "Spiolto",
     "aliases": [
-      "spiolto",
-      "tiotropium/olodaterol"
+      "spiolto"
     ]
   },
   {
@@ -12111,7 +11576,6 @@
     "name": "Stalevo",
     "aliases": [
       "stalevo",
-      "Levodopa/Carbidopa/Entacapone",
       "sastravi"
     ]
   },
@@ -12164,8 +11628,7 @@
   {
     "name": "Suboxone",
     "aliases": [
-      "suboxone",
-      "buprenorphine/naloxone"
+      "suboxone"
     ]
   },
   {
@@ -12292,17 +11755,9 @@
     ]
   },
   {
-    "name": "Symbicort",
-    "aliases": [
-      "symbicort",
-      "budesonide/formoterol"
-    ]
-  },
-  {
     "name": "Syntometrine",
     "aliases": [
-      "syntometrine",
-      "ergometrine/oxytocin"
+      "syntometrine"
     ]
   },
   {
@@ -12377,14 +11832,8 @@
       "tamsulosin",
       "flomax",
       "pinexel",
-      "tamfrex"
-    ]
-  },
-  {
-    "name": "Tamsulosin/Dutasteride",
-    "aliases": [
-      "tamsulosin/dutasteride",
-      "combodart"
+      "tamfrex",
+      "tamsulosin hydrochloride"
     ]
   },
   {
@@ -12398,13 +11847,7 @@
     "name": "Tamsulosin/Solifenacin",
     "aliases": [
       "tamsulosin/solifenacin",
-      "vesomni"
-    ]
-  },
-  {
-    "name": "Tamsulosin/Solifenacin",
-    "aliases": [
-      "tamsulosin/solifenacin",
+      "vesomni",
       "tamsulosin-with-solifenacin"
     ]
   },
@@ -12510,8 +11953,7 @@
   {
     "name": "Tenecteplase",
     "aliases": [
-      "tenecteplase",
-      "metalyse"
+      "tenecteplase"
     ]
   },
   {
@@ -12636,13 +12078,7 @@
     "name": "Tezacaftor/Ivacaftor",
     "aliases": [
       "tezacaftor/ivacaftor",
-      "symkevi"
-    ]
-  },
-  {
-    "name": "Tezacaftor/Ivacaftor",
-    "aliases": [
-      "tezacaftor/ivacaftor",
+      "symkevi",
       "tezacaftor-with-ivacaftor"
     ]
   },
@@ -12730,9 +12166,7 @@
     "aliases": [
       "timodine",
       "timodine cream",
-      "hydrocortisone with nystatin d",
-      "Timodine Cream 30 G",
-      "Hydrocortisone/Benzalkonium Chloride/Dimeticone/Nystatin"
+      "Timodine Cream 30 G"
     ]
   },
   {
@@ -12742,12 +12176,6 @@
       "timolol maleate",
       "timoptol",
       "betim"
-    ]
-  },
-  {
-    "name": "Timolol/Bendroflumethiazide",
-    "aliases": [
-      "timolol/bendroflumethiazide"
     ]
   },
   {
@@ -12868,8 +12296,7 @@
   {
     "name": "Tocopherol",
     "aliases": [
-      "alpha tocopherol acetate",
-      "vitamin e"
+      "alpha tocopherol acetate"
     ]
   },
   {
@@ -12937,20 +12364,15 @@
       "zamadol",
       "marol",
       "maxitram",
-      "tramquel"
+      "tramquel",
+      "tramadol hydrochloride"
     ]
   },
   {
     "name": "Tramadol/Dexketoprofen",
     "aliases": [
       "tramadol/dexketoprofen",
-      "skudexa"
-    ]
-  },
-  {
-    "name": "Tramadol/Dexketoprofen",
-    "aliases": [
-      "tramadol/dexketoprofen",
+      "skudexa",
       "tramadol-with-dexketoprofen"
     ]
   },
@@ -12958,13 +12380,7 @@
     "name": "Tramadol/Paracetamol",
     "aliases": [
       "tramadol/paracetamol",
-      "tramacet"
-    ]
-  },
-  {
-    "name": "Tramadol/Paracetamol",
-    "aliases": [
-      "tramadol/paracetamol",
+      "tramacet",
       "tramadol-with-paracetamol"
     ]
   },
@@ -13040,7 +12456,8 @@
     "name": "Trazodone",
     "aliases": [
       "trazodone",
-      "molipaxin"
+      "molipaxin",
+      "trazodone hydrochloride"
     ]
   },
   {
@@ -13054,9 +12471,7 @@
     "name": "Trelegy",
     "aliases": [
       "trelegy",
-      "trelegy ellipta",
-      "fluticasone/umeclidinium/vilanterol",
-      "Fluticasone/Umeclidinium And Vilanterol"
+      "trelegy ellipta"
     ]
   },
   {
@@ -13071,13 +12486,7 @@
     "name": "Tretinoin/Clindamycin",
     "aliases": [
       "tretinoin/clindamycin",
-      "treclin"
-    ]
-  },
-  {
-    "name": "Tretinoin/Clindamycin",
-    "aliases": [
-      "tretinoin/clindamycin",
+      "treclin",
       "tretinoin-with-clindamycin"
     ]
   },
@@ -13085,13 +12494,7 @@
     "name": "Tretinoin/Erythromycin",
     "aliases": [
       "tretinoin/erythromycin",
-      "aknemycin plus"
-    ]
-  },
-  {
-    "name": "Tretinoin/Erythromycin",
-    "aliases": [
-      "tretinoin/erythromycin",
+      "aknemycin plus",
       "tretinoin-with-erythromycin"
     ]
   },
@@ -13102,7 +12505,8 @@
       "adcortyl",
       "kenalog",
       "triesence",
-      "nasacort"
+      "nasacort",
+      "triamcinolone acetonide"
     ]
   },
   {
@@ -13116,13 +12520,7 @@
     "name": "Triamterene/Chlortalidone",
     "aliases": [
       "triamterene/chlortalidone",
-      "kalspare"
-    ]
-  },
-  {
-    "name": "Triamterene/Chlortalidone",
-    "aliases": [
-      "triamterene/chlortalidone",
+      "kalspare",
       "triamterene-with-chlortalidone"
     ]
   },
@@ -13176,14 +12574,6 @@
     ]
   },
   {
-    "name": "Trimbow",
-    "aliases": [
-      "trimbow",
-      "beclometasone/formoterol/glycopyrronium",
-      "beclometasone/extrafine/parti3 "
-    ]
-  },
-  {
     "name": "Trimethoprim",
     "aliases": [
       "trimethoprim",
@@ -13200,8 +12590,7 @@
   {
     "name": "Trimovate",
     "aliases": [
-      "trimovate",
-      "clobetasone/oxytetracycline/nystatin"
+      "trimovate"
     ]
   },
   {
@@ -13228,8 +12617,7 @@
   {
     "name": "Triumeq",
     "aliases": [
-      "triumeq",
-      "dolutegravir/abacavir/lamivudine"
+      "triumeq"
     ]
   },
   {
@@ -13252,15 +12640,13 @@
     "aliases": [
       "trospium",
       "regurin",
-      "flotros"
+      "flotros",
+      "trospium chloride"
     ]
   },
   {
     "name": "Truvada",
-    "aliases": [
-      "truvada",
-      "emtricitabine/tenofovir"
-    ]
+    "aliases": []
   },
   {
     "name": "Tryptophan",
@@ -13288,8 +12674,7 @@
   {
     "name": "Typhoid Vaccine Live",
     "aliases": [
-      "typhoid vaccine live",
-      "vivotif"
+      "typhoid vaccine live"
     ]
   },
   {
@@ -13316,8 +12701,7 @@
   {
     "name": "Ultibro",
     "aliases": [
-      "ultibro",
-      "indacaterol/glycopyrronium"
+      "ultibro"
     ]
   },
   {
@@ -13386,18 +12770,8 @@
     ]
   },
   {
-    "name": "VSL#3",
-    "aliases": [
-      "vsl#3"
-    ]
-  },
-  {
     "name": "Vaccines",
     "aliases": [
-      "dtap/ipv/hib",
-      "dtap/ipv/hib/hepb",
-      "td/ipv",
-      "dtap/ipv",
       "pediacel",
       "infanrix",
       "boostrix",
@@ -13480,8 +12854,7 @@
   {
     "name": "Vasopressin",
     "aliases": [
-      "vasopressin",
-      "empressin"
+      "vasopressin"
     ]
   },
   {
@@ -13528,7 +12901,8 @@
       "securon",
       "vertab",
       "cordilox",
-      "univer"
+      "univer",
+      "verapamil hydrochloride"
     ]
   },
   {
@@ -13547,8 +12921,7 @@
   {
     "name": "Viekirax",
     "aliases": [
-      "viekirax",
-      "ombitasvir/paritaprevir/ritonavir"
+      "viekirax"
     ]
   },
   {
@@ -13568,7 +12941,6 @@
   {
     "name": "Vildagliptin/Metformin",
     "aliases": [
-      "vildagliptin/metformin",
       "vildagliptin-with-metformin"
     ]
   },
@@ -13650,7 +13022,6 @@
   {
     "name": "Vitamins A and D",
     "aliases": [
-      "vitamins a and d",
       "abidec"
     ]
   },
@@ -13676,8 +13047,7 @@
   {
     "name": "Volumatic",
     "aliases": [
-      "volumatic spacer device",
-      "volumatic with paediatric mask"
+      "volumatic spacer device"
     ]
   },
   {
@@ -13705,10 +13075,12 @@
   {
     "name": "Vosevi",
     "aliases": [
-      "vosevi",
-      "sofosbuvir/velpatasvir/voxilaprevir",
-      "Sofosbuvir/Velpatasvir And Voxilaprevir"
+      "vosevi"
     ]
+  },
+  {
+    "name": "VSL#3",
+    "aliases": []
   },
   {
     "name": "Warfarin",
@@ -13760,13 +13132,6 @@
     "name": "Xailin Night",
     "aliases": [
       "Xailin Night"
-    ]
-  },
-  {
-    "name": "Xalacom",
-    "aliases": [
-      "xalacom",
-      "latanoprost/timolol"
     ]
   },
   {
@@ -13887,8 +13252,7 @@
   {
     "name": "Zidovudine/Lamivudine",
     "aliases": [
-      "zidovudine/lamivudine",
-      "combivir"
+      "zidovudine/lamivudine"
     ]
   },
   {
@@ -13897,14 +13261,14 @@
       "zinc sulphate",
       "zinc acetate",
       "zincomed",
-      "solvazinc"
+      "solvazinc",
+      "zinc sulfate"
     ]
   },
   {
     "name": "Zineryt",
     "aliases": [
-      "zineryt",
-      "erythromycin/zinc"
+      "zineryt"
     ]
   },
   {

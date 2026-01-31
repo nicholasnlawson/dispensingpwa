@@ -5,9 +5,14 @@
 
 const LabelGenerator = {
     /**
-     * Reference to the ShorthandCodes module
-     * Moved to separate file for easier maintenance
+     * Convert a string to title case (capitalize first letter of each word)
+     * @param {string} str - String to convert
+     * @returns {string} - Title-cased string
      */
+    toTitleCase(str) {
+        if (!str) return '';
+        return str.replace(/\b\w/g, char => char.toUpperCase());
+    },
     
     /**
      * Initialize shorthand functionality
@@ -258,9 +263,11 @@ const LabelGenerator = {
             '<span class="overlabel-placeholder">Patient Name: ________________</span>' : 
             data.patientName;
         
-        // Format medication name, strength and formulation
+        // Format medication name, strength and formulation (title-cased for display)
+        const medicationName = this.toTitleCase(data.medicationName || '');
         const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
-        const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
+        const medicationFormulation = this.toTitleCase(data.medicationFormulation || '');
+        const medicationFull = `${medicationName} ${medicationStrength}${medicationFormulation}`;
         
         // Get warning text from additional information field (already includes standard warning if enabled)
         let warningText = data.additionalInformation || '';
@@ -684,9 +691,11 @@ const LabelGenerator = {
         // Format date
         const date = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
         
-        // Format medication name, strength and formulation
+        // Format medication name, strength and formulation (title-cased for display)
+        const medicationName = this.toTitleCase(data.medicationName || '');
         const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
-        const medicationFull = `${data.medicationName || ''} ${medicationStrength}${data.medicationFormulation || ''}`;
+        const medicationFormulation = this.toTitleCase(data.medicationFormulation || '');
+        const medicationFull = `${medicationName} ${medicationStrength}${medicationFormulation}`;
         
         // Check content length to prevent overflow
         const dosageLength = (data.dosageInstructions || '').length;

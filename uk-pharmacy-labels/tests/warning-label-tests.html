@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warning Label Matching Tests</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      h1 {
+        color: #333;
+      }
+      .summary {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .summary.pass {
+        border-left: 4px solid #28a745;
+      }
+      .summary.fail {
+        border-left: 4px solid #dc3545;
+      }
+      .stats {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+      .test-group {
+        background: #fff;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .group-header {
+        background: #e9ecef;
+        padding: 12px 15px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+      }
+      .group-header:hover {
+        background: #dee2e6;
+      }
+      .test-results {
+        padding: 0;
+        display: none;
+      }
+      .test-results.visible {
+        display: block;
+      }
+      .test-case {
+        padding: 10px 15px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .test-case:last-child {
+        border-bottom: none;
+      }
+      .test-case.pass {
+        background: #d4edda;
+      }
+      .test-case.fail {
+        background: #f8d7da;
+      }
+      .icon {
+        font-size: 1.2em;
+      }
+      .pass .icon {
+        color: #28a745;
+      }
+      .fail .icon {
+        color: #dc3545;
+      }
+      .test-details {
+        flex: 1;
+      }
+      .test-name {
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .test-info {
+        font-size: 0.85em;
+        color: #666;
+      }
+      .test-info code {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+      .expected,
+      .actual {
+        margin-top: 4px;
+      }
+      .fail .actual {
+        color: #dc3545;
+        font-weight: 500;
+      }
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+      .filter-bar {
+        margin-bottom: 15px;
+        display: flex;
+        gap: 10px;
+      }
+      .filter-bar button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #e9ecef;
+      }
+      .filter-bar button:hover {
+        background: #dee2e6;
+      }
+      .filter-bar button.active {
+        background: #007bff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Warning Label Matching Tests</h1>
+    <div id="loading" class="loading">
+      Loading medication data and running tests...
+    </div>
+    <div id="results" style="display: none"></div>
+
+    <script>
+      // Test definitions
+      const TEST_CASES = [
+        // ============================================
+        // BASIC MEDICATION NAME MATCHING
+        // ============================================
+        {
+          group: "Basic Medication Matching",
+          tests: [
+            {
+              med: "Amoxicillin",
+              form: "Oral capsule",
+              expectLabels: [9],
+              desc: "Standard name",
+            },
+            {
+              med: "amoxicillin",
+              form: "oral capsule",
+              expectLabels: [9],
+              desc: "Lowercase",
+            },
+            {
+              med: "AMOXICILLIN",
+              form: "ORAL CAPSULE",
+              expectLabels: [9],
+              desc: "Uppercase",
+            },
+            {
+              med: "  Amoxicillin  ",
+              form: "  Oral capsule  ",
+              expectLabels: [9],
+              desc: "With whitespace",
+            },
+            {
+              med: "Metformin",
+              form: "Oral tablet",
+              expectLabels: [21],
+              desc: "Metformin tablet",
+            },
+            {
+              med: "Warfarin Sodium",
+              form: "Oral tablet",
+              expectLabels: [10],
+              desc: "Warfarin tablet",
+            },
+          ],
+        },
+
+        // ============================================
+        // HYDROCHLORIDE/SALT FORM VARIATIONS
+        // ============================================
+        {
+          group: "Hydrochloride/Salt Forms",
+          tests: [
+            {
+              med: "Tramadol",
+              form: "Oral capsule",
+              expectLabels: [2],
+              desc: "Tramadol capsule",
+            },
+            {
+              med: "Tramadol Hydrochloride",
+              form: "Oral capsule",
+              expectLabels: [2],
+              desc: "With hydrochloride",
+            },
+            {
+              med: "tramadol hydrochloride",
+              form: "oral capsule",
+              expectLabels: [2],
+              desc: "Lowercase hydrochloride",
+            },
+            {
+              med: "Tramadol-Hydrochloride",
+              form: "Oral capsule",
+              expectLabels: [2],
+              desc: "Hyphenated hydrochloride",
+            },
+            {
+              med: "Tramadol",
+              form: "Modified-release tablet",
+              expectLabels: [2, 25],
+              desc: "Tramadol MR tablet",
+            },
+            {
+              med: "Lercanidipine",
+              form: "Oral tablet",
+              expectLabels: [22],
+              desc: "Lercanidipine base",
+            },
+            {
+              med: "Lercanidipine Hydrochloride",
+              form: "Oral tablet",
+              expectLabels: [22],
+              desc: "Lercanidipine hydrochloride",
+            },
+            {
+              med: "lercanidipine-hydrochloride",
+              form: "oral tablet",
+              expectLabels: [22],
+              desc: "Hyphenated lowercase",
+            },
+            {
+              med: "Diltiazem",
+              form: "Modified-release tablet",
+              expectLabels: [25],
+              desc: "Diltiazem MR tablet",
+            },
+            {
+              med: "Diltiazem Hydrochloride",
+              form: "Modified-release capsule",
+              expectLabels: [25],
+              desc: "Diltiazem MR capsule",
+            },
+            {
+              med: "Metformin Hydrochloride",
+              form: "Oral tablet",
+              expectLabels: [21],
+              desc: "Metformin hydrochloride",
+            },
+          ],
+        },
+
+        // ============================================
+        // WORD ORDER VARIATIONS
+        // ============================================
+        {
+          group: "Word Order Variations",
+          tests: [
+            {
+              med: "Docusate Sodium",
+              form: "Oral capsule",
+              expectLabels: [],
+              desc: "Docusate - no warnings",
+            },
+            {
+              med: "Sodium Docusate",
+              form: "Oral capsule",
+              expectLabels: [],
+              desc: "Reversed - no warnings",
+            },
+            {
+              med: "Ferrous Sulfate",
+              form: "Modified-release tablet",
+              expectLabels: [25],
+              desc: "Ferrous sulfate MR",
+            },
+            {
+              med: "Warfarin Sodium",
+              form: "Oral tablet",
+              expectLabels: [10],
+              desc: "Warfarin sodium",
+            },
+            {
+              med: "Sodium Warfarin",
+              form: "Oral tablet",
+              expectLabels: [10],
+              desc: "Reversed warfarin",
+            },
+          ],
+        },
+
+        // ============================================
+        // SEPARATOR VARIATIONS (-, /, with, and)
+        // ============================================
+        {
+          group: "Combination Drug Separators",
+          tests: [
+            {
+              med: "Co-codamol",
+              form: "Oral tablet",
+              expectLabels: [2, 29, 30],
+              desc: "Co-codamol tablet",
+            },
+            {
+              med: "Co-codamol",
+              form: "Oral capsule",
+              expectLabels: [2, 29, 30],
+              desc: "Co-codamol capsule",
+            },
+            {
+              med: "Tramadol with Paracetamol",
+              form: "Oral tablet",
+              expectLabels: [2, 25, 29, 30],
+              desc: "Tramadol/paracetamol tablet",
+            },
+            {
+              med: "Tramadol/Paracetamol",
+              form: "Oral tablet",
+              expectLabels: [2, 25, 29, 30],
+              desc: "Slash separator",
+            },
+            {
+              med: "Paracetamol with Tramadol",
+              form: "Oral tablet",
+              expectLabels: [2, 25, 29, 30],
+              desc: "Reversed order",
+            },
+          ],
+        },
+
+        // ============================================
+        // FORMULATION VARIATIONS
+        // ============================================
+        {
+          group: "Formulation Variations",
+          tests: [
+            {
+              med: "Amoxicillin",
+              form: "Capsule",
+              expectLabels: [9],
+              desc: "Short form - capsule",
+            },
+            {
+              med: "Amoxicillin",
+              form: "Capsules",
+              expectLabels: [9],
+              desc: "Plural - capsules",
+            },
+            {
+              med: "Amoxicillin",
+              form: "Oral capsules",
+              expectLabels: [9],
+              desc: "Oral capsules",
+            },
+            {
+              med: "Amoxicillin",
+              form: "caps",
+              expectLabels: [9],
+              desc: "Abbreviation - caps",
+            },
+            {
+              med: "Metformin",
+              form: "Tablet",
+              expectLabels: [21],
+              desc: "Short form - tablet",
+            },
+            {
+              med: "Metformin",
+              form: "Tablets",
+              expectLabels: [21],
+              desc: "Plural - tablets",
+            },
+            {
+              med: "Metformin",
+              form: "Oral tablets",
+              expectLabels: [21],
+              desc: "Oral tablets",
+            },
+            {
+              med: "Metformin",
+              form: "tab",
+              expectLabels: [21],
+              desc: "Abbreviation - tab",
+            },
+            {
+              med: "Metformin",
+              form: "tabs",
+              expectLabels: [21],
+              desc: "Abbreviation - tabs",
+            },
+          ],
+        },
+
+        // ============================================
+        // BRAND NAME TO GENERIC MATCHING
+        // ============================================
+        {
+          group: "Brand Name Matching",
+          tests: [
+            {
+              med: "Augmentin",
+              form: "Oral tablet",
+              expectLabels: [9],
+              desc: "Augmentin (amoxicillin/clavulanic)",
+            },
+            {
+              med: "Nurofen",
+              form: "Oral tablet",
+              expectLabels: [21],
+              desc: "Nurofen (ibuprofen)",
+            },
+            {
+              med: "Zanidip",
+              form: "Oral tablet",
+              expectLabels: [22],
+              desc: "Zanidip (lercanidipine)",
+            },
+            {
+              med: "Diclofenac Potassium",
+              form: "Oral tablet",
+              expectLabels: [21],
+              desc: "Diclofenac potassium tablet",
+            },
+          ],
+        },
+
+        // ============================================
+        // COMPLEX COMBINATION DRUGS
+        // ============================================
+        {
+          group: "Complex Combinations",
+          tests: [
+            {
+              med: "Fluticasone with Salmeterol",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "Fluticasone/Salmeterol",
+            },
+            {
+              med: "Fluticasone/Salmeterol",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "Slash separator",
+            },
+            {
+              med: "Salmeterol with Fluticasone",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "Reversed order",
+            },
+            {
+              med: "Budesonide with Formoterol",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "Budesonide/Formoterol",
+            },
+            {
+              med: "Oxycodone with Naloxone",
+              form: "Modified-release tablet",
+              expectLabels: [2, 25],
+              desc: "Oxycodone/Naloxone MR",
+            },
+          ],
+        },
+
+        // ============================================
+        // EDGE CASES - NO MATCH EXPECTED
+        // ============================================
+        {
+          group: "No Match Expected",
+          tests: [
+            {
+              med: "NotARealDrug",
+              form: "Oral tablet",
+              expectLabels: [],
+              desc: "Non-existent drug",
+            },
+            {
+              med: "Amoxicillin",
+              form: "Intravenous injection",
+              expectLabels: [],
+              desc: "Wrong formulation",
+            },
+            {
+              med: "",
+              form: "Oral tablet",
+              expectLabels: [],
+              desc: "Empty medication",
+            },
+            {
+              med: "Amoxicillin",
+              form: "",
+              expectLabels: [],
+              desc: "Empty formulation",
+            },
+          ],
+        },
+
+        // ============================================
+        // STEROID VARIATIONS
+        // ============================================
+        {
+          group: "Steroid Formulations",
+          tests: [
+            {
+              med: "Prednisolone",
+              form: "Oral tablet",
+              expectLabels: [10, 21],
+              desc: "Prednisolone tablet",
+            },
+            {
+              med: "Beclometasone",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "Beclometasone inhaler",
+            },
+            {
+              med: "Beclometasone Dipropionate",
+              form: "Inhalation powder",
+              expectLabels: [8, 10],
+              desc: "With dipropionate",
+            },
+            {
+              med: "Hydrocortisone",
+              form: "Cutaneous cream",
+              expectLabels: [28],
+              desc: "Hydrocortisone cream",
+            },
+            {
+              med: "Mometasone",
+              form: "Cutaneous cream",
+              expectLabels: [28],
+              desc: "Mometasone cream",
+            },
+            {
+              med: "Mometasone Furoate",
+              form: "Cutaneous cream",
+              expectLabels: [28],
+              desc: "Mometasone furoate cream",
+            },
+          ],
+        },
+
+        // ============================================
+        // ANTIBIOTIC VARIATIONS
+        // ============================================
+        {
+          group: "Antibiotics",
+          tests: [
+            {
+              med: "Doxycycline",
+              form: "Oral capsule",
+              expectLabels: [6, 9, 11, 27],
+              desc: "Doxycycline capsule",
+            },
+            {
+              med: "Ciprofloxacin",
+              form: "Oral tablet",
+              expectLabels: [7, 9, 25],
+              desc: "Ciprofloxacin tablet",
+            },
+            {
+              med: "Metronidazole",
+              form: "Oral tablet",
+              expectLabels: [4, 9, 21, 25, 27],
+              desc: "Metronidazole tablet",
+            },
+            {
+              med: "Metronidazole",
+              form: "Oral suspension",
+              expectLabels: [4, 9],
+              desc: "Metronidazole suspension",
+            },
+            {
+              med: "Clarithromycin",
+              form: "Oral tablet",
+              expectLabels: [9],
+              desc: "Clarithromycin tablet",
+            },
+            {
+              med: "Flucloxacillin",
+              form: "Oral capsule",
+              expectLabels: [9, 23],
+              desc: "Flucloxacillin capsule",
+            },
+          ],
+        },
+
+        // ============================================
+        // CONTROLLED DRUGS
+        // ============================================
+        {
+          group: "Controlled Drugs",
+          tests: [
+            {
+              med: "Morphine",
+              form: "Oral tablet",
+              expectLabels: [2],
+              desc: "Morphine tablet",
+            },
+            {
+              med: "Oxycodone",
+              form: "Oral capsule",
+              expectLabels: [2],
+              desc: "Oxycodone capsule",
+            },
+            {
+              med: "Oxycodone Hydrochloride",
+              form: "Oral capsule",
+              expectLabels: [2],
+              desc: "Oxycodone HCl capsule",
+            },
+            {
+              med: "Fentanyl",
+              form: "Transdermal patch",
+              expectLabels: [2],
+              desc: "Fentanyl patch",
+            },
+            {
+              med: "Diazepam",
+              form: "Oral tablet",
+              expectLabels: [2],
+              desc: "Diazepam tablet",
+            },
+            {
+              med: "Lorazepam",
+              form: "Oral tablet",
+              expectLabels: [2],
+              desc: "Lorazepam tablet",
+            },
+          ],
+        },
+      ];
+
+      // Test runner
+      class TestRunner {
+        constructor() {
+          this.results = [];
+          this.manager = null;
+        }
+
+        async init() {
+          // Create a mock MedicationManager that loads data
+          this.manager = Object.create(MedicationManager);
+          this.manager.medications = [];
+          this.manager.formulations = {};
+          this.manager.warningLabels = [];
+          this.manager.medicationWarnings = [];
+          this.manager._medNameIndex = null;
+          this.manager._aliasIndex = null;
+          this.manager._warningIndex = null;
+          this.manager._normCache = new Map();
+
+          // Load data
+          const [medications, formulations, warnings, medicationWarnings] =
+            await Promise.all([
+              fetch("../data/drug_aliases.json").then((r) => r.json()),
+              fetch("../data/formulation_aliases.json").then((r) => r.json()),
+              fetch("../data/bnf_labels.json").then((r) => r.json()),
+              fetch("../data/drug_formulations_warnings.json").then((r) =>
+                r.json(),
+              ),
+            ]);
+
+          this.manager.medications = medications || [];
+          this.manager.formulations = formulations || {};
+          this.manager.warningLabels =
+            warnings?.cautionary_advisory_labels || [];
+          this.manager.medicationWarnings = medicationWarnings || [];
+
+          // Build indexes
+          this.manager._buildIndexes();
+
+          console.log("Test data loaded:", {
+            medications: this.manager.medications.length,
+            warnings: this.manager.medicationWarnings.length,
+          });
+        }
+
+        runTests() {
+          this.results = [];
+
+          for (const group of TEST_CASES) {
+            const groupResults = {
+              name: group.group,
+              tests: [],
+              passed: 0,
+              failed: 0,
+            };
+
+            for (const test of group.tests) {
+              const result = this.runSingleTest(test);
+              groupResults.tests.push(result);
+              if (result.passed) {
+                groupResults.passed++;
+              } else {
+                groupResults.failed++;
+              }
+            }
+
+            this.results.push(groupResults);
+          }
+
+          return this.results;
+        }
+
+        runSingleTest(test) {
+          const startTime = performance.now();
+          let actual = [];
+          let error = null;
+
+          try {
+            actual = this.manager.findWarningLabels(test.med, test.form);
+          } catch (e) {
+            error = e.message;
+          }
+
+          const endTime = performance.now();
+          const duration = (endTime - startTime).toFixed(2);
+
+          // Compare arrays
+          const expectedSorted = [...test.expectLabels].sort((a, b) => a - b);
+          const actualSorted = [...actual].sort((a, b) => a - b);
+          const passed =
+            !error &&
+            expectedSorted.length === actualSorted.length &&
+            expectedSorted.every((v, i) => v === actualSorted[i]);
+
+          return {
+            description: test.desc,
+            medication: test.med,
+            formulation: test.form,
+            expected: test.expectLabels,
+            actual: actual,
+            passed: passed,
+            error: error,
+            duration: duration,
+          };
+        }
+      }
+
+      // Render results
+      function renderResults(results) {
+        const container = document.getElementById("results");
+        let totalPassed = 0;
+        let totalFailed = 0;
+
+        results.forEach((group) => {
+          totalPassed += group.passed;
+          totalFailed += group.failed;
+        });
+
+        const allPassed = totalFailed === 0;
+
+        let html = `
+                <div class="summary ${allPassed ? "pass" : "fail"}">
+                    <div class="stats">
+                        <strong>${allPassed ? "✅ All Tests Passed" : "❌ Some Tests Failed"}</strong><br>
+                        Total: ${totalPassed + totalFailed} | 
+                        Passed: <span style="color: #28a745">${totalPassed}</span> | 
+                        Failed: <span style="color: #dc3545">${totalFailed}</span>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <button class="active" onclick="filterTests('all')">All Tests</button>
+                    <button onclick="filterTests('failed')">Failed Only</button>
+                    <button onclick="filterTests('passed')">Passed Only</button>
+                </div>
+            `;
+
+        for (const group of results) {
+          const groupStatus = group.failed === 0 ? "pass" : "fail";
+          html += `
+                    <div class="test-group" data-group-status="${groupStatus}">
+                        <div class="group-header" onclick="toggleGroup(this)">
+                            <span>${group.failed === 0 ? "✅" : "❌"} ${group.name}</span>
+                            <span>${group.passed}/${group.tests.length} passed</span>
+                        </div>
+                        <div class="test-results ${group.failed > 0 ? "visible" : ""}">
+                `;
+
+          for (const test of group.tests) {
+            html += `
+                        <div class="test-case ${test.passed ? "pass" : "fail"}">
+                            <span class="icon">${test.passed ? "✓" : "✗"}</span>
+                            <div class="test-details">
+                                <div class="test-name">${test.description}</div>
+                                <div class="test-info">
+                                    Medication: <code>${test.medication || "(empty)"}</code> | 
+                                    Formulation: <code>${test.formulation || "(empty)"}</code> |
+                                    Time: ${test.duration}ms
+                                </div>
+                                <div class="expected">Expected: <code>[${test.expected.join(", ")}]</code></div>
+                                <div class="actual">Actual: <code>[${test.actual.join(", ")}]</code></div>
+                                ${test.error ? `<div class="error">Error: ${test.error}</div>` : ""}
+                            </div>
+                        </div>
+                    `;
+          }
+
+          html += `
+                        </div>
+                    </div>
+                `;
+        }
+
+        container.innerHTML = html;
+        container.style.display = "block";
+        document.getElementById("loading").style.display = "none";
+      }
+
+      function toggleGroup(header) {
+        const results = header.nextElementSibling;
+        results.classList.toggle("visible");
+      }
+
+      function filterTests(filter) {
+        document
+          .querySelectorAll(".filter-bar button")
+          .forEach((btn) => btn.classList.remove("active"));
+        event.target.classList.add("active");
+
+        document.querySelectorAll(".test-group").forEach((group) => {
+          const status = group.dataset.groupStatus;
+          if (filter === "all") {
+            group.style.display = "block";
+          } else if (filter === "failed") {
+            group.style.display = status === "fail" ? "block" : "none";
+          } else if (filter === "passed") {
+            group.style.display = status === "pass" ? "block" : "none";
+          }
+        });
+      }
+
+      // Run tests on load
+      async function main() {
+        try {
+          const runner = new TestRunner();
+          await runner.init();
+          const results = runner.runTests();
+          renderResults(results);
+
+          // Log summary to console
+          console.log("Test Results:", results);
+        } catch (error) {
+          document.getElementById("loading").innerHTML = `
+                    <div style="color: #dc3545">
+                        <strong>Error loading tests:</strong><br>
+                        ${error.message}<br><br>
+                        Make sure to run this from a web server (not file://)
+                    </div>
+                `;
+          console.error("Test error:", error);
+        }
+      }
+
+      main();
+    </script>
+    <script src="../js/medication-manager.js"></script>
+  </body>
+</html>

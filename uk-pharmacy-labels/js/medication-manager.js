@@ -11,6 +11,23 @@ const MedicationManager = {
     warningLabels: [],
     medicationWarnings: [],
     
+    // Pre-computed lookup indexes for performance
+    _medNameIndex: null,      // Map: normalized name -> medication entry
+    _aliasIndex: null,        // Map: normalized alias -> medication entry
+    _warningIndex: null,      // Map: normalized drug name -> warning entries
+    _normCache: new Map(),    // Cache for normalized strings
+    
+    /**
+     * Convert a string to title case (capitalize first letter of each word)
+     * Handles drug names with special characters like /, -, etc.
+     * @param {string} str - String to convert
+     * @returns {string} - Title-cased string
+     */
+    toTitleCase(str) {
+        if (!str) return '';
+        return str.replace(/\b\w/g, char => char.toUpperCase());
+    },
+    
     /**
      * Initialize the medication manager
      * Loads data from JSON files
@@ -49,6 +66,9 @@ const MedicationManager = {
             console.log('Loaded warning labels:', this.warningLabels.length);
             console.log('Loaded medication warnings:', this.medicationWarnings.length);
             
+            // Build lookup indexes for fast searching
+            this._buildIndexes();
+            
             // Initialize autocomplete
             this.initAutocomplete();
             
@@ -71,6 +91,83 @@ const MedicationManager = {
             throw new Error(`Failed to load ${url}: ${response.statusText}`);
         }
         return response.json();
+    },
+    
+    /**
+     * Build pre-computed indexes for fast lookups
+     */
+    _buildIndexes() {
+        console.time('Building indexes');
+        
+        // Build medication name index
+        this._medNameIndex = new Map();
+        this._aliasIndex = new Map();
+        
+        for (const med of this.medications) {
+            const normName = this._cachedNormalize(med.name);
+            const canonName = this._cachedCanonicalize(med.name);
+            
+            this._medNameIndex.set(normName, med);
+            this._medNameIndex.set(canonName, med);
+            this._medNameIndex.set(med.name.toLowerCase().trim(), med);
+            
+            for (const alias of (med.aliases || [])) {
+                const normAlias = this._cachedNormalize(alias);
+                const canonAlias = this._cachedCanonicalize(alias);
+                
+                this._aliasIndex.set(normAlias, med);
+                this._aliasIndex.set(canonAlias, med);
+                this._aliasIndex.set(alias.toLowerCase().trim(), med);
+            }
+        }
+        
+        // Build warning index - map normalized drug names to warning entries
+        this._warningIndex = new Map();
+        
+        for (const warning of this.medicationWarnings) {
+            for (const name of warning.name) {
+                const cleanName = name.replace(/-Specialist-Drug$/i, '');
+                const normName = this._cachedNormalize(cleanName);
+                const canonName = this._cachedCanonicalize(cleanName);
+                
+                // Store by multiple normalized forms
+                [normName, canonName, cleanName.toLowerCase().trim()].forEach(key => {
+                    if (!this._warningIndex.has(key)) {
+                        this._warningIndex.set(key, []);
+                    }
+                    if (!this._warningIndex.get(key).includes(warning)) {
+                        this._warningIndex.get(key).push(warning);
+                    }
+                });
+            }
+        }
+        
+        console.timeEnd('Building indexes');
+        console.log('Index sizes - meds:', this._medNameIndex.size, 'aliases:', this._aliasIndex.size, 'warnings:', this._warningIndex.size);
+    },
+    
+    /**
+     * Cached normalize for drug names
+     */
+    _cachedNormalize(str) {
+        if (!str) return '';
+        const key = 'n:' + str;
+        if (!this._normCache.has(key)) {
+            this._normCache.set(key, this.normalizeDrugName(str));
+        }
+        return this._normCache.get(key);
+    },
+    
+    /**
+     * Cached canonicalize for drug names
+     */
+    _cachedCanonicalize(str) {
+        if (!str) return '';
+        const key = 'c:' + str;
+        if (!this._normCache.has(key)) {
+            this._normCache.set(key, this.canonicalizeDrugName(str));
+        }
+        return this._normCache.get(key);
     },
     
     /**
@@ -133,7 +230,7 @@ const MedicationManager = {
         wrapper.appendChild(inputElement);
         wrapper.appendChild(autocompleteContainer);
         
-        // Handle input events
+        // Handle input events with debouncing for performance
         inputElement.addEventListener('input', () => {
             const value = inputElement.value.trim();
             if (value.length < 2) {
@@ -141,8 +238,12 @@ const MedicationManager = {
                 return;
             }
             
-            const suggestions = getSuggestions(value);
-            this.renderSuggestions(suggestions, autocompleteContainer, inputElement);
+            // Debounce autocomplete suggestions
+            clearTimeout(inputElement._autocompleteTimer);
+            inputElement._autocompleteTimer = setTimeout(() => {
+                const suggestions = getSuggestions(value);
+                this.renderSuggestions(suggestions, autocompleteContainer, inputElement);
+            }, 100); // 100ms debounce for responsive feel
         });
         
         // Hide suggestions when clicking outside
@@ -229,9 +330,10 @@ const MedicationManager = {
         
         suggestions.forEach(suggestion => {
             const li = document.createElement('li');
-            li.textContent = suggestion;
+            const titleCasedSuggestion = this.toTitleCase(suggestion);
+            li.textContent = titleCasedSuggestion;
             li.addEventListener('click', () => {
-                inputElement.value = suggestion;
+                inputElement.value = titleCasedSuggestion;
                 container.innerHTML = '';
                 inputElement.dispatchEvent(new Event('change'));
             });
@@ -253,42 +355,44 @@ const MedicationManager = {
         
         const lowercaseInput = input.toLowerCase().trim();
         const matches = [];
+        const seen = new Set();
+        const maxResults = 20;
         
-        // Search through medications and their aliases
+        // Search through medications and their aliases with early termination
         for (const med of this.medications) {
-            const matchingAliases = [];
-            let mainNameMatches = false;
+            if (matches.length >= maxResults) break;
+            
+            const medNameLower = med.name.toLowerCase();
+            const mainNameMatches = medNameLower.includes(lowercaseInput);
             
             // Check medication name (main name)
-            if (med.name.toLowerCase().includes(lowercaseInput)) {
-                mainNameMatches = true;
-                matchingAliases.push(med.name); // Add main name first
+            if (mainNameMatches && !seen.has(medNameLower)) {
+                seen.add(medNameLower);
+                matches.push(med.name);
             }
             
-            // Check all aliases
-            for (const alias of med.aliases || []) {
-                if (alias.toLowerCase().includes(lowercaseInput)) {
-                    // Only add the alias if it's not the same as the main name (case insensitive comparison)
-                    if (alias.toLowerCase() !== med.name.toLowerCase()) {
-                        matchingAliases.push(alias);
+            // Check aliases - only if we haven't hit the limit
+            if (matches.length < maxResults) {
+                for (const alias of med.aliases || []) {
+                    if (matches.length >= maxResults) break;
+                    
+                    const aliasLower = alias.toLowerCase();
+                    if (aliasLower.includes(lowercaseInput) && !seen.has(aliasLower)) {
+                        // Add main name first if alias matches but main name doesn't
+                        if (!mainNameMatches && !seen.has(medNameLower)) {
+                            seen.add(medNameLower);
+                            matches.push(med.name);
+                        }
+                        if (aliasLower !== medNameLower) {
+                            seen.add(aliasLower);
+                            matches.push(alias);
+                        }
                     }
                 }
             }
-            
-            // If we found any matches for this medication, add them all to the results
-            if (matchingAliases.length > 0) {
-                // If the main name doesn't match, but an alias does, add the main name first to provide context
-                if (!mainNameMatches && matchingAliases.length > 0) {
-                    matches.push(med.name); // Add main name first
-                }
-                
-                // Then add all matching aliases
-                matches.push(...matchingAliases);
-            }
         }
         
-        // Return unique matches (max 20 - increased to accommodate more aliases)
-        return [...new Set(matches)].slice(0, 20);
+        return matches.slice(0, maxResults);
     },
     
     /**
@@ -376,6 +480,41 @@ const MedicationManager = {
     },
     
     /**
+     * Check if content contains warning text (cached for performance)
+     * @param {string} content - Content to check
+     * @returns {boolean} - True if content contains warnings
+     */
+    _hasWarningContent(content) {
+        if (!content || content.trim() === '') return false;
+        
+        // Build and cache pattern on first use
+        if (!this._warningPattern && this.warningLabels.length > 0) {
+            // Create pattern from first few words of each warning for fast matching
+            const patterns = this.warningLabels
+                .slice(0, 10) // Only use first 10 warnings for pattern
+                .map(label => {
+                    // Get first 3-4 significant words from each warning
+                    const words = label.text.split(/\s+/).slice(0, 4).join('\\s+');
+                    return words;
+                })
+                .filter(p => p.length > 5);
+            
+            if (patterns.length > 0) {
+                this._warningPattern = new RegExp(patterns.join('|'), 'i');
+            }
+        }
+        
+        // Fast pattern check
+        if (this._warningPattern) {
+            return this._warningPattern.test(content);
+        }
+        
+        // Fallback: check for common warning phrases
+        const commonPhrases = ['Warning:', 'Do not', 'Take with', 'Avoid', 'Keep out of'];
+        return commonPhrases.some(phrase => content.includes(phrase));
+    },
+
+    /**
      * Update warning labels based on selected medication and formulation
      */
     updateWarningLabels() {
@@ -386,9 +525,8 @@ const MedicationManager = {
         // Always clear existing warnings when updating
         if (additionalInfoField) {
             // If the field contains warnings, clear it completely
-            // This ensures a fresh start for new formulation warnings
-            const currentContent = additionalInfoField.value;
-            if (this.warningLabels.some(label => currentContent.includes(label.text))) {
+            // Use cached pattern for fast detection instead of checking every label
+            if (this._hasWarningContent(additionalInfoField.value)) {
                 additionalInfoField.value = '';
             }
         }
@@ -429,6 +567,77 @@ const MedicationManager = {
     },
 
     /**
+     * Normalize all separators in drug names to a common format
+     * Handles: /, -, "with", "and", "+" → single space
+     * @param {string} drugName - Drug name to normalize
+     * @returns {string} - Drug name with normalized separators
+     */
+    normalizeSeparators(drugName) {
+        if (!drugName) return '';
+        
+        return drugName
+            .toLowerCase()
+            .trim()
+            // Replace common combination separators with space
+            .replace(/\s*\/\s*/g, ' ')           // forward slash
+            .replace(/\s*-\s*/g, ' ')             // hyphen
+            .replace(/\s*\+\s*/g, ' ')            // plus sign
+            .replace(/\s+with\s+/gi, ' ')         // "with"
+            .replace(/\s+and\s+/gi, ' ')          // "and"
+            .replace(/\s+&\s+/g, ' ')             // ampersand
+            // Clean up extra whitespace
+            .replace(/\s+/g, ' ')
+            .trim();
+    },
+
+    /**
+     * Create canonical (sorted) form of drug name for word-order-independent matching
+     * e.g., "sodium docusate" and "docusate sodium" both become "docusate sodium"
+     * @param {string} drugName - Drug name to canonicalize
+     * @returns {string} - Canonicalized drug name with words sorted alphabetically
+     */
+    canonicalizeDrugName(drugName) {
+        if (!drugName) return '';
+        
+        // First normalize all separators
+        const normalized = this.normalizeSeparators(drugName);
+        
+        // Split into words, sort alphabetically, rejoin
+        const words = normalized.split(' ').filter(w => w.length > 0);
+        words.sort();
+        
+        return words.join(' ');
+    },
+
+    /**
+     * Check if two drug names match using flexible matching
+     * Handles: different word order, different separators (/, -, with, and)
+     * @param {string} name1 - First drug name
+     * @param {string} name2 - Second drug name
+     * @returns {boolean} - True if names match
+     */
+    drugNamesMatch(name1, name2) {
+        if (!name1 || !name2) return false;
+        
+        // Quick exact match check first
+        const lower1 = name1.toLowerCase().trim();
+        const lower2 = name2.toLowerCase().trim();
+        if (lower1 === lower2) return true;
+        
+        // Normalize separators and compare
+        const norm1 = this.normalizeSeparators(name1);
+        const norm2 = this.normalizeSeparators(name2);
+        if (norm1 === norm2) return true;
+        
+        // Compare canonical (sorted word) forms for word-order independence
+        const canon1 = this.canonicalizeDrugName(name1);
+        const canon2 = this.canonicalizeDrugName(name2);
+        if (canon1 === canon2) return true;
+        
+        return false;
+    },
+
+    /**
      * Standardize medication name based on drug aliases
      * @param {string} medicationName - Medication name to standardize
      * @returns {string} - Standardized medication name
@@ -436,18 +645,22 @@ const MedicationManager = {
     standardizeMedicationName(medicationName) {
         if (!medicationName) return '';
         
-        const normalizedMed = this.normalizeDrugName(medicationName);
+        const normalizedMed = this._cachedNormalize(medicationName);
+        const canonicalMed = this._cachedCanonicalize(medicationName);
         
         // Early return if empty
         if (normalizedMed === '') return normalizedMed;
         
-        // Find the medication entry that contains this as an alias
-        for (const med of this.medications) {
-            const normalizedMainName = this.normalizeDrugName(med.name);
-            const normalizedAliases = med.aliases.map(alias => this.normalizeDrugName(alias));
+        // Fast path: Use pre-built indexes for O(1) lookup
+        if (this._medNameIndex || this._aliasIndex) {
+            const med = this._medNameIndex?.get(normalizedMed) || 
+                        this._medNameIndex?.get(canonicalMed) ||
+                        this._medNameIndex?.get(medicationName.toLowerCase().trim()) ||
+                        this._aliasIndex?.get(normalizedMed) ||
+                        this._aliasIndex?.get(canonicalMed) ||
+                        this._aliasIndex?.get(medicationName.toLowerCase().trim());
             
-            // If this normalized name matches the main name or any alias
-            if (normalizedAliases.includes(normalizedMed) || normalizedMainName === normalizedMed) {
+            if (med) {
                 return med.name.toLowerCase().trim();
             }
         }
@@ -463,105 +676,103 @@ const MedicationManager = {
      * @returns {Array} - List of warning label numbers
      */
     findWarningLabels(medicationName, formulation) {
-        // Normalize inputs using the new normalization function
-        const normalizedMed = this.normalizeDrugName(medicationName);
+        // Use cached normalizations for performance
+        const normalizedMed = this._cachedNormalize(medicationName);
+        const canonicalMed = this._cachedCanonicalize(medicationName);
         const normalizedForm = formulation.toLowerCase().trim();
-        
-        // Get standardized medication name and formulation
-        const standardizedMed = this.standardizeMedicationName(medicationName);
         const standardizedForm = this.standardizeFormulation(normalizedForm);
-
-        // Find all possible medication names that could match (including all aliases)
-        const possibleMedNames = [normalizedMed, standardizedMed];
         
-        // Add all aliases for the medication using normalized names
-        for (const med of this.medications) {
-            const normalizedMainName = this.normalizeDrugName(med.name);
-            const normalizedAliases = med.aliases.map(alias => this.normalizeDrugName(alias));
+        // Fast path: Try direct index lookup first
+        let warnings = this._warningIndex?.get(normalizedMed) || 
+                       this._warningIndex?.get(canonicalMed) ||
+                       this._warningIndex?.get(medicationName.toLowerCase().trim());
+        
+        // If no direct match, try to find via medication aliases using index
+        if (!warnings || warnings.length === 0) {
+            const med = this._medNameIndex?.get(normalizedMed) || 
+                        this._medNameIndex?.get(canonicalMed) ||
+                        this._aliasIndex?.get(normalizedMed) ||
+                        this._aliasIndex?.get(canonicalMed);
             
-            // If the input matches the main medication name or any of its aliases,
-            // include the main medication name and all its aliases as possible matches
-            if (normalizedMainName === normalizedMed || normalizedMainName === standardizedMed || 
-                normalizedAliases.includes(normalizedMed) || normalizedAliases.includes(standardizedMed)) {
-                possibleMedNames.push(normalizedMainName, ...normalizedAliases);
-                // Also include original forms for backward compatibility
-                possibleMedNames.push(med.name.toLowerCase().trim(), ...med.aliases.map(alias => alias.toLowerCase().trim()));
-                break;
+            if (med) {
+                // Try main name and all aliases
+                const namesToTry = [
+                    this._cachedNormalize(med.name),
+                    this._cachedCanonicalize(med.name),
+                    ...(med.aliases || []).flatMap(a => [
+                        this._cachedNormalize(a),
+                        this._cachedCanonicalize(a)
+                    ])
+                ];
+                
+                for (const name of namesToTry) {
+                    warnings = this._warningIndex?.get(name);
+                    if (warnings && warnings.length > 0) break;
+                }
             }
         }
         
-        // Find matching medication in warnings
+        // Check formulation match for found warnings
+        if (warnings && warnings.length > 0) {
+            for (const warning of warnings) {
+                const formulations = warning.formulation.map(f => f.toLowerCase().trim());
+                const formMatch = formulations.some(form => 
+                    normalizedForm.includes(form) || 
+                    form.includes(normalizedForm) ||
+                    standardizedForm.includes(form) ||
+                    form.includes(standardizedForm) ||
+                    this.areFormulationsSimilar(form, normalizedForm)
+                );
+                
+                if (formMatch) {
+                    return warning.label_number || [];
+                }
+            }
+        }
+        
+        // Fallback: Full search if indexes not built or no match found
+        if (!this._warningIndex) {
+            return this._findWarningLabelsFallback(medicationName, formulation);
+        }
+        
+        return [];
+    },
+    
+    /**
+     * Fallback warning label search (used when indexes not available)
+     */
+    _findWarningLabelsFallback(medicationName, formulation) {
+        const normalizedMed = this._cachedNormalize(medicationName);
+        const canonicalMed = this._cachedCanonicalize(medicationName);
+        const normalizedForm = formulation.toLowerCase().trim();
+        const standardizedForm = this.standardizeFormulation(normalizedForm);
+        
         for (const med of this.medicationWarnings) {
-            // Check if medication name matches using normalized names
-            const medNames = med.name.map(name => name.toLowerCase().trim());
-            const normalizedMedNames = med.name.map(name => this.normalizeDrugName(name));
-            
-            // Determine if there's a medication match using standard names and aliases
-            const isMedMatch = medNames.some((name, index) => {
-                const normalizedWarningName = normalizedMedNames[index];
+            // Check medication match
+            const isMedMatch = med.name.some(name => {
+                const cleanName = name.replace(/-Specialist-Drug$/i, '');
+                const normName = this._cachedNormalize(cleanName);
+                const canonName = this._cachedCanonicalize(cleanName);
                 
-                // Check against all possible medication names including aliases
-                if (possibleMedNames.includes(name) || possibleMedNames.includes(normalizedWarningName)) {
-                    return true;
-                }
-                
-                // Special handling for combination drugs with slashes
-                if (name.includes('/')) {
-                    // If this is a combination drug with a slash
-                    const nameParts = name.split('/').map(part => part.trim());
-                    const normalizedNameParts = nameParts.map(part => this.normalizeDrugName(part));
-                    
-                    // If searching for a single drug, DO NOT match with combination drugs
-                    // This fixes the issue where selecting a single component would match with combination medications
-                    if (!normalizedMed.includes('/') && !standardizedMed.includes('/')) {
-                        return false; // Single medications should not match with combination medications
-                    }
-                    
-                    // For a combination drug search, require ALL parts to match
-                    // (implementation of new requirements)
-                    const searchParts = normalizedMed.includes('/') ? 
-                        normalizedMed.split('/').map(part => this.normalizeDrugName(part.trim())) : 
-                        standardizedMed.split('/').map(part => this.normalizeDrugName(part.trim()));
-                    
-                    // Must have the same number of parts in the combination
-                    if (searchParts.length !== normalizedNameParts.length) {
-                        return false;
-                    }
-                    
-                    // Check that ALL parts of the combination medication match using normalized names
-                    // This ensures both/all parts before and after the slash are required to match
-                    const allPartsMatch = searchParts.every(searchPart => 
-                        normalizedNameParts.some(namePart => 
-                            searchPart === namePart || possibleMedNames.includes(namePart)
-                        )
-                    );
-                    
-                    return allPartsMatch;
-                }
-                
-                // Check standardized versions of the warning medication name
-                const standardizedWarningName = this.standardizeMedicationName(name);
-                return possibleMedNames.includes(standardizedWarningName) || possibleMedNames.includes(normalizedWarningName);
+                return normName === normalizedMed || 
+                       canonName === canonicalMed ||
+                       this.drugNamesMatch(medicationName, cleanName);
             });
             
-            if (!isMedMatch) {
-                continue;
-            }
+            if (!isMedMatch) continue;
             
-            // Check if formulation matches (using both original and standardized forms)
-            const formulations = med.formulation.map(form => form.toLowerCase().trim());
-            if (!formulations.some(form => 
+            // Check formulation match
+            const formulations = med.formulation.map(f => f.toLowerCase().trim());
+            const formMatch = formulations.some(form => 
                 normalizedForm.includes(form) || 
                 form.includes(normalizedForm) ||
                 standardizedForm.includes(form) ||
-                form.includes(standardizedForm) ||
-                this.areFormulationsSimilar(form, normalizedForm)
-            )) {
-                continue;
-            }
+                form.includes(standardizedForm)
+            );
             
-            // Return label numbers
-            return med.label_number || [];
+            if (formMatch) {
+                return med.label_number || [];
+            }
         }
         
         return [];
