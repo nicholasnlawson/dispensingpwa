@@ -450,8 +450,24 @@ const MedicationManager = {
             }
         }
         
-        // Return unique matches (max 15)
-        return [...new Set(matches)].slice(0, 15);
+        // Deduplicate and prioritize: exact matches first, then prefix, then substring
+        const unique = [...new Set(matches)];
+        const exact = [];
+        const prefix = [];
+        const substring = [];
+        
+        for (const match of unique) {
+            const lower = match.toLowerCase();
+            if (lower === lowercaseInput) {
+                exact.push(match);
+            } else if (lower.startsWith(lowercaseInput)) {
+                prefix.push(match);
+            } else {
+                substring.push(match);
+            }
+        }
+        
+        return [...exact, ...prefix, ...substring].slice(0, 15);
     },
     
     /**
