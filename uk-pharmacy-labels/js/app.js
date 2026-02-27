@@ -132,7 +132,8 @@ function updateQueueDisplay() {
             `;
         } else {
             // Medication label - show all info including warnings
-            const splitNote = LabelGenerator.needsMultipleLabels(labelData).needsSplitting ? ' <span class="queue-split-note">(splits across multiple labels)</span>' : '';
+            const actualLabels = LabelGenerator.generateLabels(labelData);
+            const splitNote = actualLabels.length > 1 ? ` <span class="queue-split-note">(splits across ${actualLabels.length} labels)</span>` : '';
             listItem.innerHTML = `
                 <div class="queue-medication">${labelData.medicationQuantity ? labelData.medicationQuantity + ' ' : ''}${labelData.medicationName}${labelData.medicationStrength ? ' ' + labelData.medicationStrength : ''} ${labelData.medicationFormulation || ''}${splitNote}</div>
                 <div class="queue-dosage">${labelData.dosageInstructions || ''}</div>
