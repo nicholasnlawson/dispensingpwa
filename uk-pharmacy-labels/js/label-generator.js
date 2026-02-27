@@ -186,7 +186,22 @@ const LabelGenerator = {
      * @returns {Array} - Array of HTML content for the labels
      */
     generateLabels(data) {
-        // Check if content needs to be split across multiple labels
+        // Build the full medication line to check if it needs name splitting
+        const medName = this.toTitleCase(data.medicationName || '');
+        const medStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
+        const medForm = this.toTitleCase(data.medicationFormulation || '');
+        const qtyPrefix = data.medicationQuantity ? `${data.medicationQuantity} ` : '';
+        const fullMedLine = `${qtyPrefix}${medName} ${medStrength}${medForm}`.trim();
+        
+        // Max characters that fit on the med-name line of a printed label
+        // (accounts for initials boxes taking ~8mm of the label width)
+        const MED_NAME_MAX_CHARS = 38;
+        
+        if (fullMedLine.length > MED_NAME_MAX_CHARS) {
+            return this.generateLabelsWithLongMedName(data, fullMedLine, MED_NAME_MAX_CHARS);
+        }
+        
+        // Normal flow
         const splitInfo = this.needsMultipleLabels(data);
         
         if (splitInfo.needsSplitting) {
@@ -194,6 +209,113 @@ const LabelGenerator = {
         } else {
             return [this.generateSingleLabel(data)];
         }
+    },
+
+    /**
+     * Handle labels when the medication name is too long for a single line
+     * Label 1: first portion of the med name
+     * Label 2+: continuation of med name + dosage + warnings + patient info
+     */
+    generateLabelsWithLongMedName(data, fullMedLine, maxChars) {
+        const dispensary = DataManager.getDispensaryInfo(data.dispensaryLocation);
+        const date = data.dateOfDispensing ? new Date(data.dateOfDispensing).toLocaleDateString('en-GB') : '';
+        const patientName = data.isOverlabelMode ? 
+            '<span class="overlabel-placeholder">Patient Name: ________________</span>' : 
+            data.patientName;
+        
+        // Split the medication line into chunks that each fit within maxChars
+        const nameChunks = [];
+        let remainder = fullMedLine;
+        
+        while (remainder.length > maxChars) {
+            // Find the last '/', '-', or ' ' within the maxChars limit
+            let splitIndex = -1;
+            const searchEnd = Math.min(remainder.length - 1, maxChars - 1);
+            for (let i = searchEnd; i > 0; i--) {
+                const ch = remainder[i];
+                if (ch === '/' || ch === '-' || ch === ' ') {
+                    splitIndex = i;
+                    break;
+                }
+            }
+            
+            // If no good split point found, break out and use what we have
+            if (splitIndex <= 0) break;
+            
+            const splitChar = remainder[splitIndex];
+            if (splitChar === ' ') {
+                nameChunks.push(remainder.substring(0, splitIndex));
+                remainder = remainder.substring(splitIndex + 1);
+            } else {
+                // '/' or '-': keep delimiter on this chunk
+                nameChunks.push(remainder.substring(0, splitIndex + 1));
+                remainder = remainder.substring(splitIndex + 1);
+            }
+        }
+        
+        // If we couldn't produce any chunks, fall back to normal flow
+        if (nameChunks.length === 0) {
+            const splitInfo = this.needsMultipleLabels(data);
+            if (splitInfo.needsSplitting) {
+                return this.generateSplitLabels(data, splitInfo);
+            } else {
+                return [this.generateSingleLabel(data)];
+            }
+        }
+        
+        // Generate content labels with the final remainder as the medication name
+        const modifiedData = {
+            ...data,
+            medicationName: remainder.trim(),
+            medicationStrength: '',
+            medicationFormulation: '',
+            medicationQuantity: ''
+        };
+        
+        const splitInfo = this.needsMultipleLabels(modifiedData);
+        let contentLabels;
+        if (splitInfo.needsSplitting) {
+            contentLabels = this.generateSplitLabels(modifiedData, splitInfo);
+        } else {
+            contentLabels = [this.generateSingleLabel(modifiedData)];
+        }
+        
+        const totalLabels = nameChunks.length + contentLabels.length;
+        
+        // Create name-only labels for each chunk
+        const allLabels = [];
+        nameChunks.forEach((chunk, i) => {
+            allLabels.push(this.createLabelHtml({
+                medicationFull: chunk,
+                medicationQuantity: '',
+                mainContent: '',
+                mainContentClass: 'content-wrapper',
+                labelNumber: i + 1,
+                totalLabels: totalLabels,
+                patientName,
+                date,
+                dispensary
+            }));
+        });
+        
+        // Fix label numbering in the content labels and append
+        const nameLabelCount = nameChunks.length;
+        contentLabels.forEach((labelHtml, i) => {
+            let fixed = labelHtml;
+            // Update existing "Label X of Y" numbering
+            if (/Label \d+ of \d+/.test(fixed)) {
+                fixed = fixed.replace(/Label \d+ of \d+/g, `Label ${nameLabelCount + i + 1} of ${totalLabels}`);
+            } else {
+                // Inject numbering for single-content labels that don't have it
+                fixed = fixed.replace(
+                    '<div class="pharmacy-details">',
+                    `<div class="split-label-info"><span class="label-number">Label ${nameLabelCount + i + 1} of ${totalLabels}</span></div><div class="pharmacy-details">`
+                );
+            }
+            allLabels.push(fixed);
+        });
+        
+        return allLabels;
     },
 
     /**
