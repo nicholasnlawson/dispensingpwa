@@ -1325,8 +1325,10 @@
       "beclometasone/formoterol and glycopyrronium",
       "beclometasone/formoterol/glycopyrronium",
       "trimbow",
-      "Formoterol Fumarate/Glycopyrronium And Budesonide",
-      "Formoterol Fumarate/Glycopyrronium/Budesonide"
+      "beclometasone/formoterol and glycopyrronium",
+      "beclometasone with formoterol and glycopyrronium",
+      "formoterol/glycopyrronium/beclometasone",
+      "beclometasone/formoterol/glycopyrronium dipropionate"
     ]
   },
   {
@@ -2034,6 +2036,7 @@
     "aliases": [
       "calcium carbonate/calcium lactate gluconate",
       "sandocal",
+      "calvive",
       "calcium-carbonate-with-calcium-lactate-gluconate"
     ]
   },
@@ -2101,14 +2104,15 @@
     "name": "Cannabidiol",
     "aliases": [
       "cannabidiol",
-      "epidyolex",
-      "sativex"
+      "epidyolex"
     ]
   },
   {
     "name": "Cannabis Extract",
     "aliases": [
-      "cannabis extract"
+      "cannabis extract",
+      "sativex",
+      "nabiximols"
     ]
   },
   {
@@ -3717,15 +3721,19 @@
     ]
   },
   {
-    "name": "Diclofenac",
+    "name": "Diclofenac Potassium",
     "aliases": [
-      "diclofenac",
+      "diclofenac potassium"
+    ]
+  },
+  {
+    "name": "Diclofenac Sodium",
+    "aliases": [
       "diclofenac sodium",
       "voltarol",
       "pennsaid",
       "solaraze",
-      "voltaren",
-      "diclofenac potassium"
+      "voltaren"
     ]
   },
   {
@@ -4439,9 +4447,10 @@
     ]
   },
   {
-    "name": "Emtricitabine/Tenofovir",
+    "name": "Emtricitabine/Tenofovir Disoproxil",
     "aliases": [
-      "Emtricitabine/Tenofovir Disoproxil",
+      "emtricitabine/tenofovir disoproxil",
+      "emtricitabine/tenofovir",
       "truvada"
     ]
   },
@@ -5154,12 +5163,6 @@
     "aliases": [
       "flecainide",
       "tambocor"
-    ]
-  },
-  {
-    "name": "Fleet",
-    "aliases": [
-      "fleet phospho-soda"
     ]
   },
   {
@@ -7581,15 +7584,24 @@
     ]
   },
   {
-    "name": "Lithium",
+    "name": "Lithium Carbonate",
     "aliases": [
-      "lithium chloride",
-      "lithium citrate",
       "lithium carbonate",
       "priadel",
+      "priadel tablet",
+      "priadel tablets",
       "camcolit",
       "liskonum",
       "lithonate"
+    ]
+  },
+  {
+    "name": "Lithium Citrate",
+    "aliases": [
+      "lithium citrate",
+      "lithium chloride",
+      "priadel liquid",
+      "li-liquid"
     ]
   },
   {
@@ -7760,7 +7772,6 @@
   {
     "name": "Macrogol 3350",
     "aliases": [
-      "macrogol",
       "Macrogol 3350",
       "movicol",
       "laxido",
@@ -9729,6 +9740,8 @@
   {
     "name": "Phenytoin",
     "aliases": [
+      "phenytoin",
+      "phenytoin sodium",
       "phenytoin sodium flynn",
       "phenytoin sodium almus",
       "phenytoin sodium teva",
@@ -9963,10 +9976,6 @@
     "aliases": [
       "potassium acetate"
     ]
-  },
-  {
-    "name": "Potassium Acid Phosphate",
-    "aliases": []
   },
   {
     "name": "Potassium Aminobenzoate",
@@ -11071,12 +11080,6 @@
     ]
   },
   {
-    "name": "Sandocal",
-    "aliases": [
-      "calvive"
-    ]
-  },
-  {
     "name": "Sapropterin Dihydrochloride",
     "aliases": [
       "sapropterin dihydrochloride",
@@ -11088,12 +11091,6 @@
     "aliases": [
       "sarilumab",
       "kevzara"
-    ]
-  },
-  {
-    "name": "Sativex",
-    "aliases": [
-      "nabiximols"
     ]
   },
   {
@@ -11374,6 +11371,7 @@
       "sodium acid phosphate/sodium phosphate",
       "phosphates enema",
       "fleet",
+      "fleet phospho-soda",
       "sodium-acid-phosphate-with-sodium-phosphate"
     ]
   },
@@ -12645,10 +12643,6 @@
     ]
   },
   {
-    "name": "Truvada",
-    "aliases": []
-  },
-  {
     "name": "Tryptophan",
     "aliases": [
       "tryptophan",
@@ -13256,13 +13250,12 @@
     ]
   },
   {
-    "name": "Zinc",
+    "name": "Zinc Sulfate",
     "aliases": [
+      "zinc sulfate",
       "zinc sulphate",
-      "zinc acetate",
       "zincomed",
-      "solvazinc",
-      "zinc sulfate"
+      "solvazinc"
     ]
   },
   {

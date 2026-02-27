@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Tests and debug scripts
+uk-pharmacy-labels/tests/
+
+# Backup files
+*.backup
+
+# Development notes
+uk-pharmacy-labels/about.md

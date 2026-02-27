@@ -712,21 +712,51 @@ const MedicationManager = {
             }
         }
         
-        // Check formulation match for found warnings
+        // Check formulation match for found warnings using scored matching
+        // Higher score = better match; prefer exact over substring over alias
         if (warnings && warnings.length > 0) {
+            let bestMatch = null;
+            let bestScore = 0;
+            
             for (const warning of warnings) {
                 const formulations = warning.formulation.map(f => f.toLowerCase().trim());
-                const formMatch = formulations.some(form => 
-                    normalizedForm.includes(form) || 
-                    form.includes(normalizedForm) ||
-                    standardizedForm.includes(form) ||
-                    form.includes(standardizedForm) ||
-                    this.areFormulationsSimilar(form, normalizedForm)
-                );
+                let matchScore = 0;
                 
-                if (formMatch) {
-                    return warning.label_number || [];
+                for (const form of formulations) {
+                    const stdForm = this.standardizeFormulation(form);
+                    
+                    // Score 6: Exact raw string match (highest priority)
+                    if (normalizedForm === form) {
+                        matchScore = Math.max(matchScore, 6);
+                    }
+                    // Score 5: One raw string fully contains the other as substring
+                    else if (normalizedForm.includes(form) || form.includes(normalizedForm)) {
+                        // Prefer longer/more-specific substring matches
+                        const overlapLen = Math.min(normalizedForm.length, form.length);
+                        matchScore = Math.max(matchScore, 5 + overlapLen / 1000);
+                    }
+                    // Score 3: Standardized forms match (category-level match)
+                    else if (standardizedForm === stdForm) {
+                        matchScore = Math.max(matchScore, 3);
+                    }
+                    // Score 2: Standardized forms contain each other
+                    else if (standardizedForm.includes(stdForm) || stdForm.includes(standardizedForm)) {
+                        matchScore = Math.max(matchScore, 2);
+                    }
+                    // Score 1: Formulations are in the same alias group
+                    else if (this.areFormulationsSimilar(form, normalizedForm)) {
+                        matchScore = Math.max(matchScore, 1);
+                    }
                 }
+                
+                if (matchScore > bestScore) {
+                    bestScore = matchScore;
+                    bestMatch = warning;
+                }
+            }
+            
+            if (bestMatch) {
+                return bestMatch.label_number || [];
             }
         }
         

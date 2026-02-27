@@ -1305,11 +1305,6 @@
     "label_number": [2, 25]
   },
   {
-    "name": ["Colecalciferol"],
-    "formulation": ["Oral solution"],
-    "label_number": [21]
-  },
-  {
     "name": ["Colecalciferol-With-Calcium-Carbonate"],
     "formulation": ["Chewable tablet"],
     "label_number": [24]
