@@ -407,40 +407,29 @@ const LabelGenerator = {
             let firstWarningToShow = 0;   // Index of first standalone warning label
             
             // Check if there's room on dosage labels for warnings
+            // Only combine if the FIRST warning chunk fits - never skip chunks
             if (dosageLabels.length > 0 && warningLabels.length > 0) {
-                // Try to add warnings to the first dosage label
-                if (dosageLabels.length >= 1) {
-                    const firstDosageLabel = dosageLabels[0];
-                    const availableLines = calculateAvailableWarningLines(firstDosageLabel.lineCount);
-                    
-                    if (availableLines > 0 && warningLabels.length > 0) {
-                        // Check which warning labels can fit on first dosage label
-                        for (let i = 0; i < warningLabels.length; i++) {
-                            if (warningLabels[i].lineCount <= availableLines) {
-                                firstLabelCombinesWarnings = true;
-                                warningsOnFirstLabel = 1;
-                                firstWarningToShow = 1; // Skip first warning when showing standalone warnings
-                                break;
-                            }
-                        }
-                    }
+                // Try to add the first warning chunk to the first dosage label
+                const firstDosageLabel = dosageLabels[0];
+                const availableLines = calculateAvailableWarningLines(firstDosageLabel.lineCount);
+                
+                if (availableLines > 0 && warningLabels[0].lineCount <= availableLines) {
+                    firstLabelCombinesWarnings = true;
+                    warningsOnFirstLabel = 1;
+                    firstWarningToShow = 1;
                 }
                 
-                // Also try to add warnings to the last dosage label (if different from first)
+                // Also try to add the next warning chunk to the last dosage label (if different from first)
                 if (dosageLabels.length > 1) {
                     const lastDosageLabel = dosageLabels[dosageLabels.length - 1];
-                    const availableLines = calculateAvailableWarningLines(lastDosageLabel.lineCount);
+                    const lastAvailableLines = calculateAvailableWarningLines(lastDosageLabel.lineCount);
+                    const nextWarningIndex = firstWarningToShow;
                     
-                    // If we already added a warning to the first label, start checking from the second warning
-                    const startingWarningIndex = firstLabelCombinesWarnings ? 1 : 0;
-                    
-                    if (availableLines > 0 && warningLabels.length > startingWarningIndex) {
-                        // Check which warning labels can fit on last dosage label
-                        if (warningLabels[startingWarningIndex].lineCount <= availableLines) {
-                            lastLabelCombinesWarnings = true;
-                            warningsOnLastLabel = 1;
-                            firstWarningToShow = startingWarningIndex + warningsOnLastLabel;
-                        }
+                    if (lastAvailableLines > 0 && nextWarningIndex < warningLabels.length &&
+                        warningLabels[nextWarningIndex].lineCount <= lastAvailableLines) {
+                        lastLabelCombinesWarnings = true;
+                        warningsOnLastLabel = 1;
+                        firstWarningToShow = nextWarningIndex + 1;
                     }
                 }
             }
