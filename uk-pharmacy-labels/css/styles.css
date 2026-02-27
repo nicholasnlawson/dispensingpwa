@@ -599,6 +599,62 @@ button[type="reset"]:hover {
     position: relative;
 }
 
+/* Bag Label Styles - screen/preview */
+.bag-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 8px;
+    border: 1px solid #005eb8;
+    font-family: Arial, sans-serif;
+}
+
+.bag-label-patient-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bag-label-patient-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.bag-label-patient-details {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.bag-label-patient-address {
+    font-size: 11px;
+    white-space: pre-line;
+    line-height: 1.25;
+    margin-top: 2px;
+}
+
+.bag-label-dispensary {
+    margin-top: auto;
+    padding-top: 6px;
+    border-top: 1px dotted #ccc;
+    line-height: 1.3;
+}
+
+.bag-label-date {
+    font-size: 10px;
+}
+
+.bag-label-pharmacy {
+    font-weight: bold;
+    font-size: 10px;
+}
+
 /* Print Styles */
 @media print {
     body * {
@@ -788,76 +844,62 @@ button[type="reset"]:hover {
     }
     
     
-    /* Bag Label Styles - compact design for small labels */
+    /* Bag Label Styles - print */
     .bag-label {
         display: flex !important;
         flex-direction: column !important;
+        justify-content: space-between !important;
         height: 100% !important;
-        padding: 1mm !important;
+        padding: 2mm !important;
         border: 0.5pt solid #005eb8 !important;
         font-family: Arial, sans-serif !important;
     }
     
-    .bag-label-header {
-        display: flex !important;
-        align-items: center !important;
-        margin-bottom: 1mm !important;
-    }
-    
-    .bag-label-nhs-logo {
-        font-weight: bold !important;
-        color: #005eb8 !important;
-        font-size: 6pt !important;
-        padding: 0.5pt 1pt !important;
-        margin-right: 1mm !important;
-    }
-    
-    .bag-label-title {
-        font-size: 5pt !important;
-        font-weight: bold !important;
-        color: #005eb8 !important;
-    }
-    
     .bag-label-patient-section {
-        margin-bottom: 1mm !important;
         flex-grow: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
     }
     
     .bag-label-patient-name {
-        font-size: 5.5pt !important;
+        font-size: 11pt !important;
         font-weight: bold !important;
-        margin-bottom: 0.4mm !important;
-        line-height: 1.05 !important;
+        margin-bottom: 1.5mm !important;
+        line-height: 1.2 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
     
     .bag-label-patient-details {
         display: flex !important;
         flex-direction: column !important;
-        font-size: 5pt !important;
-        margin-bottom: 0.5mm !important;
-        line-height: 1.1 !important;
+        font-size: 8pt !important;
+        margin-bottom: 1mm !important;
+        line-height: 1.25 !important;
     }
     
     .bag-label-patient-address {
-        font-size: 5pt !important;
+        font-size: 7.5pt !important;
         white-space: pre-line !important;
-        line-height: 1.1 !important;
+        line-height: 1.2 !important;
+        margin-top: 0.5mm !important;
     }
     
     .bag-label-dispensary {
-        font-size: 4.5pt !important;
         margin-top: auto !important;
-        padding-top: 0.5mm !important;
-        line-height: 1.1 !important;
+        padding-top: 1mm !important;
+        border-top: 0.5pt dotted #ccc !important;
+        line-height: 1.2 !important;
     }
     
     .bag-label-date {
-        font-size: 4.5pt !important;
+        font-size: 7pt !important;
     }
     
     .bag-label-pharmacy {
         font-weight: bold !important;
-        font-size: 4.5pt !important;
+        font-size: 7pt !important;
     }
     
     .print-label .patient-row {

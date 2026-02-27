@@ -455,31 +455,6 @@ const MedicationManager = {
     },
     
     /**
-     * Process formulation categories recursively
-     * @param {Object|Array} category - Category or array of formulations
-     * @param {string} input - Lowercase input to match
-     * @param {Array} matches - Array to add matches to
-     */
-    processFormulationCategory(category, input, matches) {
-        // If it's an array, check each formulation
-        if (Array.isArray(category)) {
-            category.forEach(form => {
-                if (typeof form === 'string' && form.toLowerCase().includes(input)) {
-                    matches.push(form);
-                }
-            });
-            return;
-        }
-        
-        // If it's an object, process each property
-        if (typeof category === 'object' && category !== null) {
-            for (const key in category) {
-                this.processFormulationCategory(category[key], input, matches);
-            }
-        }
-    },
-    
-    /**
      * Check if content contains warning text (cached for performance)
      * @param {string} content - Content to check
      * @returns {boolean} - True if content contains warnings

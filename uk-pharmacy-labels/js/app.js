@@ -10,9 +10,6 @@ let labelQueue = [];
 let overlabelMode = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize the application
-    initApp();
-    
     // Initialize the medication manager
     await MedicationManager.init();
     
@@ -44,30 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
     }
 });
-
-/**
- * Initialize the application
- */
-function initApp() {
-    // Check authentication and manage admin link visibility
-    manageAuthUI();
-}
-
-/**
- * Manage authentication-related UI elements
- */
-function manageAuthUI() {
-    // Get the admin link element
-    const adminLink = document.getElementById('admin-nav-link');
-    if (adminLink) {
-        // Only show admin link if user has admin role
-        if (AuthUtils.isAuthenticated() && AuthUtils.hasRole('admin')) {
-            adminLink.style.display = 'inline-block';
-        } else {
-            adminLink.style.display = 'none';
-        }
-    }
-}
 
 /**
  * Generate label preview based on form data
@@ -522,13 +495,6 @@ function generateBagLabel() {
  * Get all form data as an object
  */
 function getFormData() {
-    // Get the standard warning option
-    const includeStandardWarning = document.getElementById('standard-warning').checked;
-    
-    // Get additional information
-    let additionalInfo = document.getElementById('additional-info').value;
-    
-    // Add standard warning to the beginning of additional information if checked
     return {
         // Overlabel mode flag
         isOverlabelMode: overlabelMode,

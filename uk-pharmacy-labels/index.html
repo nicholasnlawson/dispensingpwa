@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,11 +13,31 @@
     <link rel="manifest" href="manifest.json" />
     <!-- Favicon links -->
     <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon_io/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon_io/favicon-16x16.png"
+    />
     <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon_io/android-chrome-192x192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="favicon_io/android-chrome-512x512.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon_io/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="favicon_io/android-chrome-512x512.png"
+    />
   </head>
   <body>
     <header>
@@ -31,7 +51,7 @@
       <div class="container">
         <div class="input-section">
           <h2>Label Information</h2>
-          <form id="label-form">
+          <form id="label-form" autocomplete="off">
             <div class="form-group">
               <div class="section-header">
                 <h3>Patient Details</h3>
@@ -42,19 +62,25 @@
                 >
                   New Patient
                 </button>
-                <button
-                  type="button"
-                  id="overlabels-btn"
-                  class="secondary-btn"
-                >
+                <button type="button" id="overlabels-btn" class="secondary-btn">
                   Overlabels
                 </button>
               </div>
               <label for="patient-name">Full Name:</label>
-              <input type="text" id="patient-name" required />
+              <input
+                type="text"
+                id="patient-name"
+                required
+                autocomplete="one-time-code"
+              />
 
               <label for="patient-dob">Date of Birth:</label>
-              <input type="date" id="patient-dob" required />
+              <input
+                type="date"
+                id="patient-dob"
+                required
+                autocomplete="one-time-code"
+              />
 
               <label for="patient-nhs">NHS Number:</label>
               <input
@@ -62,10 +88,15 @@
                 id="patient-nhs"
                 pattern="[0-9]{10}"
                 placeholder="10 digits"
+                autocomplete="one-time-code"
               />
 
               <label for="patient-address">Address:</label>
-              <textarea id="patient-address" rows="3"></textarea>
+              <textarea
+                id="patient-address"
+                rows="3"
+                autocomplete="one-time-code"
+              ></textarea>
             </div>
 
             <div class="form-group">
@@ -95,17 +126,39 @@
               <input type="text" id="med-quantity" placeholder="e.g., 28" />
 
               <label for="number-of-labels">Number of Labels:</label>
-              <input type="number" id="number-of-labels" min="1" value="1" placeholder="e.g., 2 for 56 tablets" />
+              <input
+                type="number"
+                id="number-of-labels"
+                min="1"
+                value="1"
+                placeholder="e.g., 2 for 56 tablets"
+              />
             </div>
 
             <div class="form-group">
               <h3>Dosage Instructions</h3>
               <div class="shorthand-box">
                 <label for="shorthand-input">Shorthand:</label>
-                <input type="text" id="shorthand-input" placeholder="e.g., 1t bd" />
-                <button type="button" id="apply-shorthand-btn" class="secondary-btn">Apply</button>
+                <input
+                  type="text"
+                  id="shorthand-input"
+                  placeholder="e.g., 1t bd"
+                />
+                <button
+                  type="button"
+                  id="apply-shorthand-btn"
+                  class="secondary-btn"
+                >
+                  Apply
+                </button>
                 <div class="shorthand-guide">
-                  <a href="shorthand-reference.html" target="_blank" class="shorthand-link" id="view-all-codes-link">View all shorthand codes</a>
+                  <a
+                    href="shorthand-reference.html"
+                    target="_blank"
+                    class="shorthand-link"
+                    id="view-all-codes-link"
+                    >View all shorthand codes</a
+                  >
                 </div>
               </div>
               <label for="dosage">Dosage:</label>

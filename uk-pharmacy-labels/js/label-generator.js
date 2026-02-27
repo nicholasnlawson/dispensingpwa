@@ -616,10 +616,10 @@ const LabelGenerator = {
                         <span class="dispensing-date">${date}</span>
                     </div>
                     
-                    <!-- Label Number at Bottom -->
-                    <div class="split-label-info">
+                    <!-- Label Number at Bottom (only shown when content spans multiple labels) -->
+                    ${totalLabels > 1 ? `<div class="split-label-info">
                         <span class="label-number">Label ${labelNumber} of ${totalLabels}</span>
-                    </div>
+                    </div>` : ''}
                     
                     <!-- Bottom Row: Pharmacy Details -->
                     <div class="pharmacy-details">
@@ -628,15 +628,6 @@ const LabelGenerator = {
                 </div>
             </div>
         `;
-    },
-
-    /**
-     * Generate a single label based on the form data
-     * @param {Object} data - Form data
-     * @returns {string} - HTML content for the label
-     */
-    generateLabel(data) {
-        return this.generateSingleLabel(data);
     },
 
     /**
@@ -667,7 +658,7 @@ const LabelGenerator = {
                         <div>DOB: ${dob}</div>
                         ${data.patientNHS ? `<div>NHS: ${data.patientNHS}</div>` : ''}
                     </div>
-                    <div class="bag-label-patient-address">${data.patientAddress || ''}</div>
+                    <div class="bag-label-patient-address">${(data.patientAddress || '').split(/\r?\n/)[0]}</div>
                 </div>
                 
                 <!-- Dispensary Information -->
@@ -753,115 +744,5 @@ const LabelGenerator = {
             </div>
         </div>
         `;
-    },
-    
-    /**
-     * Format a date string to UK format (DD/MM/YYYY)
-     * @param {string} dateString - ISO date string
-     * @returns {string} Formatted date
-     */
-    formatDate(dateString) {
-        if (!dateString) return '';
-        
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    },
-    
-    /**
-     * Format NHS Number with spaces (e.g., 123 456 7890)
-     * @param {string} nhsNumber 
-     * @returns {string} Formatted NHS number
-     */
-    formatNHSNumber(nhsNumber) {
-        if (!nhsNumber) return '';
-        
-        // Remove any non-digit characters
-        const digits = nhsNumber.replace(/\D/g, '');
-        
-        // Format as XXX XXX XXXX
-        if (digits.length === 10) {
-            return `${digits.substring(0, 3)} ${digits.substring(3, 6)} ${digits.substring(6)}`;
-        }
-        
-        return nhsNumber; // Return original if not 10 digits
-    },
-    
-    /**
-     * Create a formatted medication string
-     * @param {Object} data - The form data
-     * @returns {string} Formatted medication string
-     */
-    formatMedication(data) {
-        let result = data.medicationName;
-        
-        if (data.medicationStrength) {
-            result += ` ${data.medicationStrength}`;
-        }
-        
-        if (data.medicationForm) {
-            result += ` ${data.medicationForm}`;
-        }
-        
-        return result;
-    },
-    
-    /**
-     * Get standard UK medication warnings
-     * @returns {string} HTML for standard warnings
-     */
-    getStandardWarnings() {
-        return `
-            <div class="warning">
-                Keep out of the reach and sight of children.
-            </div>
-        `;
-    },
-    
-    /**
-     * Get HTML for dispensing and checking initials boxes
-     * @returns {string} HTML for initials boxes
-     */
-    getInitialsBoxes() {
-        return `
-            <div class="initials-boxes">
-                <div class="initials-box">
-                    <div class="box-label">Disp</div>
-                    <div class="box"></div>
-                </div>
-                <div class="initials-box">
-                    <div class="box-label">Check</div>
-                    <div class="box"></div>
-                </div>
-            </div>
-        `;
-    },
-    /**
-     * Generate a complete set of labels for printing on A4 page
-     * @param {Object} data - The form data
-     * @param {number} quantity - Number of labels to generate (max 24 per page)
-     * @returns {string} - HTML for the A4 page of labels
-     */
-    generateLabelsForPrinting(data, quantity = 1) {
-        // Ensure quantity is within limits (max 24 labels per A4 sheet)
-        const labelCount = Math.min(quantity, 24);
-        
-        // Generate the single label HTML content
-        const labelContent = this.generateLabel(data);
-        
-        // Create container for all labels
-        let html = '<div class="print-labels-container">';
-        
-        // Add the required number of labels
-        for (let i = 0; i < labelCount; i++) {
-            html += `<div class="print-label uk-label">${labelContent}</div>`;
-        }
-        
-        html += '</div>';
-        
-        return html;
     }
 };
