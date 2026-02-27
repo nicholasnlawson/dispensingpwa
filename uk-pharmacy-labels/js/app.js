@@ -18,12 +18,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('dispensed-date').value = today;
     
     // Event listeners
-    document.getElementById('preview-btn').addEventListener('click', generatePreview);
     document.getElementById('add-to-queue-btn').addEventListener('click', addToQueue);
     document.getElementById('generate-bag-label-btn').addEventListener('click', generateBagLabel);
     document.getElementById('print-queue-btn').addEventListener('click', printQueue);
     document.getElementById('clear-queue-btn').addEventListener('click', clearQueue);
-    document.getElementById('label-form').addEventListener('reset', clearPreview);
     document.getElementById('new-patient-btn').addEventListener('click', clearPatientDetails);
     document.getElementById('overlabels-btn').addEventListener('click', toggleOverlabelMode);
     
@@ -41,39 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
     }
 });
-
-/**
- * Generate label preview based on form data
- */
-function generatePreview() {
-    // Get form data
-    const formData = getFormData();
-    
-    // Generate label
-    const labelContent = LabelGenerator.generateSingleLabel(formData);
-    
-    // Update preview
-    const previewContainer = document.getElementById('preview-content');
-    if (previewContainer) {
-        previewContainer.innerHTML = labelContent;
-        
-        // Show message if content would be split across multiple labels when printed
-        const labelPreviewSection = document.getElementById('label-preview');
-        
-        // Remove any existing warning
-        const existingWarning = labelPreviewSection.querySelector('.split-label-warning');
-        if (existingWarning) {
-            existingWarning.remove();
-        }
-        
-        if (LabelGenerator.needsMultipleLabels(formData)) {
-            const warningDiv = document.createElement('div');
-            warningDiv.className = 'split-label-warning';
-            warningDiv.textContent = 'Note: This content will be split across multiple labels when printed';
-            labelPreviewSection.appendChild(warningDiv);
-        }
-    }
-}
 
 /**
  * Add a label to the queue
@@ -117,7 +82,6 @@ function addToQueue() {
     
     // Clear only medication details
     clearMedicationDetails();
-    clearPreview();
     
     // Restore patient details
     document.getElementById('patient-name').value = patientName;
@@ -156,19 +120,24 @@ function updateQueueDisplay() {
         listItem.className = labelData.isBagLabel ? 'queue-item bag-label' : 'queue-item';
         
         if (labelData.isBagLabel) {
-            // Display bag label differently
+            // Bag label - show all patient details
+            const dob = labelData.patientDOB ? new Date(labelData.patientDOB).toLocaleDateString('en-GB') : '';
+            const addressFirstLine = (labelData.patientAddress || '').split(/\r?\n/)[0];
             listItem.innerHTML = `
-                <div class="queue-medication">${labelData.patientName}</div>
-                <div class="queue-dosage">Bag Label</div>
-                <div class="queue-patient">DOB: ${labelData.patientDOB ? new Date(labelData.patientDOB).toLocaleDateString('en-GB') : ''}</div>
+                <div class="queue-label-type">Bag Label</div>
+                <div class="queue-medication">${labelData.patientName || ''}</div>
+                <div class="queue-details">DOB: ${dob}${labelData.patientNHS ? ` | NHS: ${labelData.patientNHS}` : ''}</div>
+                ${addressFirstLine ? `<div class="queue-details">${addressFirstLine}</div>` : ''}
                 <button class="remove-btn" data-index="${index}">Remove</button>
             `;
         } else {
-            // Regular medication label
+            // Medication label - show all info including warnings
+            const splitNote = LabelGenerator.needsMultipleLabels(labelData).needsSplitting ? ' <span class="queue-split-note">(splits across multiple labels)</span>' : '';
             listItem.innerHTML = `
-                <div class="queue-medication">${labelData.medicationName}${labelData.medicationStrength ? ` ${labelData.medicationStrength}` : ''} ${labelData.medicationFormulation || ''}</div>
+                <div class="queue-medication">${labelData.medicationQuantity ? labelData.medicationQuantity + ' ' : ''}${labelData.medicationName}${labelData.medicationStrength ? ' ' + labelData.medicationStrength : ''} ${labelData.medicationFormulation || ''}${splitNote}</div>
                 <div class="queue-dosage">${labelData.dosageInstructions || ''}</div>
-                <div class="queue-patient">${labelData.patientName || ''}</div>
+                ${labelData.additionalInformation ? `<div class="queue-additional-info">${labelData.additionalInformation}</div>` : ''}
+                <div class="queue-patient">${labelData.patientName || ''}${labelData.patientName && labelData.dateOfDispensing ? ' | ' : ''}${labelData.dateOfDispensing ? new Date(labelData.dateOfDispensing).toLocaleDateString('en-GB') : ''}</div>
                 <button class="remove-btn" data-index="${index}">Remove</button>
             `;
         }
@@ -347,14 +316,6 @@ function createSplitLabels(labelData) {
 }
 
 /**
- * Clear the preview area
- */
-function clearPreview() {
-    const previewElement = document.getElementById('preview-content');
-    previewElement.innerHTML = '<div class="preview-placeholder">Label preview will appear here</div>';
-}
-
-/**
  * Clear only medication details while preserving patient information
  */
 function clearMedicationDetails() {
@@ -379,9 +340,6 @@ function clearPatientDetails() {
     
     // Also clear medication details
     clearMedicationDetails();
-    
-    // Clear preview
-    clearPreview();
     
     // Focus on patient name field
     document.getElementById('patient-name').focus();
@@ -444,10 +402,6 @@ function toggleOverlabelMode() {
         }
     }
     
-    // Update preview to reflect changes
-    if (document.getElementById('preview-content').innerHTML !== '<div class="preview-placeholder">Label preview will appear here</div>') {
-        generatePreview();
-    }
 }
 
 /**
@@ -475,13 +429,7 @@ function generateBagLabel() {
     // Generate bag label
     const labelContent = LabelGenerator.generateBagLabel(formData);
     
-    // Update preview
-    const previewContainer = document.getElementById('preview-content');
-    if (previewContainer) {
-        previewContainer.innerHTML = labelContent;
-    }
-    
-    // Add to queue automatically
+    // Add to queue
     labelQueue.push({
         ...formData,
         isBagLabel: true

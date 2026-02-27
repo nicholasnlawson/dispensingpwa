@@ -48,11 +48,11 @@
     </header>
 
     <main>
-      <div class="container">
-        <div class="input-section">
-          <h2>Label Information</h2>
-          <form id="label-form" autocomplete="off">
-            <div class="form-group">
+      <form id="label-form" autocomplete="off">
+        <div class="form-row">
+          <!-- Left Column: Patient Details -->
+          <div class="form-column">
+            <div class="form-panel">
               <div class="section-header">
                 <h3>Patient Details</h3>
                 <button
@@ -98,8 +98,11 @@
                 autocomplete="one-time-code"
               ></textarea>
             </div>
+          </div>
 
-            <div class="form-group">
+          <!-- Right Column: Medication, Dosage & Dispensing Details -->
+          <div class="form-column">
+            <div class="form-panel">
               <h3>Medication Details</h3>
               <label for="med-name">Medicine Name:</label>
               <input type="text" id="med-name" required />
@@ -133,9 +136,7 @@
                 value="1"
                 placeholder="e.g., 2 for 56 tablets"
               />
-            </div>
 
-            <div class="form-group">
               <h3>Dosage Instructions</h3>
               <div class="shorthand-box">
                 <label for="shorthand-input">Shorthand:</label>
@@ -180,9 +181,7 @@
                 rows="2"
                 placeholder="Any special instructions"
               ></textarea>
-            </div>
 
-            <div class="form-group">
               <h3>Dispensing Details</h3>
               <label for="dispensed-date">Date Dispensed:</label>
               <input type="date" id="dispensed-date" required />
@@ -203,44 +202,31 @@
                 <label for="show-initials">Show Disp/Check boxes</label>
               </div>
             </div>
-
-            <div class="button-group">
-              <button type="button" id="preview-btn">Preview Label</button>
-              <button type="button" id="add-to-queue-btn">Add to Queue</button>
-              <button type="button" id="generate-bag-label-btn">
-                Generate Bag Label
-              </button>
-              <button type="button" id="print-queue-btn">
-                Print All Labels
-              </button>
-              <button type="reset">Clear Form</button>
-            </div>
-          </form>
+          </div>
         </div>
 
-        <div class="preview-section" id="label-preview">
-          <h2>Label Preview</h2>
-          <div class="label-container">
-            <div id="preview-content" class="uk-label">
-              <!-- Label preview will be generated here -->
-              <div class="preview-placeholder">
-                Label preview will appear here
-              </div>
-            </div>
-          </div>
+        <!-- Action Buttons -->
+        <div class="button-row">
+          <button type="button" id="add-to-queue-btn">Add to Queue</button>
+          <button type="button" id="generate-bag-label-btn">
+            Generate Bag Label
+          </button>
+          <button type="button" id="print-queue-btn">Print All Labels</button>
+          <button type="reset">Clear Form</button>
+        </div>
+      </form>
 
-          <div class="label-queue" id="label-queue">
-            <h3>Label Queue <span id="queue-count">(0)</span></h3>
-            <div id="queue-container">
-              <!-- Queued labels will appear here -->
-              <div class="queue-empty">No labels in queue</div>
-            </div>
-            <div class="queue-controls">
-              <button type="button" id="clear-queue-btn" disabled>
-                Clear Queue
-              </button>
-            </div>
-          </div>
+      <!-- Label Queue (full width below form) -->
+      <div class="queue-section" id="label-queue">
+        <h3>Label Queue <span id="queue-count">(0)</span></h3>
+        <div id="queue-container">
+          <!-- Queued labels will appear here -->
+          <div class="queue-empty">No labels in queue</div>
+        </div>
+        <div class="queue-controls">
+          <button type="button" id="clear-queue-btn" disabled>
+            Clear Queue
+          </button>
         </div>
       </div>
     </main>
