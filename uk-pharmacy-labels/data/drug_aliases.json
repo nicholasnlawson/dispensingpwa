@@ -25,6 +25,7 @@
     "name": "Abemaciclib",
     "aliases": [
       "abemaciclib",
+      "Abemaciclib-Specialist-Drug",
       "verzenios",
       "verzenio"
     ]
@@ -265,6 +266,7 @@
     "name": "Afatinib",
     "aliases": [
       "afatinib",
+      "Afatinib-Specialist-Drug",
       "giotrif"
     ]
   },
@@ -274,6 +276,14 @@
       "aflibercept",
       "eylea",
       "zaltrap"
+    ]
+  },
+    {
+    "name": "agomelatine",
+    "aliases": [
+      "agomelatine",
+      "Valdoxan",
+      "Thymanax"
     ]
   },
   {
@@ -314,6 +324,7 @@
     "name": "Alectinib",
     "aliases": [
       "alectinib",
+      "Alectinib-Specialist-Drug",
       "alecensa"
     ]
   },
@@ -431,6 +442,7 @@
     "name": "Alogliptin/Metformin",
     "aliases": [
       "alogliptin/metformin",
+      "Alogliptin-With-Metformin",
       "vipdomet"
     ]
   },
@@ -438,6 +450,7 @@
     "name": "Alpelisib",
     "aliases": [
       "alpelisib",
+      "Alpelisib-Specialist-Drug",
       "piqray"
     ]
   },
@@ -788,6 +801,8 @@
     "name": "Apomorphine",
     "aliases": [
       "apomorphine",
+      "Apomorphine-Hydrochloride",
+      "apomorphine hydrochloride",
       "apo-go",
       "dacepton",
       "kinzide"
@@ -935,6 +950,7 @@
     "name": "Asciminib",
     "aliases": [
       "asciminib",
+      "Asciminib-Specialist-Drug",
       "scemblix"
     ]
   },
@@ -1089,6 +1105,7 @@
     "name": "Avapritinib",
     "aliases": [
       "avapritinib",
+      "Avapritinib-Specialist-Drug",
       "ayvakyt"
     ]
   },
@@ -1123,6 +1140,7 @@
     "name": "Axitinib",
     "aliases": [
       "axitinib",
+      "Axitinib-Specialist-Drug",
       "inlyta"
     ]
   },
@@ -1148,6 +1166,7 @@
     "name": "Azacitidine",
     "aliases": [
       "azacitidine",
+      "Azacitidine-Specialist-Drug",
       "vidaza"
     ]
   },
@@ -1314,6 +1333,7 @@
     "name": "Beclometasone/Formoterol",
     "aliases": [
       "beclometasone/formoterol",
+      "Beclometasone-With-Formoterol",
       "beclomethasone/formoterol",
       "fostair",
       "luforbec"
@@ -1597,6 +1617,7 @@
     "name": "Binimetinib",
     "aliases": [
       "binimetinib",
+      "Binimetinib-Specialist-Drug",
       "mektovi"
     ]
   },
@@ -1626,6 +1647,9 @@
     "aliases": [
       "bismuth salicylate",
       "bismuth iodoform",
+      "Bismuth-Subcitrate-Potassium-With-Metronidazole-And-Tetracycline-Hydrochloride",
+      "bismuth subcitrate/metronidazole/tetracycline",
+      "pylera",
       "de-noltab"
     ]
   },
@@ -1705,6 +1729,7 @@
     "name": "Bosutinib",
     "aliases": [
       "bosutinib",
+      "Bosutinib-Specialist-Drug",
       "bosulif"
     ]
   },
@@ -1738,6 +1763,7 @@
     "name": "Brigatinib",
     "aliases": [
       "brigatinib",
+      "Brigatinib-Specialist-Drug",
       "alunbrig"
     ]
   },
@@ -1820,6 +1846,7 @@
     "name": "Budesonide/Formoterol",
     "aliases": [
       "budesonide/formoterol",
+      "Budesonide-With-Formoterol",
       "symbicort",
       "duoresp",
       "fobumix",
@@ -1942,6 +1969,7 @@
     "name": "Cabozantinib",
     "aliases": [
       "cabozantinib",
+      "Cabozantinib-Specialist-Drug",
       "cabometyx",
       "cometriq"
     ]
@@ -2133,6 +2161,7 @@
     "name": "Capecitabine",
     "aliases": [
       "capecitabine",
+      "Capecitabine-Specialist-Drug",
       "xeloda"
     ]
   },
@@ -2146,6 +2175,7 @@
     "name": "Capivasertib",
     "aliases": [
       "capivasertib",
+      "Capivasertib-Specialist-Drug",
       "truqap"
     ]
   },
@@ -2419,6 +2449,7 @@
     "name": "Ceritinib",
     "aliases": [
       "ceritinib",
+      "Ceritinib-Specialist-Drug",
       "zykadia"
     ]
   },
@@ -2507,6 +2538,7 @@
     "name": "Chlorhexidine Gluconate/Isopropyl Alcohol",
     "aliases": [
       "chlorhexidine gluconate/isopropyl alcohol",
+      "Chlorhexidine-Gluconate-With-Isopropyl-Alcohol",
       "chloraprep"
     ]
   },
@@ -3196,6 +3228,7 @@
     "name": "Crizotinib",
     "aliases": [
       "crizotinib",
+      "Crizotinib-Specialist-Drug",
       "xalkori"
     ]
   },
@@ -3276,6 +3309,7 @@
     "name": "Dabrafenib",
     "aliases": [
       "dabrafenib",
+      "Dabrafenib-Specialist-Drug",
       "tafinlar"
     ]
   },
@@ -3304,7 +3338,9 @@
   {
     "name": "Daktacort",
     "aliases": [
-      "daktacort"
+      "daktacort",
+      "hydrocortisone/miconazole",
+      "Hydrocortisone-With-Miconazole"
     ]
   },
   {
@@ -3432,7 +3468,8 @@
     "aliases": [
       "darunavir",
       "prezista",
-      "rezolsta"
+      "rezolsta",
+      "Darunavir-With-Cobicistat"
     ]
   },
   {
@@ -3460,6 +3497,7 @@
     "name": "Dasatinib",
     "aliases": [
       "dasatinib",
+      "Dasatinib-Specialist-Drug",
       "sprycel"
     ]
   },
@@ -3473,7 +3511,8 @@
   {
     "name": "Decitabine With Cedazuridine",
     "aliases": [
-      "decitabine with cedazuridine"
+      "decitabine with cedazuridine",
+      "Decitabine-With-Cedazuridine-Specialist-Drug"
     ]
   },
   {
@@ -3740,7 +3779,8 @@
     "name": "Diclofenac/Misoprostol",
     "aliases": [
       "arthrotec",
-      "diclofenac/misoprostol"
+      "diclofenac/misoprostol",
+      "Diclofenac-Sodium-With-Misoprostol"
     ]
   },
   {
@@ -3825,6 +3865,7 @@
     "name": "Dihydrocodeine/Paracetamol",
     "aliases": [
       "dihydrocodeine/paracetamol",
+      "Dihydrocodeine-With-Paracetamol",
       "co-dydramol",
       "paramol",
       "remedeine"
@@ -4450,6 +4491,7 @@
     "name": "Emtricitabine/Tenofovir Disoproxil",
     "aliases": [
       "emtricitabine/tenofovir disoproxil",
+      "Emtricitabine-With-Tenofovir-Disoproxil",
       "emtricitabine/tenofovir",
       "truvada"
     ]
@@ -4483,6 +4525,7 @@
     "name": "Encorafenib",
     "aliases": [
       "encorafenib",
+      "Encorafenib-Specialist-Drug",
       "braftovi"
     ]
   },
@@ -4512,6 +4555,7 @@
     "name": "Entrectinib",
     "aliases": [
       "entrectinib",
+      "Entrectinib-Specialist-Drug",
       "rozlytrek"
     ]
   },
@@ -4598,6 +4642,7 @@
     "name": "Erdafitinib",
     "aliases": [
       "erdafitinib",
+      "Erdafitinib-Specialist-Drug",
       "balversa"
     ]
   },
@@ -4638,6 +4683,7 @@
     "name": "Erlotinib",
     "aliases": [
       "erlotinib",
+      "Erlotinib-Specialist-Drug",
       "tarceva"
     ]
   },
@@ -4812,6 +4858,7 @@
     "name": "Etoposide",
     "aliases": [
       "etoposide",
+      "Etoposide-Specialist-Drug",
       "vepesid",
       "etopophos"
     ]
@@ -4941,6 +4988,7 @@
     "name": "Fedratinib",
     "aliases": [
       "fedratinib",
+      "Fedratinib-Specialist-Drug",
       "inrebic"
     ]
   },
@@ -5339,6 +5387,7 @@
     "name": "Fluticasone/Formoterol",
     "aliases": [
       "fluticasone/formoterol",
+      "Fluticasone-With-Formoterol",
       "flutiform"
     ]
   },
@@ -5346,6 +5395,7 @@
     "name": "Fluticasone/Salmeterol",
     "aliases": [
       "fluticasone/salmeterol",
+      "Fluticasone-With-Salmeterol",
       "seretide",
       "airflusol forspiro",
       "avenor",
@@ -5592,6 +5642,7 @@
     "name": "Fruquintinib",
     "aliases": [
       "fruquintinib",
+      "Fruquintinib-Specialist-Drug",
       "fruzaqla"
     ]
   },
@@ -5791,6 +5842,7 @@
     "name": "Gilteritinib",
     "aliases": [
       "gilteritinib",
+      "Gilteritinib-Specialist-Drug",
       "xospata"
     ]
   },
@@ -6150,6 +6202,7 @@
     "name": "Hydrocortisone/Clotrimazole",
     "aliases": [
       "hydrocortisone/clotrimazole",
+      "Hydrocortisone-With-Clotrimazole",
       "hydrocortisone/clotrimazo",
       "Canesten HC"
     ]
@@ -6158,6 +6211,7 @@
     "name": "Hydrocortisone/Fusidic Acid",
     "aliases": [
       "hydrocortisone/fusidic acid",
+      "Hydrocortisone-With-Fusidic-Acid",
       "fucidin h"
     ]
   },
@@ -6166,6 +6220,14 @@
     "aliases": [
       "hydrogen peroxide",
       "crystacide"
+    ]
+  },
+  {
+    "name": "Hydrocortisone/Oxytetracycline",
+    "aliases": [
+      "hydrocortisone/oxytetracycline",
+      "Hydrocortisone-With-Oxytetracycline",
+      "terra-cortril"
     ]
   },
   {
@@ -6281,6 +6343,7 @@
     "name": "Ibrutinib",
     "aliases": [
       "ibrutinib",
+      "Ibrutinib-Specialist-Drug",
       "imbruvica"
     ]
   },
@@ -6325,6 +6388,8 @@
     "name": "Idarubicin",
     "aliases": [
       "idarubicin hydrochloride",
+      "idarubicin",
+      "Idarubicin-Hydrochloride-Specialist-Drug",
       "zavedos"
     ]
   },
@@ -6346,6 +6411,7 @@
     "name": "Idelalisib",
     "aliases": [
       "idelalisib",
+      "Idelalisib-Specialist-Drug",
       "zydelig"
     ]
   },
@@ -6367,6 +6433,7 @@
     "name": "Imatinib",
     "aliases": [
       "imatinib",
+      "Imatinib-Specialist-Drug",
       "glivec",
       "gleevec"
     ]
@@ -6775,7 +6842,9 @@
       "iodine weak",
       "iodine tincture",
       "videne",
-      "iodide"
+      "iodide",
+      "Iodide-With-Iodine",
+      "iodide with iodine"
     ]
   },
   {
@@ -6944,6 +7013,8 @@
     "name": "Isoniazid/Rifampicin",
     "aliases": [
       "isoniazid/rifampicin",
+      "rifampicin/isoniazid",
+      "Rifampicin-With-Isoniazid",
       "rifinah"
     ]
   },
@@ -7040,6 +7111,7 @@
     "name": "Ixazomib",
     "aliases": [
       "ixazomib",
+      "Ixazomib-Specialist-Drug",
       "ninlaro"
     ]
   },
@@ -7234,6 +7306,7 @@
     "name": "Larotrectinib",
     "aliases": [
       "larotrectinib",
+      "Larotrectinib-Specialist-Drug",
       "vitrakvi"
     ]
   },
@@ -7281,6 +7354,7 @@
     "name": "Lenalidomide",
     "aliases": [
       "lenalidomide",
+      "Lenalidomide-Specialist-Drug",
       "revlimid"
     ]
   },
@@ -7295,6 +7369,7 @@
     "name": "Lenvatinib",
     "aliases": [
       "lenvatinib",
+      "Lenvatinib-Specialist-Drug",
       "kisplyx",
       "lenvima"
     ]
@@ -7703,6 +7778,7 @@
     "name": "Lorlatinib",
     "aliases": [
       "lorlatinib",
+      "Lorlatinib-Specialist-Drug",
       "lorviqua"
     ]
   },
@@ -7773,12 +7849,17 @@
     "name": "Macrogol 3350",
     "aliases": [
       "Macrogol 3350",
+      "Macrogol-3350-With-Potassium-Chloride-Sodium-Bicarbonate-And-Sodium-Chloride",
+      "macrogol 3350/potassium chloride/sodium bicarbonate/sodium chloride",
       "movicol",
       "laxido",
       "cosmocol",
       "molaxole",
       "macilax",
       "moviprep",
+      "Macrogol-3350-With-Anhydrous-Sodium-Sulfate-Ascorbic-Acid-Potassium-Chloride-Sodium-Ascorbate-And-Sodium-Chloride",
+      "macrogol 3350/sodium sulfate/ascorbic acid/potassium chloride/sodium ascorbate/sodium chloride",
+      "plenvu",
       "Prepu"
     ]
   },
@@ -8280,6 +8361,7 @@
     "name": "Midostaurin",
     "aliases": [
       "midostaurin",
+      "Midostaurin-Specialist-Drug",
       "rydapt"
     ]
   },
@@ -8365,6 +8447,7 @@
     "name": "Mitotane",
     "aliases": [
       "mitotane",
+      "Mitotane-Specialist-Drug",
       "lysodren"
     ]
   },
@@ -8721,6 +8804,7 @@
     "name": "Neratinib",
     "aliases": [
       "neratinib",
+      "Neratinib-Specialist-Drug",
       "nerlynx"
     ]
   },
@@ -8728,7 +8812,9 @@
     "name": "Netupitant/Palonosetron",
     "aliases": [
       "akynzeo",
-      "netupitant/palonosetron"
+      "netupitant/palonosetron",
+      "palonosetron/netupitant",
+      "Palonosetron-With-Netupitant"
     ]
   },
   {
@@ -8780,6 +8866,7 @@
     "name": "Nilotinib",
     "aliases": [
       "nilotinib",
+      "Nilotinib-Specialist-Drug",
       "tasigna"
     ]
   },
@@ -8802,6 +8889,7 @@
     "name": "Niraparib",
     "aliases": [
       "niraparib",
+      "Niraparib-Specialist-Drug",
       "zejula"
     ]
   },
@@ -9025,6 +9113,7 @@
     "name": "Olaparib",
     "aliases": [
       "olaparib",
+      "Olaparib-Specialist-Drug",
       "lynparza"
     ]
   },
@@ -9069,6 +9158,13 @@
       "omega 3 acid ethyl esters",
       "omacor",
       "omega-3"
+    ]
+  },
+  {
+    "name": "Omaveloxolone",
+    "aliases": [
+      "omaveloxolone",
+      "skyclarys"
     ]
   },
   {
@@ -9217,6 +9313,7 @@
     "name": "Oxycodone/Naloxone",
     "aliases": [
       "oxycodone/naloxone",
+      "Oxycodone-With-Naloxone",
       "targinact"
     ]
   },
@@ -9272,6 +9369,7 @@
     "name": "Palbociclib",
     "aliases": [
       "palbociclib",
+      "Palbociclib-Specialist-Drug",
       "ibrance"
     ]
   },
@@ -9315,6 +9413,7 @@
     "name": "Panobinostat",
     "aliases": [
       "panobinostat",
+      "Panobinostat-Specialist-Drug",
       "farydak"
     ]
   },
@@ -9430,6 +9529,7 @@
     "name": "Pazopanib",
     "aliases": [
       "pazopanib",
+      "Pazopanib-Specialist-Drug",
       "votrient"
     ]
   },
@@ -9497,6 +9597,7 @@
     "name": "Pemigatinib",
     "aliases": [
       "pemigatinib",
+      "Pemigatinib-Specialist-Drug",
       "pemazyre"
     ]
   },
@@ -9625,6 +9726,7 @@
     "name": "Perindopril Arginine/Indapamide",
     "aliases": [
       "perindopril arginine/indapamide",
+      "Perindopril-Arginine-With-Indapamide",
       "coversyl plus arginine",
       "perindopril/indapamide"
     ]
@@ -9841,6 +9943,14 @@
     ]
   },
   {
+    "name": "Pirtobrutinib",
+    "aliases": [
+      "pirtobrutinib",
+      "Pirtobrutinib-Specialist-Drug",
+      "jaypirca"
+    ]
+  },
+  {
     "name": "Pirfenidone",
     "aliases": [
       "pirfenidone",
@@ -9939,6 +10049,7 @@
     "name": "Pomalidomide",
     "aliases": [
       "pomalidomide",
+      "Pomalidomide-Specialist-Drug",
       "imnovid"
     ]
   },
@@ -9946,6 +10057,7 @@
     "name": "Ponatinib",
     "aliases": [
       "ponatinib",
+      "Ponatinib-Specialist-Drug",
       "iclusig"
     ]
   },
@@ -10258,7 +10370,8 @@
   {
     "name": "Procarbazine",
     "aliases": [
-      "procarbazine"
+      "procarbazine",
+      "Procarbazine-Specialist-Drug"
     ]
   },
   {
@@ -10621,6 +10734,7 @@
     "name": "Regorafenib",
     "aliases": [
       "regorafenib",
+      "Regorafenib-Specialist-Drug",
       "stivarga"
     ]
   },
@@ -10634,7 +10748,9 @@
   {
     "name": "Relvar",
     "aliases": [
-      "relvar ellipta"
+      "relvar ellipta",
+      "Fluticasone-With-Vilanterol",
+      "fluticasone/vilanterol"
     ]
   },
   {
@@ -10720,6 +10836,7 @@
     "name": "Ribociclib",
     "aliases": [
       "ribociclib",
+      "Ribociclib-Specialist-Drug",
       "kisqali"
     ]
   },
@@ -10821,6 +10938,7 @@
     "name": "Ripretinib",
     "aliases": [
       "ripretinib",
+      "Ripretinib-Specialist-Drug",
       "qinlock"
     ]
   },
@@ -11153,6 +11271,7 @@
     "name": "Selinexor",
     "aliases": [
       "selinexor",
+      "Selinexor-Specialist-Drug",
       "nexpovio"
     ]
   },
@@ -11160,6 +11279,7 @@
     "name": "Selpercatinib",
     "aliases": [
       "selpercatinib",
+      "Selpercatinib-Specialist-Drug",
       "retsevmo"
     ]
   },
@@ -11411,6 +11531,8 @@
     "name": "Sodium Clodronate",
     "aliases": [
       "sodium clodronate",
+      "Clodronate-Disodium",
+      "clodronate disodium",
       "bonefos",
       "clasteon",
       "loron"
@@ -11483,6 +11605,13 @@
     ]
   },
   {
+    "name": "Sparsentan",
+    "aliases": [
+      "sparsentan",
+      "filspari"
+    ]
+  },
+  {
     "name": "Solifenacin",
     "aliases": [
       "solifenacin",
@@ -11514,6 +11643,7 @@
     "name": "Sorafenib",
     "aliases": [
       "sorafenib",
+      "Sorafenib-Specialist-Drug",
       "nexavar"
     ]
   },
@@ -11626,7 +11756,9 @@
   {
     "name": "Suboxone",
     "aliases": [
-      "suboxone"
+      "suboxone",
+      "buprenorphine/naloxone",
+      "Buprenorphine-With-Naloxone"
     ]
   },
   {
@@ -11741,6 +11873,7 @@
     "name": "Sunitinib",
     "aliases": [
       "sunitinib",
+      "Sunitinib-Specialist-Drug",
       "sutent"
     ]
   },
@@ -11808,6 +11941,7 @@
     "name": "Talazoparib",
     "aliases": [
       "talazoparib",
+      "Talazoparib-Specialist-Drug",
       "talzenna"
     ]
   },
@@ -11938,6 +12072,7 @@
     "name": "Temozolomide",
     "aliases": [
       "temozolomide",
+      "Temozolomide-Specialist-Drug",
       "temodal"
     ]
   },
@@ -11980,6 +12115,7 @@
     "name": "Tepotinib",
     "aliases": [
       "tepotinib",
+      "Tepotinib-Specialist-Drug",
       "tepmetko"
     ]
   },
@@ -12090,7 +12226,8 @@
   {
     "name": "Thalidomide",
     "aliases": [
-      "thalidomide"
+      "thalidomide",
+      "Thalidomide-Specialist-Drug"
     ]
   },
   {
@@ -12257,6 +12394,7 @@
     "name": "Tivozanib",
     "aliases": [
       "tivozanib",
+      "Tivozanib-Specialist-Drug",
       "fotivda"
     ]
   },
@@ -12351,6 +12489,7 @@
     "name": "Topotecan",
     "aliases": [
       "topotecan",
+      "Topotecan-Specialist-Drug",
       "hycamtin"
     ]
   },
@@ -12386,6 +12525,7 @@
     "name": "Trametinib",
     "aliases": [
       "trametinib",
+      "Trametinib-Specialist-Drug",
       "mekinist"
     ]
   },
@@ -12462,6 +12602,7 @@
     "name": "Tree Pollen Extract",
     "aliases": [
       "tree pollen extract",
+      "Tree-Pollen-Extracts",
       "itulazax"
     ]
   },
@@ -12469,13 +12610,16 @@
     "name": "Trelegy",
     "aliases": [
       "trelegy",
-      "trelegy ellipta"
+      "trelegy ellipta",
+      "Fluticasone-With-Umeclidinium-And-Vilanterol",
+      "fluticasone/umeclidinium/vilanterol"
     ]
   },
   {
     "name": "Tretinoin",
     "aliases": [
       "tretinoin",
+      "Tretinoin-Specialist-Drug",
       "retin-a",
       "airol"
     ]
@@ -12869,6 +13013,7 @@
     "name": "Vemurafenib",
     "aliases": [
       "vemurafenib",
+      "Vemurafenib-Specialist-Drug",
       "zelboraf"
     ]
   },
@@ -12876,6 +13021,7 @@
     "name": "Venetoclax",
     "aliases": [
       "venetoclax",
+      "Venetoclax-Specialist-Drug",
       "venclyxto"
     ]
   },
@@ -12968,6 +13114,7 @@
     "name": "Vinorelbine",
     "aliases": [
       "vinorelbine",
+      "Vinorelbine-Specialist-Drug",
       "navelbine"
     ]
   },
@@ -12988,6 +13135,7 @@
     "name": "Vismodegib",
     "aliases": [
       "vismodegib",
+      "Vismodegib-Specialist-Drug",
       "erivedge"
     ]
   },
@@ -13050,6 +13198,14 @@
       "von willebrand factor",
       "wilfactin",
       "wilstart"
+    ]
+  },
+  {
+    "name": "Vorasidenib",
+    "aliases": [
+      "vorasidenib",
+      "Vorasidenib-Specialist-Drug",
+      "voranigo"
     ]
   },
   {
@@ -13184,6 +13340,7 @@
     "name": "Zanubrutinib",
     "aliases": [
       "zanubrutinib",
+      "Zanubrutinib-Specialist-Drug",
       "brukinsa"
     ]
   },
@@ -13247,6 +13404,14 @@
     "name": "Zidovudine/Lamivudine",
     "aliases": [
       "zidovudine/lamivudine"
+    ]
+  },
+  {
+    "name": "Zinc Acetate",
+    "aliases": [
+      "zinc acetate",
+      "Zinc-Acetate",
+      "wilzin"
     ]
   },
   {
