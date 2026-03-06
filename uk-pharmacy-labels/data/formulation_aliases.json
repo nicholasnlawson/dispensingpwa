@@ -68,7 +68,7 @@
       "tablet", "tab", "tabs", "tablets", "oral tablets", "oral tablet", "caplet", "caplets",
       "film coated tablet", "film-coated tablet", "film coated tablets", 
       "film-coated tablets", "fc tablet", "f/c tablet", "f.c. tablet", 
-      "f c tablet", "filmed coated", "fc", "f/c", "f.c.", "f c"
+      "f c tablet"
     ],
     "dispersible_tablets": [
       "effervescent tablet", "effervescent tablets", "eff tab", "eff tabs", "eff. tablet", "eff. tablets", "dispersible tablet", "disp tablet", "soluble tablet", 
@@ -88,25 +88,19 @@
     ],
     "enteric_coated_tablets": [
       "enteric coated tablet", "enteric-coated tablet", "e/c tablet", "ec tablet",
-      "e.c. tablet", "e c tablet", "enteric coated", "enteric-coated", "e/c", "ec", 
-      "e.c.", "e c", "gastro-resistant tablet", "gastro resistant tablet", 
-      "g/r tablet", "gr tablet", "g.r. tablet", "g r tablet", 
-      "gastro-resistant", "gastro resistant", "g/r", "gr", "g.r.", "g r",
+      "e.c. tablet", "e c tablet", "gastro-resistant tablet", "gastro resistant tablet", 
+      "g/r tablet", "gr tablet", "g.r. tablet", "g r tablet",
       "delayed-release tablet", "delayed release tablet", "dr tablet"
     ],
     "modified_release_tablets": [
       "modified-release tablet", "modified release tablet", "m/r tablet", "mr tablet", 
-      "m.r. tablet", "m r tablet", "modified-release", "modified release", "m/r", "mr", 
-      "m.r.", "m r", "prolonged-release tablet", "prolonged release tablet", "p/r tablet", 
-      "pr tablet", "p.r. tablet", "p r tablet", "prolonged-release", "prolonged release", 
-      "p/r", "pr", "p.r.", "p r", "extended-release tablet", "extended release tablet", 
-      "extended-release", "extended release", "er tablet", "er", "e/r", "e.r.", "e r", 
+      "m.r. tablet", "m r tablet", "prolonged-release tablet", "prolonged release tablet", "p/r tablet", 
+      "pr tablet", "p.r. tablet", "p r tablet", "extended-release tablet", "extended release tablet", 
+      "er tablet",
       "sustained-release tablet", "sustained release tablet", "s/r tablet", "sr tablet", 
-      "s.r. tablet", "s r tablet", "sustained-release", "sustained release", "s/r", "sr", 
-      "s.r.", "s r", "controlled-release tablet", "controlled release tablet", "c/r tablet", 
-      "cr tablet", "c.r. tablet", "c r tablet", "controlled-release", "controlled release", 
-      "c/r", "cr", "c.r.", "c r", "slow-release tablet", "slow release tablet", 
-      "slow-release", "slow release", "xl tablet", "xl", "la tablet", "la", "retard"
+      "s.r. tablet", "s r tablet", "controlled-release tablet", "controlled release tablet", "c/r tablet", 
+      "cr tablet", "c.r. tablet", "c r tablet", "slow-release tablet", "slow release tablet", 
+      "xl tablet", "la tablet"
     ],
     "capsules": [
       "capsule", "cap", "caps", "capsules",

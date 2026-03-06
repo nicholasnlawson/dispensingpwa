@@ -40,6 +40,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// Max characters for the medication name line on a label
+const MED_NAME_MAX_CHARS = 38;
+
+/**
+ * Build the full medication line string from form data
+ */
+function buildMedLine(formData) {
+    const parts = [];
+    if (formData.medicationQuantity) parts.push(formData.medicationQuantity);
+    if (formData.medicationName) parts.push(LabelGenerator.toTitleCase(formData.medicationName));
+    if (formData.medicationStrength) parts.push(formData.medicationStrength);
+    if (formData.medicationFormulation) parts.push(LabelGenerator.toTitleCase(formData.medicationFormulation));
+    return parts.join(' ').trim();
+}
+
 /**
  * Add a label to the queue
  */
@@ -58,6 +73,195 @@ function addToQueue() {
         return;
     }
     
+    // Check if the medication line is too long
+    const fullMedLine = buildMedLine(formData);
+    
+    if (fullMedLine.length > MED_NAME_MAX_CHARS) {
+        // Look up all alternatives
+        const result = MedicationManager.findShorterAlternatives(
+            formData.medicationName,
+            formData.medicationStrength,
+            formData.medicationFormulation,
+            formData.medicationQuantity,
+            MED_NAME_MAX_CHARS
+        );
+        
+        const hasAlternatives = result.formulationOptions.length > 0 ||
+                                result.nameOptions.length > 0;
+        
+        if (hasAlternatives) {
+            showAliasModal(formData, fullMedLine, result);
+            return;
+        }
+    }
+    
+    // If no modal needed, proceed directly
+    commitToQueue(formData);
+}
+
+/**
+ * Build a preview line from selected name, strength, formulation, quantity
+ */
+function buildPreviewLine(name, strength, formulation, quantity) {
+    const parts = [];
+    if (quantity) parts.push(quantity);
+    if (name) parts.push(LabelGenerator.toTitleCase(name));
+    if (strength) parts.push(strength);
+    if (formulation) parts.push(LabelGenerator.toTitleCase(formulation));
+    return parts.join(' ').trim();
+}
+
+/**
+ * Show the alias suggestion modal with two independent scrollable panels
+ */
+function showAliasModal(formData, currentFullLine, result) {
+    const modal = document.getElementById('alias-modal');
+    const currentDiv = document.getElementById('alias-modal-current');
+    const formList = document.getElementById('alias-form-list');
+    const nameList = document.getElementById('alias-name-list');
+    const previewDiv = document.getElementById('alias-modal-preview');
+    
+    // Track current selections
+    let selectedForm = formData.medicationFormulation;
+    let selectedName = formData.medicationName;
+    
+    // Show current line info
+    currentDiv.innerHTML = `
+        <div class="alias-label">Current medication line:</div>
+        <div class="alias-text">${currentFullLine}</div>
+        <div class="alias-chars">${currentFullLine.length} characters (max ${MED_NAME_MAX_CHARS})</div>
+    `;
+    
+    // Update the live preview
+    function updatePreview() {
+        const line = buildPreviewLine(selectedName, formData.medicationStrength, selectedForm, formData.medicationQuantity);
+        const fits = line.length <= MED_NAME_MAX_CHARS;
+        const statusClass = fits ? 'alias-preview-fits' : 'alias-preview-no-fit';
+        const statusText = fits
+            ? `Fits on one line (${line.length} chars)`
+            : `Too long (${line.length} chars, max ${MED_NAME_MAX_CHARS})`;
+        
+        previewDiv.innerHTML = `
+            <div class="alias-preview-label">Preview:</div>
+            <div class="alias-preview-line">${line}</div>
+            <div class="${statusClass}">${statusText}</div>
+        `;
+    }
+    
+    // Mark the selected item in a list
+    function markSelected(listEl, value) {
+        listEl.querySelectorAll('.alias-option').forEach(el => {
+            el.classList.toggle('selected', el.dataset.value === value);
+        });
+    }
+    
+    // --- Populate formulation list ---
+    formList.innerHTML = '';
+    
+    // Add current formulation as the first option
+    const currentFormEl = document.createElement('div');
+    currentFormEl.className = 'alias-option selected';
+    currentFormEl.dataset.value = formData.medicationFormulation;
+    currentFormEl.textContent = LabelGenerator.toTitleCase(formData.medicationFormulation);
+    currentFormEl.addEventListener('click', () => {
+        selectedForm = formData.medicationFormulation;
+        markSelected(formList, formData.medicationFormulation);
+        updatePreview();
+    });
+    formList.appendChild(currentFormEl);
+    
+    // Add all alternative formulations
+    result.formulationOptions.forEach(opt => {
+        const el = document.createElement('div');
+        el.className = 'alias-option';
+        el.dataset.value = opt;
+        el.textContent = LabelGenerator.toTitleCase(opt);
+        el.addEventListener('click', () => {
+            selectedForm = opt;
+            markSelected(formList, opt);
+            updatePreview();
+        });
+        formList.appendChild(el);
+    });
+    
+    // --- Populate drug name list ---
+    nameList.innerHTML = '';
+    
+    // Add current name as the first option
+    const currentNameEl = document.createElement('div');
+    currentNameEl.className = 'alias-option selected';
+    currentNameEl.dataset.value = formData.medicationName;
+    currentNameEl.textContent = LabelGenerator.toTitleCase(formData.medicationName);
+    currentNameEl.addEventListener('click', () => {
+        selectedName = formData.medicationName;
+        markSelected(nameList, formData.medicationName);
+        updatePreview();
+    });
+    nameList.appendChild(currentNameEl);
+    
+    // Add all alternative names
+    result.nameOptions.forEach(opt => {
+        const el = document.createElement('div');
+        el.className = 'alias-option';
+        el.dataset.value = opt;
+        el.textContent = LabelGenerator.toTitleCase(opt);
+        el.addEventListener('click', () => {
+            selectedName = opt;
+            markSelected(nameList, opt);
+            updatePreview();
+        });
+        nameList.appendChild(el);
+    });
+    
+    // Initial preview
+    updatePreview();
+    
+    // Wire up action buttons (clone to remove old listeners)
+    const applyBtn = document.getElementById('alias-modal-apply');
+    const proceedBtn = document.getElementById('alias-modal-proceed');
+    const cancelBtn = document.getElementById('alias-modal-cancel');
+    
+    const newApplyBtn = applyBtn.cloneNode(true);
+    applyBtn.parentNode.replaceChild(newApplyBtn, applyBtn);
+    const newProceedBtn = proceedBtn.cloneNode(true);
+    proceedBtn.parentNode.replaceChild(newProceedBtn, proceedBtn);
+    const newCancelBtn = cancelBtn.cloneNode(true);
+    cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+    
+    newApplyBtn.addEventListener('click', () => {
+        // Update form fields with the selections
+        document.getElementById('med-name').value = selectedName;
+        document.getElementById('med-form').value = selectedForm;
+        formData.medicationName = selectedName;
+        formData.medicationFormulation = selectedForm;
+        hideAliasModal();
+        commitToQueue(formData);
+    });
+    
+    newProceedBtn.addEventListener('click', () => {
+        hideAliasModal();
+        commitToQueue(formData);
+    });
+    
+    newCancelBtn.addEventListener('click', () => {
+        hideAliasModal();
+    });
+    
+    // Show the modal
+    modal.classList.add('visible');
+}
+
+/**
+ * Hide the alias suggestion modal
+ */
+function hideAliasModal() {
+    document.getElementById('alias-modal').classList.remove('visible');
+}
+
+/**
+ * Commit form data to the queue (the actual add-to-queue logic)
+ */
+function commitToQueue(formData) {
     // Get number of labels to add (default to 1 if invalid)
     const numberOfLabels = formData.numberOfLabels || 1;
     
@@ -135,7 +339,7 @@ function updateQueueDisplay() {
             const actualLabels = LabelGenerator.generateLabels(labelData);
             const splitNote = actualLabels.length > 1 ? ` <span class="queue-split-note">(splits across ${actualLabels.length} labels)</span>` : '';
             listItem.innerHTML = `
-                <div class="queue-medication">${labelData.medicationQuantity ? labelData.medicationQuantity + ' ' : ''}${labelData.medicationName}${labelData.medicationStrength ? ' ' + labelData.medicationStrength : ''} ${labelData.medicationFormulation || ''}${splitNote}</div>
+                <div class="queue-medication">${labelData.medicationQuantity ? labelData.medicationQuantity + ' ' : ''}${LabelGenerator.toTitleCase(labelData.medicationName)}${labelData.medicationStrength ? ' ' + labelData.medicationStrength : ''} ${LabelGenerator.toTitleCase(labelData.medicationFormulation || '')}${splitNote}</div>
                 <div class="queue-dosage">${labelData.dosageInstructions || ''}</div>
                 ${labelData.additionalInformation ? `<div class="queue-additional-info">${labelData.additionalInformation}</div>` : ''}
                 <div class="queue-patient">${labelData.patientName || ''}${labelData.patientName && labelData.dateOfDispensing ? ' | ' : ''}${labelData.dateOfDispensing ? new Date(labelData.dateOfDispensing).toLocaleDateString('en-GB') : ''}</div>
@@ -322,7 +526,7 @@ function createSplitLabels(labelData) {
 function clearMedicationDetails() {
     // Clear medication fields
     document.getElementById('med-name').value = '';
-    document.getElementById('med-form').value = 'tablets';
+    document.getElementById('med-form').value = '';
     document.getElementById('med-strength').value = '';
     document.getElementById('med-quantity').value = '';
     document.getElementById('dosage').value = '';

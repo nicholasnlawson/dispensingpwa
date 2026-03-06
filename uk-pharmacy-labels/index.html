@@ -231,6 +231,40 @@
       </div>
     </main>
 
+    <!-- Alias Suggestion Modal -->
+    <div id="alias-modal" class="modal-overlay">
+      <div class="modal-content">
+        <h3 id="alias-modal-title">Medication Name Too Long</h3>
+        <p id="alias-modal-description">
+          The medication line is too long for a single label. Select shorter
+          alternatives for the formulation and/or drug name below.
+        </p>
+        <div id="alias-modal-current" class="alias-current"></div>
+        <div class="alias-selectors">
+          <div class="alias-selector-panel">
+            <div class="alias-section-header">Formulation</div>
+            <div id="alias-form-list" class="alias-scroll-list"></div>
+          </div>
+          <div class="alias-selector-panel">
+            <div class="alias-section-header">Drug Name</div>
+            <div id="alias-name-list" class="alias-scroll-list"></div>
+          </div>
+        </div>
+        <div id="alias-modal-preview" class="alias-preview"></div>
+        <div class="modal-actions">
+          <button type="button" id="alias-modal-apply" class="secondary-btn">
+            Apply Selection
+          </button>
+          <button type="button" id="alias-modal-proceed" class="secondary-btn">
+            Keep Current (Split Labels)
+          </button>
+          <button type="button" id="alias-modal-cancel" class="secondary-btn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="js/data-manager.js"></script>
     <script src="js/medication-manager.js"></script>
     <script src="js/shorthand-codes.js"></script>

@@ -9,9 +9,26 @@ const LabelGenerator = {
      * @param {string} str - String to convert
      * @returns {string} - Title-cased string
      */
+    // Common pharmaceutical abbreviations that should remain uppercase
+    _pharmaAbbreviations: new Set([
+        'mr', 'sr', 'cr', 'xl', 'la', 'pr', 'er', 'ec', 'gr', 'dr',
+        'sl', 'iv', 'im', 'sc', 'td', 'dpi', 'mdi', 'smi',
+        'pf', 'sf', 'fc', 'bp', 'nac', 'hgc', 'sgc', 'od'
+    ]),
+
     toTitleCase(str) {
         if (!str) return '';
-        return str.replace(/\b\w/g, char => char.toUpperCase());
+        return str.replace(/\b(\w+)\b/g, (word) => {
+            // Preserve words already all-uppercase (e.g. user typed "MR")
+            if (word.length >= 2 && word === word.toUpperCase() && /^[A-Z]+$/.test(word)) {
+                return word;
+            }
+            // Uppercase known pharmaceutical abbreviations
+            if (this._pharmaAbbreviations.has(word.toLowerCase())) {
+                return word.toUpperCase();
+            }
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        });
     },
     
     /**
@@ -324,48 +341,37 @@ const LabelGenerator = {
      * @returns {Object} - Object with details about what needs splitting and how
      */
     needsMultipleLabels(data) {
-        // Calculate approximate content length
-        const medicationLength = (data.medicationName || '').length + 
-                               (data.medicationStrength || '').length + 
-                               (data.medicationFormulation || '').length;
         const dosageLength = (data.dosageInstructions || '').length;
         const warningLength = (data.additionalInformation ? data.additionalInformation.length : 0);
         
-        // Check combined content length for normal splitting
-        const totalContentLength = dosageLength + warningLength;
+        // Estimate lines needed based on characters per line at each font size
+        const DOSAGE_CHARS_PER_LINE = 35;  // ~35 chars per line at 8.5pt bold
+        const WARNING_CHARS_PER_LINE = 55; // ~55 chars per line at 5.5pt
+        const MAX_DOSAGE_LINES = 3;        // Maximum dosage lines before splitting
         
-        // Set very conservative thresholds to ensure instructions never overflow
-        // As per client requirement: long instructions MUST be split across multiple labels
-        const dosageThreshold = 60; // Very aggressive threshold for dosage instructions
+        const dosageLinesNeeded = dosageLength > 0 ? Math.ceil(dosageLength / DOSAGE_CHARS_PER_LINE) : 0;
+        const warningLinesNeeded = warningLength > 0 ? Math.ceil(warningLength / WARNING_CHARS_PER_LINE) : 0;
         
-        // Count the number of sentences in the dosage instructions
-        const sentenceCount = (data.dosageInstructions || '').split('. ').length;
+        // Calculate whether everything fits on one label using warning-line equivalents
+        // A dosage line at 8.5pt takes ~1.9x the vertical space of a warning line at 5.5pt
+        const DOSAGE_TO_WARNING_RATIO = 1.9;
+        const MAX_WARNING_LINE_EQUIVALENTS = 10; // Total label content capacity
         
-        // If dosage instructions exceed the threshold OR have multiple sentences, they should be split
-        // This is key for ensuring instructions are properly split rather than truncated
-        if (dosageLength > dosageThreshold || (dosageLength > 40 && sentenceCount > 1)) {
-            return {
-                needsSplitting: true,
-                splitDosage: true, // Force splitting dosage
-                splitWarnings: warningLength > 100 // Also split warnings if they're long
-            };
-        }
+        const totalWarningEquivalent = (dosageLinesNeeded * DOSAGE_TO_WARNING_RATIO) + warningLinesNeeded;
         
-        // For shorter content with warnings, we still need to be careful
-        const singleLabelThreshold = 150; // Much more conservative threshold
-        
-        // If total content is small enough, keep on one label
-        if (totalContentLength <= singleLabelThreshold && dosageLength <= 60) {
+        // Content fits on a single label if dosage doesn't exceed max lines
+        // and total content fits within the label's capacity
+        if (dosageLinesNeeded <= MAX_DOSAGE_LINES && totalWarningEquivalent <= MAX_WARNING_LINE_EQUIVALENTS) {
             return {
                 needsSplitting: false
             };
         }
         
-        // For all other cases, we need to split content
+        // Content needs splitting
         return {
             needsSplitting: true,
-            splitDosage: dosageLength > 60,
-            splitWarnings: warningLength > 100
+            splitDosage: dosageLinesNeeded > MAX_DOSAGE_LINES,
+            splitWarnings: warningLinesNeeded > 6
         };
     },
 
@@ -465,7 +471,7 @@ const LabelGenerator = {
                 if (labelLines.length > 0) {
                     // Store the raw lines and their count for potential optimization later
                     dosageLabels.push({
-                        content: labelLines.join('<br>'),
+                        content: labelLines.join(' '),
                         lineCount: labelLines.length
                     });
                 }
@@ -504,7 +510,7 @@ const LabelGenerator = {
                     const labelLines = warningLines.slice(i, i + WARNING_LINES_PER_LABEL);
                     if (labelLines.length > 0) {
                         warningLabels.push({
-                            content: labelLines.join('<br>'),
+                            content: labelLines.join(' '),
                             lineCount: labelLines.length
                         });
                     }
@@ -515,10 +521,10 @@ const LabelGenerator = {
             // Each dosage line counts as 1 unit, each warning line counts as 0.5 units
             // Total units per label should not exceed 3 (equivalent to 3 dosage lines or 6 warning lines)
             const calculateAvailableWarningLines = (dosageLineCount) => {
-                const totalUnits = 3; // Maximum units per label
+                const totalUnits = 5; // Label capacity in dosage-line-equivalents (~19mm / ~3.75mm per line)
                 const usedUnits = dosageLineCount; // Each dosage line is 1 unit
                 const remainingUnits = totalUnits - usedUnits;
-                return Math.floor(remainingUnits * 2); // Each warning line is 0.5 units, so multiply by 2
+                return Math.floor(remainingUnits * 2); // Each warning line is ~0.5 units, so multiply by 2
             };
             
             // Decide if we can combine warnings with any dosage labels
@@ -650,7 +656,7 @@ const LabelGenerator = {
             labels.push(this.createLabelHtml({
                 medicationFull,
                 medicationQuantity: data.medicationQuantity,
-                mainContent: `<div class="additional-info">${warningLines.join('<br>')}</div>`,
+                mainContent: `<div class="additional-info">${warningLines.join(' ')}</div>`,
                 mainContentClass: 'content-wrapper',
                 labelNumber: 1,
                 totalLabels: 1,

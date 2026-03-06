@@ -23,9 +23,26 @@ const MedicationManager = {
      * @param {string} str - String to convert
      * @returns {string} - Title-cased string
      */
+    // Common pharmaceutical abbreviations that should remain uppercase
+    _pharmaAbbreviations: new Set([
+        'mr', 'sr', 'cr', 'xl', 'la', 'pr', 'er', 'ec', 'gr', 'dr',
+        'sl', 'iv', 'im', 'sc', 'td', 'dpi', 'mdi', 'smi',
+        'pf', 'sf', 'fc', 'bp', 'nac', 'hgc', 'sgc', 'od'
+    ]),
+
     toTitleCase(str) {
         if (!str) return '';
-        return str.replace(/\b\w/g, char => char.toUpperCase());
+        return str.replace(/\b(\w+)\b/g, (word) => {
+            // Preserve words already all-uppercase (e.g. user typed "MR")
+            if (word.length >= 2 && word === word.toUpperCase() && /^[A-Z]+$/.test(word)) {
+                return word;
+            }
+            // Uppercase known pharmaceutical abbreviations
+            if (this._pharmaAbbreviations.has(word.toLowerCase())) {
+                return word.toUpperCase();
+            }
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        });
     },
     
     /**
@@ -883,6 +900,82 @@ const MedicationManager = {
         }
         
         return false;
+    },
+    
+    /**
+     * Find shorter alternative names for a medication + formulation combination
+     * Used when the full medication line is too long for a single label
+     * Returns separate lists for formulation-only and name-only changes
+     * @param {string} medName - Current medication name
+     * @param {string} medStrength - Current strength
+     * @param {string} medFormulation - Current formulation
+     * @param {string} medQuantity - Current quantity
+     * @param {number} maxChars - Maximum characters allowed
+     * @returns {Object} - { formulationAlternatives: [...], nameAlternatives: [...] }
+     */
+    findShorterAlternatives(medName, medStrength, medFormulation, medQuantity, maxChars) {
+        // --- Collect ALL formulation alternatives ---
+        const formOptions = [];
+        const normalizedForm = medFormulation.toLowerCase().trim();
+        const formSeen = new Set();
+        
+        if (this.formulations && this.formulations.formulations) {
+            for (const [category, aliases] of Object.entries(this.formulations.formulations)) {
+                if (!Array.isArray(aliases)) continue;
+                const lowerAliases = aliases.map(a => a.toLowerCase().trim());
+                
+                const inGroup = lowerAliases.includes(normalizedForm) ||
+                    (normalizedForm.endsWith('s') && lowerAliases.includes(normalizedForm.slice(0, -1))) ||
+                    (!normalizedForm.endsWith('s') && lowerAliases.includes(normalizedForm + 's'));
+                
+                if (inGroup) {
+                    for (const alias of aliases) {
+                        const key = this.toTitleCase(alias).toLowerCase();
+                        if (key === this.toTitleCase(medFormulation).toLowerCase()) continue;
+                        if (formSeen.has(key)) continue;
+                        formSeen.add(key);
+                        formOptions.push(alias);
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // Sort formulations: shortest first
+        formOptions.sort((a, b) => a.length - b.length);
+        
+        // --- Collect ALL drug name alternatives ---
+        const nameOptions = [];
+        const normalizedMed = this._cachedNormalize(medName);
+        const canonicalMed = this._cachedCanonicalize(medName);
+        const med = this._medNameIndex?.get(normalizedMed) ||
+                    this._medNameIndex?.get(canonicalMed) ||
+                    this._medNameIndex?.get(medName.toLowerCase().trim()) ||
+                    this._aliasIndex?.get(normalizedMed) ||
+                    this._aliasIndex?.get(canonicalMed) ||
+                    this._aliasIndex?.get(medName.toLowerCase().trim());
+        
+        if (med) {
+            if (med.name.toLowerCase() !== medName.toLowerCase().trim()) {
+                nameOptions.push(med.name);
+            }
+            for (const alias of (med.aliases || [])) {
+                if (alias.includes('-Specialist-Drug')) continue;
+                if (alias.toLowerCase() === medName.toLowerCase().trim()) continue;
+                nameOptions.push(alias);
+            }
+        }
+        
+        // Sort name options: shortest first
+        nameOptions.sort((a, b) => a.length - b.length);
+        
+        return {
+            formulationOptions: formOptions,
+            nameOptions: nameOptions,
+            currentFormulation: medFormulation.trim(),
+            currentName: medName.trim(),
+            maxChars: maxChars
+        };
     },
     
     /**
