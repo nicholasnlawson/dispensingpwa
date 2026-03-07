@@ -307,6 +307,7 @@ const LabelGenerator = {
         
         // Create name-only labels for each chunk
         const allLabels = [];
+        const showInitials = data.showInitials !== false;
         nameChunks.forEach((chunk, i) => {
             allLabels.push(this.createLabelHtml({
                 medicationFull: chunk,
@@ -317,7 +318,8 @@ const LabelGenerator = {
                 totalLabels: totalLabels,
                 patientName,
                 date,
-                dispensary
+                dispensary,
+                showInitials
             }));
         });
         
@@ -396,6 +398,8 @@ const LabelGenerator = {
         const patientName = data.isOverlabelMode ? 
             '<span class="overlabel-placeholder">Patient Name: ________________</span>' : 
             data.patientName;
+        
+        const showInitials = data.showInitials !== false;
         
         // Format medication name, strength and formulation (title-cased for display)
         const medicationName = this.toTitleCase(data.medicationName || '');
@@ -575,7 +579,8 @@ const LabelGenerator = {
                     totalLabels: totalLabels,
                     patientName: patientName,
                     date,
-                    dispensary
+                    dispensary,
+                    showInitials
                 }));
             }
             
@@ -590,7 +595,8 @@ const LabelGenerator = {
                     totalLabels: totalLabels,
                     patientName: patientName,
                     date,
-                    dispensary
+                    dispensary,
+                    showInitials
                 }));
             }
             
@@ -628,7 +634,8 @@ const LabelGenerator = {
                 totalLabels: 1,
                 patientName: patientName,
                 date,
-                dispensary
+                dispensary,
+                showInitials
             }));
             
             return labels;
@@ -645,7 +652,8 @@ const LabelGenerator = {
                 totalLabels: 1,
                 patientName: patientName,
                 date,
-                dispensary
+                dispensary,
+                showInitials
             }));
         }
         
@@ -667,16 +675,17 @@ const LabelGenerator = {
             totalLabels,
             patientName,
             date,
-            dispensary
+            dispensary,
+            showInitials = true
         } = options;
         
         return `
             <div class="label-content">
-                <!-- Initial boxes for dispenser and checker -->
+                ${showInitials ? `<!-- Initial boxes for dispenser and checker -->
                 <div class="initials-boxes">
                     <div class="initials-box"></div>
                     <div class="initials-box"></div>
-                </div>
+                </div>` : ''}
                 
                 <!-- Top Section: Medication info and main content -->
                 <div class="label-top-section">
@@ -772,13 +781,14 @@ const LabelGenerator = {
         const medicationFull = `${medicationName} ${medicationStrength}${medicationFormulation}`;
         
         // Generate HTML for the label
+        const showInitials = data.showInitials !== false;
         return `
         <div class="label-content">
-            <!-- Initial boxes for dispenser and checker -->
+            ${showInitials ? `<!-- Initial boxes for dispenser and checker -->
             <div class="initials-boxes">
                 <div class="initials-box"></div>
                 <div class="initials-box"></div>
-            </div>
+            </div>` : ''}
             
             <!-- Top Section: Medication info and main content -->
             <div class="label-top-section">
