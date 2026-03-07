@@ -223,9 +223,15 @@ const LabelGenerator = {
         
         if (splitInfo.needsSplitting) {
             return this.generateSplitLabels(data, splitInfo);
-        } else {
-            return [this.generateSingleLabel(data)];
         }
+        
+        // Secondary safety check based on raw character count
+        const totalContentLength = (data.dosageInstructions || '').length + (data.additionalInformation || '').length;
+        if (totalContentLength > 280) {
+            return this.generateSplitLabels(data, { needsSplitting: true });
+        }
+        
+        return [this.generateSingleLabel(data)];
     },
 
     /**
@@ -346,7 +352,7 @@ const LabelGenerator = {
         
         // Estimate lines needed based on characters per line at each font size
         const DOSAGE_CHARS_PER_LINE = 35;  // ~35 chars per line at 8.5pt bold
-        const WARNING_CHARS_PER_LINE = 55; // ~55 chars per line at 5.5pt
+        const WARNING_CHARS_PER_LINE = 61; // ~61 chars per line at 5.5pt (empirically measured)
         const MAX_DOSAGE_LINES = 3;        // Maximum dosage lines before splitting
         
         const dosageLinesNeeded = dosageLength > 0 ? Math.ceil(dosageLength / DOSAGE_CHARS_PER_LINE) : 0;
@@ -355,7 +361,7 @@ const LabelGenerator = {
         // Calculate whether everything fits on one label using warning-line equivalents
         // A dosage line at 8.5pt takes ~1.9x the vertical space of a warning line at 5.5pt
         const DOSAGE_TO_WARNING_RATIO = 1.9;
-        const MAX_WARNING_LINE_EQUIVALENTS = 10; // Total label content capacity
+        const MAX_WARNING_LINE_EQUIVALENTS = 7; // Empirical: max is 2 dosage + 3 warnings = 6.8 equiv
         
         const totalWarningEquivalent = (dosageLinesNeeded * DOSAGE_TO_WARNING_RATIO) + warningLinesNeeded;
         
@@ -477,120 +483,86 @@ const LabelGenerator = {
                 }
             }
             
-            // Process warnings separately
-            if (warningText) {
-                // Define a longer line length for warnings due to the smaller font size
-                // Dosage font is 8.5pt, warning font is 5.5pt, so we scale approximately by that ratio
-                const WARNING_LINE_LENGTH = Math.floor(LINE_LENGTH * 1.55); // About 54 characters per line
-                const WARNING_LINES_PER_LABEL = MAX_LINES_PER_LABEL * 2; // Warnings can fit more lines per label
-                
-                // Normalize line breaks for consistent processing
-                const normalizedWarning = warningText.replace(/\r\n|\r/g, '\n');
-                const warningLines = [];
-                
-                // Split warnings into visual lines
-                const warningWords = normalizedWarning.split(/\s+/);
-                let currentLine = '';
-                
-                for (const word of warningWords) {
-                    if (currentLine && (currentLine + ' ' + word).length > WARNING_LINE_LENGTH) {
-                        warningLines.push(currentLine);
-                        currentLine = word;
-                    } else {
-                        currentLine = currentLine ? currentLine + ' ' + word : word;
-                    }
-                }
-                
-                if (currentLine) {
-                    warningLines.push(currentLine);
-                }
-                
-                // Group warning lines into label chunks
-                for (let i = 0; i < warningLines.length; i += WARNING_LINES_PER_LABEL) {
-                    const labelLines = warningLines.slice(i, i + WARNING_LINES_PER_LABEL);
-                    if (labelLines.length > 0) {
-                        warningLabels.push({
-                            content: labelLines.join(' '),
-                            lineCount: labelLines.length
-                        });
-                    }
-                }
-            }
+            // Character budget per visual warning line (empirically tuned)
+            const CHARS_PER_WARNING_LINE = Math.floor(LINE_LENGTH * 1.68); // ~58 chars
             
-            // Helper function to calculate how many warning lines can fit in a dosage label
-            // Each dosage line counts as 1 unit, each warning line counts as 0.5 units
-            // Total units per label should not exceed 3 (equivalent to 3 dosage lines or 6 warning lines)
+            // Empirically tested: how many warning lines fit alongside N dosage lines
             const calculateAvailableWarningLines = (dosageLineCount) => {
-                const totalUnits = 5; // Label capacity in dosage-line-equivalents (~19mm / ~3.75mm per line)
-                const usedUnits = dosageLineCount; // Each dosage line is 1 unit
-                const remainingUnits = totalUnits - usedUnits;
-                return Math.floor(remainingUnits * 2); // Each warning line is ~0.5 units, so multiply by 2
+                if (dosageLineCount <= 1) return 5;
+                if (dosageLineCount === 2) return 3;
+                if (dosageLineCount === 3) return 1;
+                return 0; // 4+ dosage lines: no room for warnings
             };
             
-            // Decide if we can combine warnings with any dosage labels
-            let firstLabelCombinesWarnings = false;
-            let lastLabelCombinesWarnings = false;
-            let warningsOnFirstLabel = 0; // How many warning labels to add to first dosage label
-            let warningsOnLastLabel = 0;  // How many warning labels to add to last dosage label
-            let firstWarningToShow = 0;   // Index of first standalone warning label
+            // Maximum warning lines on a standalone warning label (no dosage)
+            const STANDALONE_WARNING_CAPACITY = 8;
             
-            // Check if there's room on dosage labels for warnings
-            // Only combine if the FIRST warning chunk fits - never skip chunks
-            if (dosageLabels.length > 0 && warningLabels.length > 0) {
-                // Try to add the first warning chunk to the first dosage label
-                const firstDosageLabel = dosageLabels[0];
-                const availableLines = calculateAvailableWarningLines(firstDosageLabel.lineCount);
+            // Find the best split point in text near the target character position.
+            // Prefers splitting at a full stop (sentence boundary); falls back to word boundary.
+            const findSplitPoint = (text, targetPos) => {
+                if (targetPos >= text.length) return text.length;
                 
-                if (availableLines > 0 && warningLabels[0].lineCount <= availableLines) {
-                    firstLabelCombinesWarnings = true;
-                    warningsOnFirstLabel = 1;
-                    firstWarningToShow = 1;
+                // Look for the last full stop followed by a space within the budget
+                const searchStart = Math.floor(targetPos * 0.60); // search back up to 40%
+                const searchRegion = text.substring(searchStart, targetPos);
+                const lastPeriodSpace = searchRegion.lastIndexOf('. ');
+                
+                if (lastPeriodSpace !== -1) {
+                    // Split after the full stop and space
+                    return searchStart + lastPeriodSpace + 2;
                 }
                 
-                // Also try to add the next warning chunk to the last dosage label (if different from first)
-                if (dosageLabels.length > 1) {
-                    const lastDosageLabel = dosageLabels[dosageLabels.length - 1];
-                    const lastAvailableLines = calculateAvailableWarningLines(lastDosageLabel.lineCount);
-                    const nextWarningIndex = firstWarningToShow;
-                    
-                    if (lastAvailableLines > 0 && nextWarningIndex < warningLabels.length &&
-                        warningLabels[nextWarningIndex].lineCount <= lastAvailableLines) {
-                        lastLabelCombinesWarnings = true;
-                        warningsOnLastLabel = 1;
-                        firstWarningToShow = nextWarningIndex + 1;
-                    }
+                // No sentence boundary found; fall back to last word boundary
+                const lastSpace = text.lastIndexOf(' ', targetPos);
+                if (lastSpace > 0) return lastSpace + 1;
+                
+                return targetPos;
+            };
+            
+            // Distribute warning text across labels using character budgets
+            let remainingWarnings = warningText ? warningText.trim() : '';
+            
+            // For each dosage label, calculate how much warning text it can take
+            const warningTextPerDosageLabel = dosageLabels.map((dl, idx) => {
+                let available = calculateAvailableWarningLines(dl.lineCount);
+                
+                // Non-last dosage labels with 3 full lines: no room for warnings
+                if (idx < dosageLabels.length - 1 && dl.lineCount >= 3) {
+                    available = 0;
                 }
+                
+                if (available === 0 || !remainingWarnings) return '';
+                
+                const charBudget = available * CHARS_PER_WARNING_LINE;
+                const splitPos = findSplitPoint(remainingWarnings, charBudget);
+                const taken = remainingWarnings.substring(0, splitPos).trim();
+                remainingWarnings = remainingWarnings.substring(splitPos).trim();
+                return taken;
+            });
+            
+            // Remaining warnings go into standalone labels (also split at sentence boundaries)
+            const standaloneWarningTexts = [];
+            while (remainingWarnings.length > 0) {
+                const charBudget = STANDALONE_WARNING_CAPACITY * CHARS_PER_WARNING_LINE;
+                const splitPos = findSplitPoint(remainingWarnings, charBudget);
+                standaloneWarningTexts.push(remainingWarnings.substring(0, splitPos).trim());
+                remainingWarnings = remainingWarnings.substring(splitPos).trim();
             }
             
-            // Calculate total number of labels
-            // Total = dosage labels + warning labels - warnings that are combined with dosage labels
-            const warningLabelsToSkip = warningsOnFirstLabel + warningsOnLastLabel;
-            const totalLabels = dosageLabels.length + Math.max(0, warningLabels.length - warningLabelsToSkip);
+            const totalLabels = dosageLabels.length + standaloneWarningTexts.length;
             
-            // Generate dosage labels first
+            // Generate dosage labels (with combined warnings where they fit)
             for (let i = 0; i < dosageLabels.length; i++) {
-                const isFirstDosageLabel = i === 0;
-                const isLastDosageLabel = i === dosageLabels.length - 1;
                 const dosageLabel = dosageLabels[i];
+                const labelWarnings = warningTextPerDosageLabel[i];
                 let mainContent;
                 
-                // First label with warnings
-                if (isFirstDosageLabel && firstLabelCombinesWarnings && warningLabels.length > 0) {
+                if (labelWarnings) {
                     mainContent = `
                         <div class="dosage-instructions">${dosageLabel.content}</div>
-                        <div class="additional-info">${warningLabels[0].content}</div>
+                        <div class="additional-info">${labelWarnings}</div>
                     `;
-                }
-                // Last label with warnings (if not the same as first)
-                else if (isLastDosageLabel && lastLabelCombinesWarnings && warningLabels.length > warningsOnFirstLabel) {
-                    const warningIndex = firstLabelCombinesWarnings ? 1 : 0;
-                    mainContent = `
-                        <div class="dosage-instructions">${dosageLabel.content}</div>
-                        <div class="additional-info">${warningLabels[warningIndex].content}</div>
-                    `;
-                }
-                // Regular dosage label without warnings
-                else {
+                } else {
                     mainContent = `<div class="dosage-instructions">${dosageLabel.content}</div>`;
                 }
                 
@@ -607,25 +579,19 @@ const LabelGenerator = {
                 }));
             }
             
-            // Then generate any remaining standalone warning labels
-            // Skip warnings that were combined with dosage labels
-            let standaloneWarningNumber = 1;
-            for (let i = firstWarningToShow; i < warningLabels.length; i++) {
-                const warningLabel = warningLabels[i];
-                
+            // Generate standalone warning labels for remaining text
+            for (let i = 0; i < standaloneWarningTexts.length; i++) {
                 labels.push(this.createLabelHtml({
                     medicationFull,
                     medicationQuantity: data.medicationQuantity,
-                    mainContent: `<div class="additional-info">${warningLabel.content}</div>`,
+                    mainContent: `<div class="additional-info">${standaloneWarningTexts[i]}</div>`,
                     mainContentClass: 'content-wrapper',
-                    labelNumber: dosageLabels.length + standaloneWarningNumber,
+                    labelNumber: dosageLabels.length + i + 1,
                     totalLabels: totalLabels,
                     patientName: patientName,
                     date,
                     dispensary
                 }));
-                
-                standaloneWarningNumber++;
             }
             
             return labels;
@@ -633,7 +599,7 @@ const LabelGenerator = {
         // If there was no dosage content, but we have warnings, create a label just for warnings
         else if (warningText) {
             // Process the warning text for a single label
-            const WARNING_LINE_LENGTH = Math.floor(LINE_LENGTH * 1.55);
+            const WARNING_LINE_LENGTH = Math.floor(LINE_LENGTH * 1.68);
             const normalizedWarning = warningText.replace(/\r\n|\r/g, '\n');
             const warningLines = [];
             const warningWords = normalizedWarning.split(/\s+/);
@@ -804,16 +770,6 @@ const LabelGenerator = {
         const medicationStrength = data.medicationStrength ? `${data.medicationStrength} ` : '';
         const medicationFormulation = this.toTitleCase(data.medicationFormulation || '');
         const medicationFull = `${medicationName} ${medicationStrength}${medicationFormulation}`;
-        
-        // Check content length to prevent overflow
-        const dosageLength = (data.dosageInstructions || '').length;
-        const warningsLength = (data.additionalInformation || '').length;
-        const totalContentLength = dosageLength + warningsLength;
-        
-        // If content is too long, we should split into multiple labels instead
-        if (totalContentLength > 350) {
-            return this.generateSplitLabels(data, { needsSplitting: true })[0];
-        }
         
         // Generate HTML for the label
         return `
