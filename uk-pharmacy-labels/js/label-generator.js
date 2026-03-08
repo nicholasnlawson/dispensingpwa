@@ -353,7 +353,11 @@ const LabelGenerator = {
         const warningLength = (data.additionalInformation ? data.additionalInformation.length : 0);
         
         // Estimate lines needed based on characters per line at each font size
-        const DOSAGE_CHARS_PER_LINE = 35;  // ~35 chars per line at 8.5pt bold
+        // Adaptive chars per line: if ≥50% letters are uppercase, bold text is wider
+        const dosageText = data.dosageInstructions || '';
+        const dosageLetters = dosageText.replace(/[^a-zA-Z]/g, '');
+        const dosageUpperCount = (dosageText.match(/[A-Z]/g) || []).length;
+        const DOSAGE_CHARS_PER_LINE = (dosageLetters.length > 0 && dosageUpperCount >= dosageLetters.length / 2) ? 33 : 35;
         const WARNING_CHARS_PER_LINE = 61; // ~61 chars per line at 5.5pt (empirically measured)
         const MAX_DOSAGE_LINES = 3;        // Maximum dosage lines before splitting
         
@@ -412,7 +416,16 @@ const LabelGenerator = {
         
         // Define constants for label generation
         const MAX_LINES_PER_LABEL = 3; // Number of lines per label for dosage
-        const LINE_LENGTH = 35; // Optimal line length for pharmacy labels (dosage)
+        const LINE_LENGTH = 35; // Default line length for pharmacy labels (dosage)
+        const LINE_LENGTH_UPPER = 33; // Shorter limit when ≥50% of letters are uppercase
+        
+        // Adaptive line length: if ≥50% of letters on the line are uppercase, use shorter limit
+        const getEffectiveLineLength = (text) => {
+            const letters = text.replace(/[^a-zA-Z]/g, '');
+            if (letters.length === 0) return LINE_LENGTH;
+            const upperCount = (text.match(/[A-Z]/g) || []).length;
+            return upperCount >= letters.length / 2 ? LINE_LENGTH_UPPER : LINE_LENGTH;
+        };
         
         // Process dosage instructions
         const dosageContent = data.dosageInstructions || '';
@@ -448,7 +461,7 @@ const LabelGenerator = {
                 if (sentence.trim() === '') continue; // Skip empty sentences
                 
                 // For very short sentences, use them as-is
-                if (sentence.length <= LINE_LENGTH) {
+                if (sentence.length <= getEffectiveLineLength(sentence)) {
                     dosageLines.push(sentence);
                     continue;
                 }
@@ -458,14 +471,17 @@ const LabelGenerator = {
                 let currentLine = '';
                 
                 for (const word of words) {
+                    const testLine = currentLine ? currentLine + ' ' + word : word;
+                    const effectiveLength = getEffectiveLineLength(testLine);
+                    
                     // If this word would make the line too long, start a new line
                     // Exception: if this is the first word on the line, keep it regardless of length
-                    if (currentLine && (currentLine + ' ' + word).length > LINE_LENGTH) {
+                    if (currentLine && testLine.length > effectiveLength) {
                         dosageLines.push(currentLine); // Add completed line
                         currentLine = word; // Start new line with this word
                     } else {
                         // Add word to current line with appropriate spacing
-                        currentLine = currentLine ? currentLine + ' ' + word : word;
+                        currentLine = testLine;
                     }
                 }
                 
@@ -488,7 +504,7 @@ const LabelGenerator = {
             }
             
             // Character budget per visual warning line (empirically tuned)
-            const CHARS_PER_WARNING_LINE = Math.floor(LINE_LENGTH * 1.68); // ~58 chars
+            const CHARS_PER_WARNING_LINE = 58; // empirically measured warning chars per line
             
             // Empirically tested: how many warning lines fit alongside N dosage lines
             const calculateAvailableWarningLines = (dosageLineCount) => {
@@ -530,8 +546,10 @@ const LabelGenerator = {
             const warningTextPerDosageLabel = dosageLabels.map((dl, idx) => {
                 let available = calculateAvailableWarningLines(dl.lineCount);
                 
-                // Non-last dosage labels with 3 full lines: no room for warnings
-                if (idx < dosageLabels.length - 1 && dl.lineCount >= 3) {
+                // When multiple dosage labels exist, labels at max capacity (3 lines)
+                // get no warnings — packed lines with bold uppercase text may word-wrap
+                // to extra visual lines, leaving no room for warnings
+                if (dosageLabels.length > 1 && dl.lineCount >= 3) {
                     available = 0;
                 }
                 
@@ -605,7 +623,7 @@ const LabelGenerator = {
         // If there was no dosage content, but we have warnings, create a label just for warnings
         else if (warningText) {
             // Process the warning text for a single label
-            const WARNING_LINE_LENGTH = Math.floor(LINE_LENGTH * 1.68);
+            const WARNING_LINE_LENGTH = 58; // empirically measured warning chars per line
             const normalizedWarning = warningText.replace(/\r\n|\r/g, '\n');
             const warningLines = [];
             const warningWords = normalizedWarning.split(/\s+/);
