@@ -212,7 +212,7 @@ const LabelGenerator = {
         
         // Max characters that fit on the med-name line of a printed label
         // (accounts for initials boxes taking ~8mm of the label width)
-        const MED_NAME_MAX_CHARS = 38;
+        const MED_NAME_MAX_CHARS = 37;
         
         if (fullMedLine.length > MED_NAME_MAX_CHARS) {
             return this.generateLabelsWithLongMedName(data, fullMedLine, MED_NAME_MAX_CHARS);

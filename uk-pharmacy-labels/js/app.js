@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Max characters for the medication name line on a label
-const MED_NAME_MAX_CHARS = 38;
+const MED_NAME_MAX_CHARS = 37;
 
 /**
  * Build the full medication line string from form data
