@@ -30,9 +30,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Register the service worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
+        // Auto-reload when a new service worker takes control
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            window.location.reload();
+        });
+        
+        navigator.serviceWorker.register('service-worker.js', {
+            updateViaCache: 'none'   // always check the network for SW changes
+        })
             .then(registration => {
                 console.log('Service Worker registered with scope:', registration.scope);
+                // Check for updates on every page load
+                registration.update();
             })
             .catch(error => {
                 console.log('Service Worker registration failed:', error);

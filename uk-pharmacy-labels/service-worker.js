@@ -72,8 +72,11 @@ self.addEventListener('fetch', event => {
     return;
   }
   
+  // Build a cache-busting request so we bypass the browser HTTP cache
+  const freshRequest = new Request(event.request, { cache: 'no-cache' });
+  
   event.respondWith(
-    fetch(event.request)
+    fetch(freshRequest)
       .then(response => {
         // Don't cache responses if they're not valid
         if (!response || response.status !== 200 || response.type !== 'basic') {
