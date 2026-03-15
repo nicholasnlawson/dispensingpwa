@@ -4,7 +4,7 @@
  */
 
 // Cache name - update version when deploying changes
-const CACHE_NAME = 'uk-pharmacy-labels-v1';
+const CACHE_NAME = 'uk-pharmacy-labels-v2';
 
 // Files to cache
 const FILES_TO_CACHE = [
@@ -62,7 +62,9 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch event - serve from cache or network
+// Fetch event - network-first strategy
+// Always try the network first so code updates are picked up immediately.
+// Falls back to cache when offline (the main PWA use case).
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
@@ -70,36 +72,27 @@ self.addEventListener('fetch', event => {
     return;
   }
   
-  // Handle fetch
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
+    fetch(event.request)
+      .then(response => {
+        // Don't cache responses if they're not valid
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
         }
         
-        return fetch(event.request)
-          .then(response => {
-            // Don't cache responses if they're not valid
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            
-            // Clone the response since it can only be consumed once
-            const responseToCache = response.clone();
-            
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-            
-            return response;
-          })
-          .catch(error => {
-            console.log('Fetch failed:', error);
-            // Return a custom offline page if needed
-            // return caches.match('./offline.html');
+        // Clone the response since it can only be consumed once
+        const responseToCache = response.clone();
+        
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(event.request, responseToCache);
           });
+        
+        return response;
+      })
+      .catch(() => {
+        // Network failed — serve from cache (offline fallback)
+        return caches.match(event.request);
       })
   );
 });
