@@ -1,6 +1,11 @@
 /**
  * Downtime Pharmacy Label Generator
  * Service Worker
+ *
+ * This background script enables the app to work without an internet connection.
+ * It intercepts file requests from the browser and serves locally cached copies
+ * when the network is unavailable. When online, it always fetches the latest
+ * version of files from the server so updates are picked up automatically.
  */
 
 // Cache name - update version when deploying changes

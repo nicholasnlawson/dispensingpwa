@@ -3,12 +3,24 @@
  * Main application file
  */
 
-// Global array to store queued labels
+// ============================================================
+// Global State
+// Variables shared across the whole app that need to persist
+// between function calls and user interactions.
+// ============================================================
+
+// A list of all labels currently waiting to be printed
 let labelQueue = [];
 
-// Flag to track if we're in overlabel mode
+// Tracks whether overlabel mode is switched on (true) or off (false).
+// In overlabel mode, patient details are omitted, leaving space for handwriting.
 let overlabelMode = false;
 
+// ============================================================
+// App Startup
+// Everything inside this block runs once, when the page has
+// fully loaded and is ready for the user to interact with.
+// ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize the medication manager
     await MedicationManager.init();
@@ -28,9 +40,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize shorthand functionality when page loads
     LabelGenerator.initShorthand();
     
-    // Register the service worker
+    // Register the Service Worker — a background script that lets the app work
+    // offline by saving a local copy of all its files on the user's device.
+    // This is what makes the app installable as a Progressive Web App (PWA).
     if ('serviceWorker' in navigator) {
-        // Auto-reload when a new service worker takes control
+        // Automatically refresh the page when a newly installed version takes over
         navigator.serviceWorker.addEventListener('controllerchange', () => {
             window.location.reload();
         });
@@ -225,7 +239,10 @@ function showAliasModal(formData, currentFullLine, result) {
     // Initial preview
     updatePreview();
     
-    // Wire up action buttons (clone to remove old listeners)
+    // Wire up the modal's action buttons.
+    // Each button is replaced with a fresh copy of itself before new click handlers
+    // are attached. Without this, opening the modal multiple times would stack up
+    // duplicate actions (e.g. a label being added to the queue twice on one click).
     const applyBtn = document.getElementById('alias-modal-apply');
     const proceedBtn = document.getElementById('alias-modal-proceed');
     const cancelBtn = document.getElementById('alias-modal-cancel');

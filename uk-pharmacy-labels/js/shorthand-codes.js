@@ -6,6 +6,8 @@
  * These codes are used to translate shorthand notation into full dosage instructions.
  */
 
+// The object is also stored on 'window' (the browser's global scope) so that other
+// script files loaded on the same page can access ShorthandCodes without needing to import it.
 const ShorthandCodes = window.ShorthandCodes = {
     /**
      * Mapping of shorthand codes to their full text equivalents
@@ -153,16 +155,17 @@ const ShorthandCodes = window.ShorthandCodes = {
     },
     
     /**
-     * Case-insensitive mappings cache
-     * This will be populated during initialization
+     * A copy of the shorthand mappings with all keys converted to lowercase.
+     * This allows the app to match codes regardless of how the user typed them —
+     * e.g. 'BD', 'Bd', and 'bd' are all recognised as 'TWICE a day'.
      */
     lowercaseMappings: {},
     
     /**
-     * Initialize the case-insensitive mappings
+     * Set up the case-insensitive mappings (runs automatically on page load)
      */
     init() {
-        // Convert all mapping keys to lowercase for case-insensitive matching
+        // Copy every mapping key in lowercase so lookups work regardless of capitalisation
         for (const [key, value] of Object.entries(this.mappings)) {
             this.lowercaseMappings[key.toLowerCase()] = value;
         }

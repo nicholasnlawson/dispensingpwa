@@ -76,12 +76,13 @@ const LabelGenerator = {
         // Trim for consistent processing
         const input = shorthand.trim();
         
-        // Pre-process input to handle special formats
-        // 1. Replace hyphens between codes with spaces (e.g., "1t-bd" becomes "1t bd")
-        // 2. Preserve meaningful codes like "7/7" and numeric ranges
-        // 3. Handle punctuation like commas after codes
+        // Pre-process the input before translation to handle special formats:
+        // 1. Replace hyphens used as separators between codes (e.g., "1t-bd" → "1t bd")
+        // 2. Protect codes that contain meaningful slashes/hyphens (e.g., "7/7" = 7 days)
+        // 3. Handle punctuation like commas that separate different parts of an instruction
         
-        // First, preserve special patterns like "7/7" (days), "3/52" (weeks), etc.
+        // Step 1: Temporarily swap duration/range codes (e.g. "7/7", "3/52") with unique
+        // placeholder text so they are not broken apart by the hyphen-removal step below.
         const preservePatterns = [
             { pattern: /(\d+)\/7/g, placeholder: '__DAYS__' },     // Days pattern (e.g., 7/7)
             { pattern: /(\d+)\/52/g, placeholder: '__WEEKS__' },   // Weeks pattern (e.g., 3/52)
@@ -364,10 +365,12 @@ const LabelGenerator = {
         const dosageLinesNeeded = dosageLength > 0 ? Math.ceil(dosageLength / DOSAGE_CHARS_PER_LINE) : 0;
         const warningLinesNeeded = warningLength > 0 ? Math.ceil(warningLength / WARNING_CHARS_PER_LINE) : 0;
         
-        // Calculate whether everything fits on one label using warning-line equivalents
-        // A dosage line at 8.5pt takes ~1.9x the vertical space of a warning line at 5.5pt
+        // To check if all text fits on one label, everything is converted into a common
+        // unit: 'warning-line equivalents'. Because dosage text is printed at a larger font
+        // size (8.5pt vs 5.5pt for warnings), each dosage line takes roughly 1.9x the
+        // vertical space of a warning line.
         const DOSAGE_TO_WARNING_RATIO = 1.9;
-        const MAX_WARNING_LINE_EQUIVALENTS = 7; // Empirical: max is 2 dosage + 3 warnings = 6.8 equiv
+        const MAX_WARNING_LINE_EQUIVALENTS = 7; // The label can hold about 7 warning-line-equivalents of content
         
         const totalWarningEquivalent = (dosageLinesNeeded * DOSAGE_TO_WARNING_RATIO) + warningLinesNeeded;
         
@@ -419,7 +422,8 @@ const LabelGenerator = {
         const LINE_LENGTH = 35; // Default line length for pharmacy labels (dosage)
         const LINE_LENGTH_UPPER = 33; // Shorter limit when ≥50% of letters are uppercase
         
-        // Adaptive line length: if ≥50% of letters on the line are uppercase, use shorter limit
+        // Adaptive line length — uppercase bold letters are physically wider when printed,
+        // so if most of the text is uppercase, fewer characters will fit on each line.
         const getEffectiveLineLength = (text) => {
             const letters = text.replace(/[^a-zA-Z]/g, '');
             if (letters.length === 0) return LINE_LENGTH;

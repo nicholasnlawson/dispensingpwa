@@ -11,11 +11,13 @@ const MedicationManager = {
     warningLabels: [],
     medicationWarnings: [],
     
-    // Pre-computed lookup indexes for performance
-    _medNameIndex: null,      // Map: normalized name -> medication entry
-    _aliasIndex: null,        // Map: normalized alias -> medication entry
-    _warningIndex: null,      // Map: normalized drug name -> warning entries
-    _normCache: new Map(),    // Cache for normalized strings
+    // Pre-built lookup tables that make drug name searching much faster.
+    // Rather than scanning the full drug list on every keystroke, these tables let
+    // the app jump directly to a match — similar to using an index at the back of a book.
+    _medNameIndex: null,      // Lookup table: drug name → drug entry
+    _aliasIndex: null,        // Lookup table: alternative name (alias) → drug entry
+    _warningIndex: null,      // Lookup table: drug name → its warning label numbers
+    _normCache: new Map(),    // Stores previously cleaned-up name strings to avoid repeating the same work
     
     /**
      * Convert a string to title case (capitalize first letter of each word)
@@ -55,7 +57,7 @@ const MedicationManager = {
             let medications, formulations, warnings, medicationWarnings;
             
             try {
-                // Try to load from data directory
+                // Load all four data files simultaneously (in parallel) for faster startup
                 [medications, formulations, warnings, medicationWarnings] = await Promise.all([
                     this.fetchJSON('data/drug_aliases.json'),
                     this.fetchJSON('data/formulation_aliases.json'),
@@ -111,7 +113,9 @@ const MedicationManager = {
     },
     
     /**
-     * Build pre-computed indexes for fast lookups
+     * Build the fast lookup tables from the loaded medication data.
+     * This runs once at startup — it takes a short moment up front but makes
+     * all subsequent drug name searches near-instant.
      */
     _buildIndexes() {
         console.time('Building indexes');
@@ -247,7 +251,7 @@ const MedicationManager = {
         wrapper.appendChild(inputElement);
         wrapper.appendChild(autocompleteContainer);
         
-        // Handle input events with debouncing for performance
+        // Listen for the user typing into the input field
         inputElement.addEventListener('input', () => {
             const value = inputElement.value.trim();
             if (value.length < 2) {
@@ -255,12 +259,14 @@ const MedicationManager = {
                 return;
             }
             
-            // Debounce autocomplete suggestions
+            // Wait a short moment after the user stops typing before running a search.
+            // This avoids firing a new search on every single keypress, which would
+            // be unnecessary and could slow down the interface.
             clearTimeout(inputElement._autocompleteTimer);
             inputElement._autocompleteTimer = setTimeout(() => {
                 const suggestions = getSuggestions(value);
                 this.renderSuggestions(suggestions, autocompleteContainer, inputElement);
-            }, 100); // 100ms debounce for responsive feel
+            }, 100); // wait 100ms after the last keypress before showing suggestions
         });
         
         // Hide suggestions when clicking outside
@@ -530,10 +536,10 @@ const MedicationManager = {
         const formulation = document.getElementById('med-form').value.trim();
         const additionalInfoField = document.getElementById('additional-info');
         
-        // Always clear existing warnings when updating
+        // Always clear any existing warning text before looking up new warnings
         if (additionalInfoField) {
-            // If the field contains warnings, clear it completely
-            // Use cached pattern for fast detection instead of checking every label
+            // If the field already contains warnings, wipe it so they can be replaced
+            // Uses a pre-built search pattern for fast detection instead of checking every label one by one
             if (this._hasWarningContent(additionalInfoField.value)) {
                 additionalInfoField.value = '';
             }
@@ -599,10 +605,11 @@ const MedicationManager = {
     },
 
     /**
-     * Create canonical (sorted) form of drug name for word-order-independent matching
-     * e.g., "sodium docusate" and "docusate sodium" both become "docusate sodium"
-     * @param {string} drugName - Drug name to canonicalize
-     * @returns {string} - Canonicalized drug name with words sorted alphabetically
+     * Create a standardised form of a drug name by sorting its component words alphabetically.
+     * This makes matching word-order-independent — so 'sodium docusate' and 'docusate sodium'
+     * are treated as the same drug even though their word order differs.
+     * @param {string} drugName - Drug name to standardise
+     * @returns {string} - Drug name with words sorted alphabetically
      */
     canonicalizeDrugName(drugName) {
         if (!drugName) return '';
