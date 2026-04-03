@@ -18,6 +18,7 @@ const MedicationManager = {
     _aliasIndex: null,        // Lookup table: alternative name (alias) → drug entry
     _warningIndex: null,      // Lookup table: drug name → its warning label numbers
     _normCache: new Map(),    // Stores previously cleaned-up name strings to avoid repeating the same work
+    _lastAutoPopulatedWarning: '', // Tracks the last warning text written by the system so it can be cleared cleanly
     
     /**
      * Convert a string to title case (capitalize first letter of each word)
@@ -536,16 +537,16 @@ const MedicationManager = {
         const formulation = document.getElementById('med-form').value.trim();
         const additionalInfoField = document.getElementById('additional-info');
         
-        // Always clear any existing warning text before looking up new warnings
-        if (additionalInfoField) {
-            // If the field already contains warnings, wipe it so they can be replaced
-            // Uses a pre-built search pattern for fast detection instead of checking every label one by one
-            if (this._hasWarningContent(additionalInfoField.value)) {
+        // If the field still holds the text the system last wrote, clear it.
+        // This avoids wiping anything the user has typed manually.
+        if (additionalInfoField && this._lastAutoPopulatedWarning) {
+            if (additionalInfoField.value === this._lastAutoPopulatedWarning) {
                 additionalInfoField.value = '';
             }
+            this._lastAutoPopulatedWarning = '';
         }
         
-        // If we don't have both medication and formulation, just clear warnings and return
+        // If we don't have both medication and formulation, nothing more to do
         if (!medicationName || !formulation) {
             return;
         }
@@ -556,9 +557,10 @@ const MedicationManager = {
         // Get the warning texts
         const warnings = this.getWarningTexts(labelNumbers);
         
-        // Update the additional info field with warnings
+        // Write warnings into the field and remember what was written
         if (additionalInfoField && warnings.length > 0) {
             additionalInfoField.value = warnings.join('\n\n');
+            this._lastAutoPopulatedWarning = additionalInfoField.value;
         }
     },
     
@@ -685,32 +687,33 @@ const MedicationManager = {
     },
     
     /**
-     * Find warning label numbers for a medication and formulation
+     * Find warning label numbers for a medication and formulation.
+     * Both drug name and formulation must resolve to an exact alias match —
+     * the formulation is looked up in formulation_aliases.json and must map to
+     * the same canonical category as the formulation stored in drug_formulations_warnings.json.
      * @param {string} medicationName - Medication name
      * @param {string} formulation - Medication formulation
      * @returns {Array} - List of warning label numbers
      */
     findWarningLabels(medicationName, formulation) {
-        // Use cached normalizations for performance
         const normalizedMed = this._cachedNormalize(medicationName);
         const canonicalMed = this._cachedCanonicalize(medicationName);
-        const normalizedForm = formulation.toLowerCase().trim();
-        const standardizedForm = this.standardizeFormulation(normalizedForm);
+        // Resolve the user's formulation to its canonical alias category
+        const standardizedForm = this.standardizeFormulation(formulation.toLowerCase().trim());
         
-        // Fast path: Try direct index lookup first
-        let warnings = this._warningIndex?.get(normalizedMed) || 
-                       this._warningIndex?.get(canonicalMed) ||
-                       this._warningIndex?.get(medicationName.toLowerCase().trim());
+        // Step 1: Use the pre-built index to find all warning entries for this drug name
+        let candidateWarnings = this._warningIndex?.get(normalizedMed) || 
+                                this._warningIndex?.get(canonicalMed) ||
+                                this._warningIndex?.get(medicationName.toLowerCase().trim());
         
-        // If no direct match, try to find via medication aliases using index
-        if (!warnings || warnings.length === 0) {
+        // If no direct hit, try via the drug's known aliases from drug_aliases.json
+        if (!candidateWarnings || candidateWarnings.length === 0) {
             const med = this._medNameIndex?.get(normalizedMed) || 
                         this._medNameIndex?.get(canonicalMed) ||
                         this._aliasIndex?.get(normalizedMed) ||
                         this._aliasIndex?.get(canonicalMed);
             
             if (med) {
-                // Try main name and all aliases
                 const namesToTry = [
                     this._cachedNormalize(med.name),
                     this._cachedCanonicalize(med.name),
@@ -721,61 +724,29 @@ const MedicationManager = {
                 ];
                 
                 for (const name of namesToTry) {
-                    warnings = this._warningIndex?.get(name);
-                    if (warnings && warnings.length > 0) break;
+                    candidateWarnings = this._warningIndex?.get(name);
+                    if (candidateWarnings && candidateWarnings.length > 0) break;
                 }
             }
         }
         
-        // Check formulation match for found warnings using scored matching
-        // Higher score = better match; prefer exact over substring over alias
-        if (warnings && warnings.length > 0) {
-            let bestMatch = null;
-            let bestScore = 0;
-            
-            for (const warning of warnings) {
-                const formulations = warning.formulation.map(f => f.toLowerCase().trim());
-                let matchScore = 0;
+        // Step 2: Check each candidate warning for an exact formulation category match.
+        // The warning entry's formulation is also resolved via formulation_aliases.json —
+        // both must map to the same canonical category for a match to be accepted.
+        if (candidateWarnings && candidateWarnings.length > 0) {
+            for (const warning of candidateWarnings) {
+                const isFormMatch = warning.formulation.some(form => {
+                    const stdForm = this.standardizeFormulation(form.toLowerCase().trim());
+                    return stdForm === standardizedForm;
+                });
                 
-                for (const form of formulations) {
-                    const stdForm = this.standardizeFormulation(form);
-                    
-                    // Score 6: Exact raw string match (highest priority)
-                    if (normalizedForm === form) {
-                        matchScore = Math.max(matchScore, 6);
-                    }
-                    // Score 5: One raw string fully contains the other as substring
-                    else if (normalizedForm.includes(form) || form.includes(normalizedForm)) {
-                        // Prefer longer/more-specific substring matches
-                        const overlapLen = Math.min(normalizedForm.length, form.length);
-                        matchScore = Math.max(matchScore, 5 + overlapLen / 1000);
-                    }
-                    // Score 3: Standardized forms match (category-level match)
-                    else if (standardizedForm === stdForm) {
-                        matchScore = Math.max(matchScore, 3);
-                    }
-                    // Score 2: Standardized forms contain each other
-                    else if (standardizedForm.includes(stdForm) || stdForm.includes(standardizedForm)) {
-                        matchScore = Math.max(matchScore, 2);
-                    }
-                    // Score 1: Formulations are in the same alias group
-                    else if (this.areFormulationsSimilar(form, normalizedForm)) {
-                        matchScore = Math.max(matchScore, 1);
-                    }
+                if (isFormMatch) {
+                    return warning.label_number || [];
                 }
-                
-                if (matchScore > bestScore) {
-                    bestScore = matchScore;
-                    bestMatch = warning;
-                }
-            }
-            
-            if (bestMatch) {
-                return bestMatch.label_number || [];
             }
         }
         
-        // Fallback: Full search if indexes not built or no match found
+        // Fall back to a linear scan if the pre-built index was not available
         if (!this._warningIndex) {
             return this._findWarningLabelsFallback(medicationName, formulation);
         }
@@ -784,16 +755,17 @@ const MedicationManager = {
     },
     
     /**
-     * Fallback warning label search (used when indexes not available)
+     * Fallback warning label search used when the pre-built index is not available.
+     * Uses the same strict alias-category matching as findWarningLabels.
      */
     _findWarningLabelsFallback(medicationName, formulation) {
         const normalizedMed = this._cachedNormalize(medicationName);
         const canonicalMed = this._cachedCanonicalize(medicationName);
-        const normalizedForm = formulation.toLowerCase().trim();
-        const standardizedForm = this.standardizeFormulation(normalizedForm);
+        // Resolve the user's formulation to its canonical alias category
+        const standardizedForm = this.standardizeFormulation(formulation.toLowerCase().trim());
         
         for (const med of this.medicationWarnings) {
-            // Check medication match
+            // Check drug name match via exact alias resolution
             const isMedMatch = med.name.some(name => {
                 const cleanName = name.replace(/-Specialist-Drug$/i, '');
                 const normName = this._cachedNormalize(cleanName);
@@ -806,16 +778,13 @@ const MedicationManager = {
             
             if (!isMedMatch) continue;
             
-            // Check formulation match
-            const formulations = med.formulation.map(f => f.toLowerCase().trim());
-            const formMatch = formulations.some(form => 
-                normalizedForm.includes(form) || 
-                form.includes(normalizedForm) ||
-                standardizedForm.includes(form) ||
-                form.includes(standardizedForm)
-            );
+            // Check formulation match — exact alias category equality only
+            const isFormMatch = med.formulation.some(form => {
+                const stdForm = this.standardizeFormulation(form.toLowerCase().trim());
+                return stdForm === standardizedForm;
+            });
             
-            if (formMatch) {
+            if (isFormMatch) {
                 return med.label_number || [];
             }
         }

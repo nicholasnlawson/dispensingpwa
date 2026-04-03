@@ -37,6 +37,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('new-patient-btn').addEventListener('click', clearPatientDetails);
     document.getElementById('overlabels-btn').addEventListener('click', toggleOverlabelMode);
     
+    // Prevent the year portion of the Date of Birth field from exceeding 4 digits.
+    // Chrome clamps any year > 275760 internally before committing the value, so we
+    // check on 'change' and 'blur' (which fire once the user finishes editing) rather
+    // than 'input' (which fires mid-entry before this.value reflects the final year).
+    const dobInput = document.getElementById('patient-dob');
+    ['change', 'blur'].forEach(function (eventName) {
+        dobInput.addEventListener(eventName, function () {
+            if (this.value) {
+                const year = parseInt(this.value.split('-')[0], 10);
+                if (year > 9999) {
+                    this.value = '';
+                }
+            }
+        });
+    });
+
     // Initialize shorthand functionality when page loads
     LabelGenerator.initShorthand();
     

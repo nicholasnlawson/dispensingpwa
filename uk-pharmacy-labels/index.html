@@ -79,6 +79,7 @@
                 type="date"
                 id="patient-dob"
                 required
+                max="9999-12-31"
                 autocomplete="one-time-code"
               />
 
@@ -97,10 +98,30 @@
                 rows="3"
                 autocomplete="one-time-code"
               ></textarea>
+
+              <h3>Dispensing Details</h3>
+              <label for="dispensed-date">Date Dispensed:</label>
+              <input type="date" id="dispensed-date" required />
+
+              <label for="dispensary-location">Dispensary Location:</label>
+              <select id="dispensary-location">
+                <option value="south-tyneside">
+                  South Tyneside District Hospital
+                </option>
+                <option value="sunderland-royal">
+                  Sunderland Royal Hospital
+                </option>
+                <option value="sunderland-eye">Sunderland Eye Infirmary</option>
+              </select>
+
+              <div class="checkbox-group">
+                <input type="checkbox" id="show-initials" checked />
+                <label for="show-initials">Show Disp/Check boxes</label>
+              </div>
             </div>
           </div>
 
-          <!-- Right Column: Medication, Dosage & Dispensing Details -->
+          <!-- Middle Column: Medication Details -->
           <div class="form-column">
             <div class="form-panel">
               <h3>Medication Details</h3>
@@ -136,7 +157,12 @@
                 value="1"
                 placeholder="e.g., 2 for 56 tablets"
               />
+            </div>
+          </div>
 
+          <!-- Right Column: Dosage Instructions & Dispensing Details -->
+          <div class="form-column">
+            <div class="form-panel">
               <h3>Dosage Instructions</h3>
               <div class="shorthand-box">
                 <label for="shorthand-input">Shorthand:</label>
@@ -181,26 +207,6 @@
                 rows="2"
                 placeholder="Any special instructions"
               ></textarea>
-
-              <h3>Dispensing Details</h3>
-              <label for="dispensed-date">Date Dispensed:</label>
-              <input type="date" id="dispensed-date" required />
-
-              <label for="dispensary-location">Dispensary Location:</label>
-              <select id="dispensary-location">
-                <option value="south-tyneside">
-                  South Tyneside District Hospital
-                </option>
-                <option value="sunderland-royal">
-                  Sunderland Royal Hospital
-                </option>
-                <option value="sunderland-eye">Sunderland Eye Infirmary</option>
-              </select>
-
-              <div class="checkbox-group">
-                <input type="checkbox" id="show-initials" checked />
-                <label for="show-initials">Show Disp/Check boxes</label>
-              </div>
             </div>
           </div>
         </div>
